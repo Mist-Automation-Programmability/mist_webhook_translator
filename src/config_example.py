@@ -9,7 +9,7 @@
 #                       api.eu.mist.com if you are using EU Cloud
 # server_uri:           uri where you want to receive wehbooks messages
 #                       on this server. 
-# site_id_ignored:      Array of site ids you want to ignore (MWTS will 
+# site_id_ignored:      Array of site ids you want to ignore (MWTT will 
 #                       discard webhooks about these sites)
 mist_conf={
     "apitoken": "xxxxxxxxxxxxxxx",

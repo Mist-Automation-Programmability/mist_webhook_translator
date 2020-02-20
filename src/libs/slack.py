@@ -39,7 +39,7 @@ class Slack:
         body = {
             "attachments": [
                 {
-                    "fallback": "New MWTS event",
+                    "fallback": "New MWTT event",
                     "color": color,
                     "pretext": title,          
                     "text": message,            

@@ -42,11 +42,11 @@ function create_app_container
 #
 # =========================================================
 # =========================================================
-SCRIPT_CONF=`pwd`"/mwts.conf"
-SCRIPT_NAME="mwts.py"
+SCRIPT_CONF=`pwd`"/mwtt.conf"
+SCRIPT_NAME="mwtt.py"
 
-APP_NAME="mwts"
-APP_IMG="tmunzer/mwts"
+APP_NAME="mwtt"
+APP_IMG="tmunzer/mwtt"
 
 # =========================================================
 # NGINX server configuration
@@ -478,7 +478,7 @@ function start_container # $XX_NAME
 #                       api.eu.mist.com if you are using EU Cloud
 # server_uri:           uri where you want to receive wehbooks messages
 #                       on this server. 
-# site_id_ignored:      Array of site ids you want to ignore (MWTS will 
+# site_id_ignored:      Array of site ids you want to ignore (mwtt will 
 #                       discard webhooks about these sites)
 mist_conf={
     "apitoken": "xxxxxxxxxxxxxxx",
