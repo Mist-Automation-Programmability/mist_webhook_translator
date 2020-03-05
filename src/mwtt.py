@@ -45,6 +45,8 @@ def new_event(topic, event):
     for key in event:
         console.info("%s: %s\r" %(key, event[key]))
         message += "%s: %s\r" %(key, event[key])
+        if key == "type":
+            topic += " - %s" %(event[key])
     slack.send_manual_message(topic, message)
 
 ###########################
