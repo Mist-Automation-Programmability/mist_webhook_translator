@@ -771,7 +771,7 @@ function init_script
 
   init_script_conf
 
-  check_folder "container-enable" $COMPOSE_FOLDER
+  check_folder "container-enable" $DOCKER_COMPOSE_FOLDER
   check_folder "Database" $DB_FOLDER
   check_folder "Certificates" $NGINX_CERTS_FOLDER
   check_folder "App" "$PERSISTANT_FOLDER/$APP_NAME"
