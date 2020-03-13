@@ -46,7 +46,6 @@ function banner
   echo "||============================================================================="
 }
 
-
 ################################################################################
 ############################    FILE GENERATORS
 ################################################################################
@@ -74,17 +73,25 @@ services:
             - /etc/nginx/vhost.d
         restart: always
 
+    mongodb:
+        image: "mongo"
+        container_name: "mist-mongodb"
+        restart: always
+        volumes: 
+            - $PERSISTANT_FOLDER/$DB_FOLDER:/data/db
 
     $APP_NAME: 
         image: $APP_IMG
         container_name: "mist-$APP_NAME"
         depends_on: 
             - nginx
+            - mongodb
         environment:
             - VIRTUAL_HOST=$APP_VHOST
         volumes:
             - $PERSISTANT_FOLDER/$APP_NAME/config.py:/app/config.py:ro         
-        
+        links:
+            - mongodb:mist-mongo
 EOF
   fi
 }
@@ -613,11 +620,17 @@ function get_active_compose_files
 
 function enable_docker_compose
 {
-  ln -s $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml
+  if [ ! -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
+  then
+    ln -s $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml
+  fi
 }
 function disable_docker_compose
 {
-  rm $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml
+  if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
+  then
+    rm $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml
+  fi
 }
 
 function start_container # CONT NAME
@@ -651,6 +664,8 @@ function start_containers
     echo -e "${WARNINGC}WARNING${NC}: Some containers are not started. The Application may not"
     echo "         be accesssible."
     echo "         Please fix the errors and retry."
+    echo ""
+    echo "         You can try to deploy the Application to (re)create the required containers."    
   fi
   echo ""
 }
@@ -658,9 +673,14 @@ function start_containers
 
 function stop_container # CONT NAME
 {
-  disable_docker_compose
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop $1
-  retvalAPP=$?
+  if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
+  then
+    disable_docker_compose
+    $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop $1
+    retvalAPP=$?
+  else
+    retvalAPP=0
+  fi
   if [ $retvalAPP -eq 0 ] 
   then
     echo ""
@@ -674,8 +694,14 @@ function stop_container # CONT NAME
 
 function stop_containers
 {
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop
-  retvalAPP=$?
+  if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
+  then
+    disable_docker_compose
+    $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop
+    retvalAPP=$?
+  else
+    retvalAPP=0
+  fi  
   if [ $retvalAPP -eq 0 ] 
   then
     echo ""
@@ -694,8 +720,7 @@ function stop_containers
 ################################################################################
 function auto_deploy
 {
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml build
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml up -d
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml up -d    
 }
 
 function deploy
@@ -725,9 +750,9 @@ function deploy
 ################################################################################
 function update_app
 {
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml pull
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml down
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml up -d
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml pull
+  stop_containers
+  auto_deploy
 }
 
 
