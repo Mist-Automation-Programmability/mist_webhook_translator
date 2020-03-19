@@ -50,17 +50,12 @@ function banner
 ############################    FILE GENERATORS
 ################################################################################
 
-function generate_docker_compose_file # $XX_NAME
+function generate_docker_compose_ngninx # $XX_NAME
 {
-  if [ ! -f $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml ]
+  if [ ! -f $PERSISTANT_FOLDER/$APP_NAME/docker-compose.nginx.yaml ]
   then 
-    echo -e "${WARNINGC}WARNING${NC}:This script will automatically generate a docker-compose"
-    echo -e "         file to download docker images and manage containers. "
-    echo ""
-    echo -e "         File location: $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml"
-    echo ""
-    cat <<EOF > $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml
-version: '3'
+    cat <<EOF > $PERSISTANT_FOLDER/$APP_NAME/docker-compose.nginx.yaml
+version: '3.5'
 services:    
     nginx:
         image: "jwilder/nginx-proxy"
@@ -72,29 +67,66 @@ services:
             - /var/run/docker.sock:/tmp/docker.sock:ro        
             - /etc/nginx/vhost.d
         restart: always
+        networks:
+            - mist-net-nginx
 
+
+networks:
+    mist-net-nginx:
+        driver: bridge
+        name: mist-net-nginx
+EOF
+  fi
+}
+function generate_docker_compose_mongodb # $XX_NAME
+{
+  if [ ! -f $PERSISTANT_FOLDER/$APP_NAME/docker-compose.mongodb.yaml ]
+  then 
+    cat <<EOF > $PERSISTANT_FOLDER/$APP_NAME/docker-compose.mongodb.yaml
+version: '3.5'
+services:    
     mongodb:
         image: "mongo"
         container_name: "mist-mongodb"
         restart: always
         volumes: 
-            - $PERSISTANT_FOLDER/$DB_FOLDER:/data/db
+            - $MONGO_FOLDER:/data/db
+        networks:
+            - mist-net-mongodb
 
+networks:
+    mist-net-mongodb:
+        driver: bridge
+        name: mist-net-mongodb
+
+EOF
+  fi
+}
+function generate_docker_compose_app # $XX_NAME
+{
+  if [ ! -f $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml ]
+  then 
+    cat <<EOF > $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml
+version: '3.5'
+services:    
     $APP_NAME: 
         image: $APP_IMG
         container_name: "mist-$APP_NAME"
-        depends_on: 
+        external_links: 
             - nginx
-            - mongodb
         environment:
             - VIRTUAL_HOST=$APP_VHOST
         volumes:
             - $PERSISTANT_FOLDER/$APP_NAME/config.py:/app/config.py:ro         
-        links:
-            - mongodb:mist-mongo
+        networks:            
+            - mist-net-nginx
+networks:
+  mist-net-nginx:
+    name: mist-net-nginx
 EOF
   fi
 }
+
 
 function generate_conf_file # $XX_NAME
 {
@@ -118,8 +150,8 @@ function generate_conf_file # $XX_NAME
 #                       api.eu.mist.com if you are using EU Cloud
 # server_uri:           uri where you want to receive wehbooks messages
 #                       on this server. 
-# site_id_ignored:      Array of site ids you want to ignore (MESA will 
-#                       not change the port configuration on these sites)
+# site_id_ignored:      Array of site ids you want to ignore (mwtt will 
+#                       discard webhooks about these sites)
 mist_conf={
     "apitoken": "xxxxxxxxxxxxxxx",
     "mist_cloud": "api.mist.com",
@@ -127,7 +159,6 @@ mist_conf={
     "site_id_ignored": []
 }
 log_level = 6
-
 ########################
 # slack_conf
 # if the script has to send logs to slack webhook. To get the Slack 
@@ -138,141 +169,6 @@ slack_conf = {
     "enabled" : False,
     "url": "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX"
 }
-
-########################
-# disconnect_validation
-# Indicate the script if the AP_DISCONNECT message has to be verified.
-# method: Method to use to valide the AP_DISCONNECT. Possible methods are
-# - none:   no validation. Will change the switchport confiugration back
-#           to the default when the message is received
-# - outage: check if the is a site outage by looking at the number of APs
-#           disconnected during the last XX.
-# - lldp:   retrieve the lldp information on the switchport (trough Mist
-#           APIs) to check if it's still UP, and if the MAC address is the
-#           MAC address of the AP.
-# wait_time:        Time to wait (in seconds) before start the test to 
-#                   detect if it's one AP disconnected or a general outage
-#                   on the site(in this case, no modification will be done 
-#                   on the sites)
-disconnect_validation = {
-    "method": "lldp",
-    "wait_time": 30
-} 
-
-
-########################
-# site_outage_aps
-# logic to detect if the message is received because the AP is really
-# disconnected from the network or if all the APs from the site are 
-# reported as disconnected. This method is looking at the number of APs
-# disconnected during the last XX seconds
-# In the 1st case, the switchport will be revert back to its default
-# configuration.
-# In the 2nd case, the switchport will not be revert back.
-# enable:           enable or not the outage detection logic
-# outage_timeout:   maximum duration (in seconds) between the first and
-#                   the last AP disconnection to detect the outage. 
-# removed_timeout:  if the device disconnection is older that "removed_timeout"
-#                   (seconds), MESA will not count it in the number of devices
-#                   present on this site (AP physically removed from the site 
-#                   but not from the Mist UI)
-# min_percentage:   Percentage (0-100) of devices that have to be disconnected
-#                   for less than "outage_timeout" to consider the site as 
-#                   outaged and not process the message
-site_outage_aps = {    
-    "outage_timeout": 30,
-    "removed_timeout": 85400,
-    "min_percentage": 50
-}
-
-########################
-# configuration_method: 
-# Indicate the script how to configure the switchport
-#
-# value "cso":      The script will use CSO to configure the switchport. 
-#                   You'll have to set the "cso" settings bellow
-# value "ex":       The script will use pyez to configure the switchport 
-#                   directly on the switch. The script must be able to 
-#                   resolve the switch FQDN (possible to add the domain 
-#                   name to the switch hostname) and reach it.
-configuration_method= "cso"
-
-########################
-# ex_method: 
-# Parameters used to configure the switchport directly on the switch
-#
-# domain_name:      domain name to add to the switch name. Used by the 
-#                   script to resolve the switch FQDN
-# ex_username:      switch username
-# ex_pwd:           switch password
-# ex_conf_trunk_ap: "set" commands sent by the script to configure the
-#                   switchport when an AP is connected to it. Be sure 
-#                   to repalce the port name with <port>. 
-# ex_conf_default: "set" commands sent by the script to configure the 
-#                   switchport when an AP is removed from it. Be sure 
-#                   to repalce the port name with <port>. 
-ex_metod= {
-    "domain_name": "mydomain.corp",
-    "ex_username": "root",
-    "ex_pwd": "mybadpassword",
-    "ex_conf_trunk_ap": [
-        "delete protocols dot1x authenticator interface <port>",
-        "set interfaces <port> native-vlan-id 42",
-        "set interfaces <port> unit 0 family ethernet-switching interface-mode trunk",
-        "set interfaces <port> unit 0 family ethernet-switching vlan members all"
-    ],
-    "ex_conf_default": [
-        "set protocols dot1x authenticator interface <port>",
-        "set protocols dot1x authenticator interface <port> mac-radius restrict",
-        "set protocols dot1x authenticator interface <port> supplicant multiple",
-        "set protocols dot1x authenticator interface <port> retries 2",
-        "set protocols dot1x authenticator interface <port> quiet-period 3",
-        "set protocols dot1x authenticator interface <port> transmit-period 5",
-        "set protocols dot1x authenticator interface <port> mac-radius",
-        "set protocols dot1x authenticator interface <port> reauthentication 1800",
-        "set protocols dot1x authenticator interface <port> supplicant-timeout 5",
-        "set protocols dot1x authenticator interface <port> server-timeout 30",
-        "set protocols dot1x authenticator interface <port> maximum-requests 2",
-        "set protocols dot1x authenticator interface <port> guest-vlan 12",
-        "set protocols dot1x authenticator interface <port> server-fail vlan-name 12",
-        "delete interfaces <port> native-vlan-id",
-        "delete interfaces <port> unit 0 family ethernet-switching interface-mode trunk",
-        "delete interfaces <port> unit 0 family ethernet-switching vlan members all"
-    ]
-}
-
-########################
-# cso_method: 
-# Parameters used to configure the switchport through CSO
-#
-# login:        CSO username
-# password:     CSO password
-# tenant:       CSO TENANT
-# host:         CSO hostname
-# conf_ap:      Configuration deployed on the switchport when
-#               an AP is connected to it. 
-#               This must contain the Port Profile Name from 
-#               CSO and the vlan_id (for Access port) or the 
-#               native_vlan_id (from Trunk port)
-# default_ap:   Configuration deployed on the switchport when
-#               an AP is disconnected from it. 
-#               This must contain the Port Profile Name from 
-#               CSO and the vlan_id (for Access port) or the 
-#               native_vlan_id (from Trunk port)
-cso_method= {
-        "login": "user@domain.corp",
-        "password": "mybadpassword",
-        "tenant": "MY_CROP",
-        "host": "contrail-juniper.net",
-        "conf_default": {
-            "port_profile_name": "generic-access",
-            "vlan_id": 12
-        },
-        "conf_ap": {
-            "port_profile_name": "generic-trunk",
-            "native_vlan_id": 11
-        }
-    }
 
 EOF
      echo -e "${ERRORC}IMPORTANT${NC}: If you didn't customized your configuration file yet, please do it now,"
@@ -399,7 +295,7 @@ function init_script_conf
   fi
   if echo "$PERSISTANT_FOLDER" | grep -i [a-z] > /dev/null
   then
-    DB_FOLDER="$PERSISTANT_FOLDER/$DB_FOLDER"
+    MONGO_FOLDER="$PERSISTANT_FOLDER/$DB_FOLDER"
     NGINX_CERTS_FOLDER="$PERSISTANT_FOLDER/$NGINX_CERTS_FOLDER"
     DOCKER_COMPOSE_FOLDER="$PERSISTANT_FOLDER/container-enable"
     echo -e "${INFOC}INFO${NC}: Script configuration loaded succesfully."
@@ -557,16 +453,38 @@ function menu_certificates
 ################################################################################
 ############################    FILES VALIDATORS
 ################################################################################
+function generate_docker_compose_file 
+{
+  case $1 in
+    "nginx") generate_docker_compose_ngninx;;
+    "mongodb") generate_docker_compose_mongodb;;
+    $APP_NAME) generate_docker_compose_app;;
+  esac 
+}
 
 function check_docker_compose_file
 {
-  if [ ! -f $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml ]
+  if [ ! -f "$PERSISTANT_FOLDER/$APP_NAME/docker-compose.$1.yaml" ]
   then
-    echo -e "${ERRORC}ERROR${NC}: Unable to find the docker-compose file for $APP_NAME."
-    generate_docker_compose_file
+    echo -e "${ERRORC}ERROR${NC}: Unable to find the docker-compose file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$1.yaml"
+    generate_docker_compose_file $1
   else
-    echo -e "${INFOC}INFO${NC}: docker-compose file found in $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml"
+    echo -e "${INFOC}INFO${NC}: docker-compose file found in $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$1.yaml"
   fi
+}
+
+function check_docker_compose_files
+{
+  if [ "$NGINX_IMG" ]
+  then
+    check_docker_compose_file "nginx"
+  fi
+  if [ "$DB_IMG" ]
+  then
+    check_docker_compose_file "mongodb"
+  fi
+  check_docker_compose_file "$APP_NAME"
+  
 }
 
 function check_configuration_file
@@ -595,7 +513,7 @@ function result_banner
   echo ""
   echo -e "${INFOC}INFO${NC}: NGINX SSL/TLS certifcates are in $NGINX_CERTS_FOLDER"
   echo ""
-  echo -e "${INFOC}INFO${NC}: MongoDB files are in $DB_FOLDER"
+  echo -e "${INFOC}INFO${NC}: MongoDB files are in $MONGO_FOLDER"
   echo ""
   echo ""
   echo -e "${INFOC}INFO${NC}: $APP_NAME interface should now be avaible soon"
@@ -623,9 +541,20 @@ function enable_docker_compose
 {
   if [ ! -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
   then
-    ln -s $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml
+    ln -s $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml
   fi
+  if [ "$NGINX_IMG" ] && [ ! -f $DOCKER_COMPOSE_FOLDER/docker-compose.nginx.yaml ]
+  then
+    ln -s $PERSISTANT_FOLDER/$APP_NAME/docker-compose.nginx.yaml $DOCKER_COMPOSE_FOLDER/docker-compose.nginx.yaml
+  fi
+  if [ "$DB_IMG" ] && [ ! -f $DOCKER_COMPOSE_FOLDER/docker-compose.mongodb.yaml ]
+  then
+    ln -s $PERSISTANT_FOLDER/$APP_NAME/docker-compose.mongodb.yaml $DOCKER_COMPOSE_FOLDER/docker-compose.mongodb.yaml
+  fi
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.nginx.yaml up -d
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.mongodb.yaml up -d
 }
+
 function disable_docker_compose
 {
   if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
@@ -697,7 +626,7 @@ function stop_containers
 {
   if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
   then
-    $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml stop
+    $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml stop
     disable_docker_compose
     retvalAPP=$?
   else
@@ -722,10 +651,10 @@ function stop_containers
 ############################    DEPLOY
 ################################################################################
 function auto_deploy
-{
-  enable_docker_compose
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml up --no-start 
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml start 
+{  
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml up --no-start 
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml start 
+  start_containers
 }
 
 function deploy
@@ -755,14 +684,13 @@ function deploy
 ################################################################################
 function update_app
 {
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml stop  
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml rm --force
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml pull
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml up --no-start
-  compose_files="$(get_active_compose_files)"
-  if [ -n "$compose_files" ]
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml stop  
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml rm --force
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml pull
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml up --no-start
+  if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
   then
-    docker-compose $compose_files start
+    docker-compose $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml start
   fi
 }
 
@@ -808,7 +736,7 @@ function init_script
   init_script_conf
 
   check_folder "container-enable" $DOCKER_COMPOSE_FOLDER
-  check_folder "Database" $DB_FOLDER
+  check_folder "Database" $MONGO_FOLDER
   check_folder "Certificates" $NGINX_CERTS_FOLDER
   check_folder "App" "$PERSISTANT_FOLDER/$APP_NAME"
   
@@ -816,7 +744,7 @@ function init_script
   check_certificates
 
   check_configuration_file
-  check_docker_compose_file
+  check_docker_compose_files
 
   echo -e "${INFOC}INFO${NC}: Script init done."
   echo "||============================================================================="
