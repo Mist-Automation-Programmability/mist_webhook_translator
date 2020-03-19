@@ -707,7 +707,7 @@ function stop_containers
     echo ""
     echo -e "${INFOC}INFO${NC}: All the containers for this app are now stopped..."
     compose_files="$(get_active_compose_files)"
-    if [ -n $compose_files ]
+    if [ -n "$compose_files" ]
     then
       docker-compose $compose_files start
     fi
@@ -757,7 +757,7 @@ function update_app
   $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml pull
   $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml build
   compose_files="$(get_active_compose_files)"
-  if [ -n $compose_files ]
+  if [ -n "$compose_files" ]
   then
     docker-compose $compose_files start
   fi
