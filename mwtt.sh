@@ -706,9 +706,8 @@ function stop_containers
   then
     echo ""
     echo -e "${INFOC}INFO${NC}: All the containers for this app are now stopped..."
-    disable_docker_compose
     compose_files="$(get_active_compose_files)"
-    docker-compose $compose_files up -d
+    docker-compose $compose_files start
   else
     echo ""
     echo -e "${WARNINGC}WARNING${NC}: Unable to stop some of the containers..."
@@ -752,6 +751,7 @@ function update_app
 {
   $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml pull
   stop_containers
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml rm
   auto_deploy
 }
 
