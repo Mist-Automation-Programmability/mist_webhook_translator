@@ -612,7 +612,8 @@ function get_active_compose_files
   do 
     if echo "$i" | grep -q ".yaml"$
     then 
-      compose_files="$compose_files -f $DOCKER_COMPOSE_FOLDER/$i"
+    R_PATH=`realpath $DOCKER_COMPOSE_FOLDER/$i`
+      compose_files="$compose_files -f $R_PATH"
     fi
   done
   echo "$compose_files"
@@ -675,7 +676,7 @@ function stop_container # CONT NAME
 {
   if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
   then
-    $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop $1
+    $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml stop $1
     disable_docker_compose
     retvalAPP=$?
   else
@@ -696,7 +697,7 @@ function stop_containers
 {
   if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
   then
-    $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop
+    $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml stop
     disable_docker_compose
     retvalAPP=$?
   else
@@ -723,8 +724,8 @@ function stop_containers
 function auto_deploy
 {
   enable_docker_compose
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml create 
-  $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml start 
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml create 
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml start 
 }
 
 function deploy
@@ -754,16 +755,10 @@ function deploy
 ################################################################################
 function update_app
 {
-  if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
-  then 
-    CONT_FILE="$DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml"
-  else
-    CONT_FILE="$PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml"
-  fi
-  $DOCKER_COMP --file $CONT_FILE stop  
-  $DOCKER_COMP --file $CONT_FILE rm -f
-  $DOCKER_COMP --file $CONT_FILE pull
-  $DOCKER_COMP --file $CONT_FILE create
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml stop  
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml rm
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml pull
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml create
   compose_files="$(get_active_compose_files)"
   if [ -n "$compose_files" ]
   then
