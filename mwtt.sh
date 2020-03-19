@@ -675,8 +675,8 @@ function stop_container # CONT NAME
 {
   if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
   then
-    disable_docker_compose
     $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop $1
+    disable_docker_compose
     retvalAPP=$?
   else
     retvalAPP=0
@@ -696,8 +696,8 @@ function stop_containers
 {
   if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
   then
-    disable_docker_compose
     $DOCKER_COMP --file $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml stop
+    disable_docker_compose
     retvalAPP=$?
   else
     retvalAPP=0
@@ -707,7 +707,10 @@ function stop_containers
     echo ""
     echo -e "${INFOC}INFO${NC}: All the containers for this app are now stopped..."
     compose_files="$(get_active_compose_files)"
-    docker-compose $compose_files start
+    if [ -n $compose_files ]
+    then
+      docker-compose $compose_files start
+    fi
   else
     echo ""
     echo -e "${WARNINGC}WARNING${NC}: Unable to stop some of the containers..."
@@ -719,7 +722,7 @@ function stop_containers
 ################################################################################
 function auto_deploy
 {
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml up -d    
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml build 
 }
 
 function deploy
@@ -739,7 +742,7 @@ function deploy
 
     read -p "Do you want to continue (y/n)? " response
     case $response in
-      "y"|"Y") auto_deploy;;
+      "y"|"Y") auto_deploy; start_containers;;
     esac
   done
 }
@@ -749,10 +752,15 @@ function deploy
 ################################################################################
 function update_app
 {
-  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml pull
-  stop_containers
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml stop  
   $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml rm
-  auto_deploy
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml pull
+  $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.yaml build
+  compose_files="$(get_active_compose_files)"
+  if [ -n $compose_files ]
+  then
+    docker-compose $compose_files start
+  fi
 }
 
 
