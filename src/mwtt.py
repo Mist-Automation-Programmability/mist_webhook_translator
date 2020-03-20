@@ -18,6 +18,7 @@ apitoken = mist_conf["apitoken"]
 mist_cloud = mist_conf["mist_cloud"]
 server_uri = mist_conf["server_uri"]
 site_id_ignored = mist_conf["site_id_ignored"]
+color_config = mist_conf["color_config"]
 
 from libs.slack import Slack
 slack = Slack(slack_conf)
@@ -45,9 +46,13 @@ def new_event(topic, event):
     for key in event:
         console.info("%s: %s\r" %(key, event[key]))
         message += "%s: %s\r" %(key, event[key])
+        if topic in color_config:
+            color = color_config[topic]
+        else:
+            color = None
         if key == "type":
             topic += " - %s" %(event[key])
-    slack.send_manual_message(topic, message)
+    slack.send_manual_message(topic, message, color)
 
 ###########################
 ### ENTRY POINT

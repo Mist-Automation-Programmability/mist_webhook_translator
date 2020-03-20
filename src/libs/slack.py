@@ -30,8 +30,7 @@ class Slack:
             return self.color["red"]
 
 
-    def send_manual_message(self, title, message, color=None):
-        if not color: color = self.color["green"]
+    def send_manual_message(self, title, message, color="#000000"):        
         now = datetime.now()
         now.strftime("%d/%m/%Y %H:%M:%S")
         title = "%s - %s" %(now, title)
