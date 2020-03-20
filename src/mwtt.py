@@ -13,12 +13,13 @@ import time
 ### LOADING SETTINGS
 from config import mist_conf
 from config import slack_conf
+from config import color_config
 
 apitoken = mist_conf["apitoken"]
 mist_cloud = mist_conf["mist_cloud"]
 server_uri = mist_conf["server_uri"]
 site_id_ignored = mist_conf["site_id_ignored"]
-color_config = mist_conf["color_config"]
+
 
 from libs.slack import Slack
 slack = Slack(slack_conf)

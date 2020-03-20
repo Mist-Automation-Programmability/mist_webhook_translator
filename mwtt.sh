@@ -170,6 +170,18 @@ slack_conf = {
     "url": "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX"
 }
 
+color_config = {
+    "location":"#D5D8DC", 
+    "zone":"#808B96", 
+    "rssizone":"#1C2833", 
+    "vbeacon":"#5D6D7E", 
+    "asset-raw":"#AEB6BF", 
+    "device-events":"#229954", 
+    "device-updowns":"#2E86C1",
+    "alarms":"#C70039", 
+    "audits":"#FFC300", 
+    "client-sessions":"#884EA0",
+}
 EOF
      echo -e "${ERRORC}IMPORTANT${NC}: If you didn't customized your configuration file yet, please do it now,"
     echo "before stating the app containers!"
