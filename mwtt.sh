@@ -688,9 +688,9 @@ function update_app
   $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml rm --force
   $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml pull
   $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml up --no-start
-  if [ -f $DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml ]
+  if [ -f "$DOCKER_COMPOSE_FOLDER/docker-compose.$APP_NAME.yaml" ]
   then
-    docker-compose $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml start
+    $DOCKER_COMP --file $PERSISTANT_FOLDER/$APP_NAME/docker-compose.$APP_NAME.yaml start
   fi
 }
 
