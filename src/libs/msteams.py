@@ -48,11 +48,10 @@ class Teams:
                 "activityTitle": title,
                 "activitySubtitle": str(now),
                 "facts": facts,
-                "markdown": True
+                "markdown": False
             }]
         }
         data = json.dumps(body)
-        print(data)
         data = data.encode("ascii")
         requests.post(self.url, headers={"Content-type": "application/json"}, data=data)
         
