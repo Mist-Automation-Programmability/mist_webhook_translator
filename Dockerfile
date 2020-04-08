@@ -1,8 +1,8 @@
 FROM python:3
 
 LABEL maintainer="tmunzer@juniper.net"
-LABEL one.stag.mwtt.version="1.0.0"
-LABEL one.stag.mwtt.release-date="2020-02-19"
+LABEL one.stag.mwtt.version="1.1.0"
+LABEL one.stag.mwtt.release-date="2020-04-08"
 
 COPY ./src /app/
 

@@ -13,6 +13,7 @@ import time
 ### LOADING SETTINGS
 from config import mist_conf
 from config import slack_conf
+from config import msteams_conf
 from config import color_config
 
 apitoken = mist_conf["apitoken"]
@@ -23,6 +24,8 @@ site_id_ignored = mist_conf["site_id_ignored"]
 
 from libs.slack import Slack
 slack = Slack(slack_conf)
+from libs.msteams import Teams
+teams = Teams(msteams_conf)
 ###########################
 ### LOGGING SETTINGS
 try:
@@ -43,18 +46,18 @@ server_port = 51361
 
 def new_event(topic, event):
     console.info("%s" %topic)
-    message = ""
+    message = []
     for key in event:
         console.info("%s: %s\r" %(key, event[key]))
-        message += "%s: %s\r" %(key, event[key])
+        message.append("%s: %s" %(key, event[key]))
         if topic in color_config:
             color = color_config[topic]
         else:
             color = None
         if key == "type":
             topic += " - %s" %(event[key])
-    slack.send_manual_message(topic, message, color)
-
+    if slack_conf["enabled"]: slack.send_manual_message(topic, message, color)
+    if msteams_conf["enabled"]: teams.send_manual_message(topic, message, color)
 ###########################
 ### ENTRY POINT
 app = Flask(__name__)

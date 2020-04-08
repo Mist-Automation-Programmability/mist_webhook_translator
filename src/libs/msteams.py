@@ -3,7 +3,7 @@ import requests
 import json
 import time
 from datetime import datetime
-class Slack:
+class Teams:
 
     def __init__(self, config):
         if config: 
@@ -33,24 +33,26 @@ class Slack:
     def send_manual_message(self, title, message, color="#000000"):        
         now = datetime.now()
         now.strftime("%d/%m/%Y %H:%M:%S")
-        title = "%s - %s" %(now, title)
-        
-        message_string = ""
+        title = title
+        facts = []        
         for mpart in message:
-            message_string += "%s\r" %(mpart)
-
+            name = mpart.split(":")[0]
+            value = mpart.split(":")[1].strip()
+            facts.append({"name": name, "value": value})
         body = {
-            "attachments": [
-                {
-                    "fallback": "New MWTT event",
-                    "color": color,
-                    "pretext": title,          
-                    "text": message_string,            
-                }
-            ]
+            "@type": "MessageCard",
+            "@context": "http://schema.org/extensions",
+            "themeColor": color,
+            "summary": title,
+            "sections": [{
+                "activityTitle": title,
+                "activitySubtitle": str(now),
+                "facts": facts,
+                "markdown": True
+            }]
         }
-        
         data = json.dumps(body)
+        print(data)
         data = data.encode("ascii")
         requests.post(self.url, headers={"Content-type": "application/json"}, data=data)
         

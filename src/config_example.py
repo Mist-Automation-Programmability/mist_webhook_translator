@@ -28,6 +28,10 @@ slack_conf = {
     "enabled" : False,
     "url": "https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX"
 }
+msteams_conf = {
+    "enabled" : False,
+    "url": "https://outlook.office.com/webhook/XXXXXXXXX/IncomingWebhook/XXXXXXXXX"
+}
 
 color_config = {
     "location":"#D5D8DC", 
