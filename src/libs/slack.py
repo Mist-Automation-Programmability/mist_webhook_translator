@@ -1,23 +1,22 @@
 from libs import req
 import requests
 import json
-import time
-from datetime import datetime
+
+
 class Slack:
 
     def __init__(self, config):
-        if config: 
+        if config:
             self.enabled = config["enabled"]
-            self.url = config["url"]
+            self.url = config["url"]            
         self.severity = 7
-        self.color ={
+        self.color = {
             "green": "#36a64f",
             "blue": "#2196f3",
             "orange": "warning",
             "red": "danger"
 
-        } 
-        
+        }
 
     def _get_color(self):
         if self.severity >= 6:
@@ -29,28 +28,54 @@ class Slack:
         else:
             return self.color["red"]
 
+    def _generate_button(self, tag, text, url):
+        return {
+                    "name": tag,
+					"type": "button",
+					"text": {
+						"text": text
+					},
+					"style": "primary",
+					"url": url
+				}
 
-    def send_manual_message(self, title, message, color="#000000"):        
-        now = datetime.now()
-        now.strftime("%d/%m/%Y %H:%M:%S")
-        title = "%s - %s" %(now, title)
-        
-        message_string = ""
-        for mpart in message:
-            message_string += "%s\r" %(mpart)
+    def _generate_attachments(self, text, color, actions=None):
+            return [{
+                "fallback": "New MWTT event",
+                "color": color,
+                "text": text,
+                "attachment_type": "default",
+                "actions": actions
+            }]
+
+    def send_manual_message(self, title, text=[], level='unknown', color="eee", actions=[]):
+        slack_text = ""
+        for tpart in text:
+            slack_text+="%s\r" %(tpart)
+
+        slack_actions = []
+        for action in actions:
+            slack_actions.append(self._generate_button(action["tag"], action["text"], action["url"]))
+
+        attachments = self._generate_attachments(slack_text, color, slack_actions)
 
         body = {
-            "attachments": [
-                {
-                    "fallback": "New MWTT event",
-                    "color": color,
-                    "pretext": title,          
-                    "text": message_string,            
-                }
-            ]
+            "text": title,
+            "attachments": attachments
         }
-        
+
+        if level in self.url:
+            slack_url = self.url[level]
+        else: 
+            slack_url = self.url["unknown"]
+
         data = json.dumps(body)
         data = data.encode("ascii")
-        requests.post(self.url, headers={"Content-type": "application/json"}, data=data)
-        
+
+        print("- slack -")
+        print(slack_url)
+        print(data)
+        print("- msteams -")
+
+        requests.post(slack_url, headers={
+                      "Content-type": "application/json"}, data=data)
