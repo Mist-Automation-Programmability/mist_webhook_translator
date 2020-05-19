@@ -35,7 +35,6 @@ class Slack:
 					"text": {
 						"text": text
 					},
-					"style": "primary",
 					"url": url
 				}
 
