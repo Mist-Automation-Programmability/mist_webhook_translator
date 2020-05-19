@@ -187,13 +187,15 @@ def _device_event(topic, event):
 
     return [level, text, actions]
 
-def _title(topic, event):
+def _title(topic, time):
+    return "%s - %s" % (time, topic)
+
+def _get_time(event):
     if "timestamp" in event:
-        now = datetime.fromtimestamp(event["timestamp"])
+        dt = datetime.fromtimestamp(event["timestamp"])
     else:
-        now = datetime.now()
-    now.strftime("%d/%m/%Y %H:%M:%S")
-    return "%s UTC - %s" % (now, topic)
+        dt = datetime.now()
+    return "%s UTC" %(dt)
 
 def new_event(topic, event):
     console.info("%s" %topic)
@@ -219,9 +221,9 @@ def new_event(topic, event):
         for mpart in message:
             text += "%s\r" % (mpart)        
 
-
-    if slack_conf["enabled"]: slack.send_manual_message(_title(topic), text, level, color, actions)
-    if msteams_conf["enabled"]: teams.send_manual_message(topic, str(datetime.now()), text, level, color, actions)
+    time = _get_time(event)
+    if slack_conf["enabled"]: slack.send_manual_message(_title(topic, time), text, level, color, actions)
+    if msteams_conf["enabled"]: teams.send_manual_message(topic, time, text, level, color, actions)
     print(event)
     print(topic)
     print(message)
