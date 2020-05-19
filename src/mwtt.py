@@ -187,10 +187,13 @@ def _device_event(topic, event):
 
     return [level, text, actions]
 
-def _title(topic):
-    now = datetime.now()
+def _title(topic, event):
+    if "timestamp" in event:
+        now = datetime.fromtimestamp(event["timestamp"])
+    else:
+        now = datetime.now()
     now.strftime("%d/%m/%Y %H:%M:%S")
-    return "%s - %s" % (now, topic)
+    return "%s UTC - %s" % (now, topic)
 
 def new_event(topic, event):
     console.info("%s" %topic)
