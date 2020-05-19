@@ -170,7 +170,7 @@ def _device_event(topic, event):
         url_audit= "https://%s/admin/?org_id=%s#!auditLogs" % (mist_host,org_id)
         actions.append({"tag": "audit", "text": "Audit Logs", "url": url_audit})
     if not event["type"] == "AP_UNASSIGNED":
-        url_insights= "https://%s/admin/?org_id=%s#!dashboard/insights/device/%s/today/%s/%s/%s" % (mist_host,org_id, ap_id, t_start, t_stop, site_id)
+        url_insights= "https://%s/admin/?org_id=%s#!dashboard/insights/device/%s/24h/%s/%s/%s" % (mist_host,org_id, ap_id, t_start, t_stop, site_id)
         actions.append({"tag": "insights", "text": "AP Insights", "url": url_insights})
         url_conf = "https://%s/admin/?org_id=%s#!ap/detail/%s/%s" %(mist_host,org_id, ap_id, site_id)
         actions.append({"tag": "insights", "text": "AP Configuration", "url": url_conf})
