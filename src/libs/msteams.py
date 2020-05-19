@@ -69,11 +69,6 @@ class Teams:
         
         data = json.dumps(body)
         data = data.encode("ascii")
-
-        print("- msteams -")
-        print(msteam_url)
-        print(data)
-        print("- msteams -")
         
         requests.post(msteam_url, headers={
                       "Content-type": "application/json"}, data=data)

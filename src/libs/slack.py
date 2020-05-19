@@ -71,10 +71,5 @@ class Slack:
         data = json.dumps(body)
         data = data.encode("ascii")
 
-        print("- slack -")
-        print(slack_url)
-        print(data)
-        print("- msteams -")
-
         requests.post(slack_url, headers={
                       "Content-type": "application/json"}, data=data)
