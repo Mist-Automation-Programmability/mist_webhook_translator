@@ -13,7 +13,7 @@
 #                       discard webhooks about these sites)
 mist_conf={
     "apitoken": "xxxxxxxxxxxxxxx",
-    "mist_cloud": "api.mist.com",
+    "mist_host": "manage.mist.com",
     "server_uri": "/mist-webhooks",
     "site_id_ignored": [],
     "approved_admins": []
