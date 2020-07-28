@@ -9,6 +9,7 @@ from libs import req
 import os
 import time
 from datetime import datetime, timedelta
+import hmac, hashlib
 ###########################
 ### LOADING SETTINGS
 from config import mist_conf
@@ -19,6 +20,7 @@ from config import message_levels
 
 apitoken = mist_conf["apitoken"]
 mist_host = mist_conf["mist_host"]
+mist_secret = mist_conf["mist_secret"]
 server_uri = mist_conf["server_uri"]
 site_id_ignored = mist_conf["site_id_ignored"]
 
@@ -237,12 +239,21 @@ def new_event(topic, event):
 app = Flask(__name__)
 @app.route(server_uri, methods=["POST"])
 def postJsonHandler():
+    signature = request.headers['X-Mist-Signature'] if "X-Mist-Signature" in request.headers else None
     content = request.get_json()
-    topic = content["topic"]
-    events = content["events"]
-    for event in events:   
-        new_event(topic, event)
-    return '', 200
+    key = str.encode(mist_secret)
+    message = request.data
+    digester = hmac.new(key, message, hashlib.sha1).hexdigest()
+    if signature == digester or mist_secret == None:
+            
+        content = request.get_json()
+        topic = content["topic"]
+        events = content["events"]
+        for event in events:   
+            new_event(topic, event)
+        return '', 200
+    else: 
+        return '', 401
 
 
 if __name__ == '__main__':

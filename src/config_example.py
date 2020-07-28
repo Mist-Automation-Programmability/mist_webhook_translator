@@ -14,6 +14,7 @@
 mist_conf={
     "apitoken": "xxxxxxxxxxxxxxx",
     "mist_host": "manage.mist.com",
+    "mist_secret": None,
     "server_uri": "/mist-webhooks",
     "site_id_ignored": [],
     "approved_admins": []
