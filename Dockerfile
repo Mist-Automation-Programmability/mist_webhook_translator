@@ -8,7 +8,7 @@ COPY ./src /app/
 
 WORKDIR /app
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir flask junos-eznc requests
+RUN pip install --no-cache-dir flask requests
 
 EXPOSE 51361
 CMD ["python","-u","/app/mwtt.py"]
