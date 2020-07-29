@@ -18,11 +18,6 @@ from config import msteams_conf
 from config import color_config
 from config import message_levels
 
-apitoken = mist_conf["apitoken"]
-mist_host = mist_conf["mist_host"]
-mist_secret = mist_conf["mist_secret"]
-server_uri = mist_conf["server_uri"]
-site_id_ignored = mist_conf["site_id_ignored"]
 
 from libs.slack import Slack
 slack = Slack(slack_conf)
@@ -75,7 +70,7 @@ def new_event(topic, event):
         color = None
 
     if topic == "audits":
-        level, text, actions = audit(topic, mist_host, mist_conf["approved_admins"], event)
+        level, text, actions = audit(topic, mist_host, approved_admins, event)
     elif topic == "device-events":
         level, text, actions = device_event(topic, mist_host, message_levels, event)
     elif topic == "device-updowns":
@@ -135,6 +130,7 @@ def display_conf():
     print("Webhook Secret: {0}".format(mist_secret))
     print("MWTT URI: {0}".format(server_uri))
     print("Ignored Sites: {0}".format(site_id_ignored))
+    print("Approved Admins: {0}".format(approved_admins))
 
 
 if __name__ == '__main__':
@@ -144,6 +140,7 @@ if __name__ == '__main__':
     mist_secret = load_conf("mist_secret")
     server_uri = load_conf("server_uri")
     site_id_ignored = load_conf("site_id_ignored")
+    approved_admins = load_conf("approved_admins")
     print("Configuraiton loaded".center(80, "_"))
     display_conf()
     print("Starting Server".center(80, "_"))
