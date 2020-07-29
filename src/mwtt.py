@@ -120,7 +120,33 @@ def postJsonHandler():
         return '', 401
 
 
+def load_conf(value):
+    print("Loading {0} ".format(value).ljust(79, "."), end="", flush=True)
+    if value in mist_conf:
+        print("\033[92m\u2714\033[0m")
+        return mist_conf[value]
+    else:
+        print('\033[31m\u2716\033[0m')
+        exit(255)
+
+def display_conf():
+    print("Mist Hist: {0}".format(mist_host))
+    print("API Token: {0}........{1}".format(apitoken[:6], apitoken[len(apitoken)-6:]))
+    print("Webhook Secret: {0}".format(mist_secret))
+    print("MWTT URI: {0}".format(server_uri))
+    print("Ignored Sites: {0}".format(site_id_ignored))
+
+
 if __name__ == '__main__':
+    print("Loading configuration ".center(80,"_"))
+    apitoken = load_conf("apitoken")
+    mist_host = load_conf("mist_host")
+    mist_secret = load_conf("mist_secret")
+    server_uri = load_conf("server_uri")
+    site_id_ignored = load_conf("site_id_ignored")
+    print("Configuraiton loaded".center(80, "_"))
+    display_conf()
+    print("Starting Server".center(80, "_"))
     app.run(debug=False, host='0.0.0.0', port=server_port)
 
 
