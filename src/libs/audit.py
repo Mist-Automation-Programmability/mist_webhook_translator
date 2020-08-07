@@ -1,3 +1,6 @@
+
+def get_device_type(self, mist_host, side_id, device_id):
+    api_host = mist_host.replace("manage", "api")
 def audit(self, mist_host, approved_admins, event):
     org_id = None
     site_id = None

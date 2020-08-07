@@ -11,30 +11,25 @@ def device_event(topic, mist_host, message_levels, event):
     t_stop= int(datetime.timestamp(d_stop))
     t_start= int(datetime.timestamp(d_start))
 
-    org_id, site_id, site_name, ap_mac, ap_id, ap_name, event_type, reason, audit_id = _extract_fields(event)
+    org_id, site_id, site_name, ap_mac, ap_id, ap_name, event_type, reason, audit_id, event_text = _extract_fields(event)
 
     if event_type == "AP_CONFIG_CHANGED_BY_RRM":
         text = _ap_config_changed_by_rrm(ap_mac, ap_name, site_name)
-    elif event_type == "AP_CONFIG_CHANGED_BY_USER":
-        text = _ap_config_changed_by_rrm(ap_mac, ap_name, site_name)
+    if event_type == "AP_CONFIG_CHANGED_BY_USER":
+        text = _ap_config_changed_by_user(ap_mac, ap_name, site_name)
     elif event_type == "1026":
         text = _1026(ap_mac, ap_name, site_name, reason)
-    elif event_type == "AP_CONFIGURED":
-        text = _ap_common(ap_mac, ap_name, site_name, event_type)
-    elif event_type == "AP_RECONFIGURED":
-        text = _ap_common(ap_mac, ap_name, site_name, event_type)
-    elif event_type == "AP_RESTARTED":
-        text = _ap_common(ap_mac, ap_name, site_name, event_type)
-    elif event_type == "AP_RESTART_BY_USER":
-        text = _ap_common(ap_mac, ap_name, site_name, event_type)
-    elif event_type == "AP_CONNECTED":
-        text = _ap_common(ap_mac, ap_name, site_name, event_type)
-    elif event_type == "AP_DISCONNECTED":
+    elif event_type in [ "AP_CONFIGURED", "AP_RECONFIGURED", "AP_RESTARTED", "AP_RESTART_BY_USER", "AP_CONNECTED", "AP_DISCONNECTED"]: 
         text = _ap_common(ap_mac, ap_name, site_name, event_type)
     elif event_type == "AP_ASSIGNED":
         text = _ap_assigned(ap_mac, ap_name, site_name)
     elif event_type == "AP_UNASSIGNED":
         text = _ap_unassigned(ap_mac, ap_name, site_name)
+    elif event_type == "AP_UPGRADE_BY_USER":
+        text = _ap_upgrade_by_user(ap_mac, ap_name, site_name)
+    elif event_type == "AP_UPGRADED":
+        text = _ap_upgraded(ap_mac, ap_name, site_name, event_text)
+
     else:
         text.append("AP Name: %s" %(ap_name))
         text.append("AP MAC: %s" %(ap))
@@ -76,7 +71,7 @@ def _extract_fields(event):
     event_type = None
     reason = None
     audit_id = None
-    
+    event_text = None
     if "org_id" in event:
         org_id = event["org_id"]
     if "site_id" in event:
@@ -95,7 +90,9 @@ def _extract_fields(event):
         event_type = event["type"]
     if "audit_id" in event:
         audit_id = event["audit_id"]
-    return [org_id, site_id, site_name, ap_mac, ap_id, ap_name, event_type, reason, audit_id]
+    if "text" in event:
+        event_text = event["text"]
+    return [org_id, site_id, site_name, ap_mac, ap_id, ap_name, event_type, reason, audit_id, event_text]
 
 def _ap_config_changed_by_rrm(ap_mac, ap_name, site_name):
     '''
@@ -198,6 +195,46 @@ def _ap_unassigned(ap_mac, ap_name, site_name):
     text.append(text_string)    
     return text
 
+def _ap_upgrade_by_user(ap_mac, ap_name, site_name):
+    '''
+07/08/2020 08:14:23 INFO: device-events
+07/08/2020 08:14:23 INFO: ap: d420b0002e95
+07/08/2020 08:14:23 INFO: ap_name: ap41-off.lab
+07/08/2020 08:14:23 INFO: audit_id: 3ef223c8-2308-4040-a8f7-dbe5a96d8890
+07/08/2020 08:14:23 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+07/08/2020 08:14:23 INFO: site_id: f5fcbee5-fbca-45b3-8bf1-1619ede87879
+07/08/2020 08:14:23 INFO: site_name: lab
+07/08/2020 08:14:23 INFO: timestamp: 1596788059
+07/08/2020 08:14:23 INFO: type: AP_UPGRADE_BY_USER
+    '''
+    text = []
+    text_string = "AP \"{0}\" (MAC: {1}): Firmware upgrade requested".format(ap_name, ap_mac)
+    #if site_name:
+    #    text_string += " from site %s" %(site_name)
+    text_string += "."
+    text.append(text_string)    
+    return text
+
+def _ap_upgraded(ap_mac, ap_name, site_name, event_text):
+    '''
+07/08/2020 08:14:53 INFO: device-events
+07/08/2020 08:14:53 INFO: ap: d420b0002e95
+07/08/2020 08:14:53 INFO: ap_name: ap41-off.lab
+07/08/2020 08:14:53 INFO: audit_id: 3ef223c8-2308-4040-a8f7-dbe5a96d8890
+07/08/2020 08:14:53 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+07/08/2020 08:14:53 INFO: site_id: f5fcbee5-fbca-45b3-8bf1-1619ede87879
+07/08/2020 08:14:53 INFO: site_name: lab
+07/08/2020 08:14:53 INFO: text: from version 0.7.20141 to 0.7.20216
+07/08/2020 08:14:53 INFO: timestamp: 1596788089
+07/08/2020 08:14:53 INFO: type: AP_UPGRADED
+    '''
+    text = []
+    text_string = "AP \"{0}\" (MAC: {1}): Firmware upgrade finished {2}".format(ap_name, ap_mac, event_text)
+    #if site_name:
+    #    text_string += " from site %s" %(site_name)
+    text_string += "."
+    text.append(text_string)    
+    return text
 
 def _ap_common(ap_mac, ap_name, site_name, event_type):
     '''
