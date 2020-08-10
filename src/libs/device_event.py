@@ -29,6 +29,10 @@ def device_event(topic, mist_host, message_levels, event):
         text = _ap_upgrade_by_user(ap_mac, ap_name, site_name)
     elif event_type == "AP_UPGRADED":
         text = _ap_upgraded(ap_mac, ap_name, site_name, event_text)
+    elif event_type == "AP_UNCLAIMED":
+        text = _ap_unclaimed(ap_mac, ap_name, site_name)
+    elif event_type == "AP_CLAIMED":
+        text = _ap_claimed(ap_mac, ap_name, site_name)
 
     else:
         text.append("AP Name: %s" %(ap_name))
@@ -254,5 +258,40 @@ def _ap_common(ap_mac, ap_name, site_name, event_type):
     text_string += "is %s." %(event_type.replace("AP_", "").title())
     text.append(text_string)
     return text
+
+def _ap_unclaimed(ap_mac, ap_name, site_name):
+    '''
+10/08/2020 07:56:43 INFO: device-events
+10/08/2020 07:56:43 INFO: ap: d420b0002d5f
+10/08/2020 07:56:43 INFO: audit_id: 341e2c5d-db35-44ce-97c9-fcdbd5d1bdb3
+10/08/2020 07:56:43 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+10/08/2020 07:56:43 INFO: text: AP d420b0002d5f unclaimed
+10/08/2020 07:56:43 INFO: timestamp: 1597046195
+10/08/2020 07:56:43 INFO: type: AP_UNCLAIMED
+    '''
+    text = []
+    text_string = "AP \"{0}\" (MAC: {1}) has been Unclaimed".format(ap_name, ap_mac)
+    text.append(text_string)
+    return text
+
+def _ap_claimed(ap_mac, ap_name, site_name):
+    '''
+10/08/2020 14:36:33 INFO: device-events
+10/08/2020 14:36:33 INFO: ap: 5c5b351f1bed
+10/08/2020 14:36:33 INFO: ap_name: 5c5b351f1bed
+10/08/2020 14:36:33 INFO: audit_id: 7b377bc3-20f8-4184-b6fe-de6709f73f00
+10/08/2020 14:36:33 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+10/08/2020 14:36:33 INFO: site_name: test_only
+10/08/2020 14:36:33 INFO: text: AP 5c5b351f1bed claimed
+10/08/2020 14:36:33 INFO: timestamp: 1597070182
+10/08/2020 14:36:33 INFO: type: AP_CLAIMED
+    '''
+    text = []
+    text_string = "AP \"{0}\" (MAC: {1}) has been Claimed".format(ap_name, ap_mac)
+    if site_name:
+        text_string += "on site \"{0}\" ".format(site_name)
+    text.append(text_string)
+    return text
+
 
 
