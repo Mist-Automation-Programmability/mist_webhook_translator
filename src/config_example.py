@@ -56,5 +56,5 @@ color_config = {
 message_levels = {
     "debug": ["AP_CONFIG_CHANGED_BY_RRM", "1026", "AP_RECONFIGURED", "AP_RESTART_BY_USER", "AP_CONFIG_CHANGED_BY_USER"],
     "info": ["AP_CONNECTED", "AP_DISCONNECTED", "AP_RESTARTED", "AP_ASSIGNED", "AP_UNASSIGNED", "AP_CONFIGURED"],
-    "warning": []
+    "warning": ["AP_DISCONNECTED_LONG"]
 }

@@ -19,7 +19,7 @@ def device_event(topic, mist_host, message_levels, event):
         text = _ap_config_changed_by_user(ap_mac, ap_name, site_name)
     elif event_type == "1026":
         text = _1026(ap_mac, ap_name, site_name, reason)
-    elif event_type in [ "AP_CONFIGURED", "AP_RECONFIGURED", "AP_RESTARTED", "AP_RESTART_BY_USER", "AP_CONNECTED", "AP_DISCONNECTED"]: 
+    elif event_type in [ "AP_CONFIGURED", "AP_RECONFIGURED", "AP_RESTARTED", "AP_RESTART_BY_USER", "AP_CONNECTED", "AP_DISCONNECTED", "AP_DISCONNECTED_LONG"]: 
         text = _ap_common(ap_mac, ap_name, site_name, event_type)
     elif event_type == "AP_ASSIGNED":
         text = _ap_assigned(ap_mac, ap_name, site_name)
@@ -36,7 +36,7 @@ def device_event(topic, mist_host, message_levels, event):
 
     else:
         text.append("AP Name: %s" %(ap_name))
-        text.append("AP MAC: %s" %(ap))
+        text.append("AP MAC: %s" %(ap_mac))
         text.append("Site: %s" %(site_name))
         text.append("Event: %s" %(event_type))
         text.append("Reason: %s" %(reason))
@@ -252,9 +252,9 @@ def _ap_common(ap_mac, ap_name, site_name, event_type):
 20/05/2020 06:30:54 INFO: type: AP_CONFIGURED
     '''
     text = []
-    text_string = "AP \"%s\" (MAC: %s) " %(ap_name, ap_mac)
+    text_string = "AP \"{0}\" (MAC: {1}) ".format(ap_name, ap_mac)
     if site_name:
-        text_string += "on site \"%s\" " %(site_name)
+        text_string += "on site \"{0}\" ".format(site_name)
     text_string += "is %s." %(event_type.replace("AP_", "").title())
     text.append(text_string)
     return text
