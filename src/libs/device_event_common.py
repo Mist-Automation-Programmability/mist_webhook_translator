@@ -21,15 +21,16 @@ class CommonEvent():
         self.level = ""
         self.reason = None
 
-        device_types = {"ap": {"text": "AP"},
-                        "switch": {"text": "Switch"},
-                        "gateway": {"text": "Gateway"}}
+        self.device_types = {"ap": {"short": "AP_", "text": "AP"},
+                        "switch": {"short": "SW_", "text": "Switch"},
+                        "gateway": {"short": "GW_", "text": "Gateway"}}
+
         if "type" in event:
             self.device_type = event["type"]
         else:
             self.device_type = None
-        if self.device_type in device_types:
-            self.device_type_text = device_types[self.device_type]["text"]
+        if self.device_type in self.device_types:
+            self.device_type_text = self.device_types[self.device_type]["text"]
         else:
             self.device_type_text = "Device"
 
@@ -203,8 +204,12 @@ class CommonEvent():
             self.device_type_text, self.device_name, self.device_mac)
         if self.site_name:
             text_string += "on site \"{0}\" ".format(self.site_name)
-        text_string += "is {0}.".format(
-            self.event_type.replace(self.device_type_short, "").title())
+
+        event_type = self.event_type
+        for device_type in self.device_types:
+            if self.event_type.startswith(device_type["short"]):
+                event_type = self.event_type.replace("{0}_".format(device_type["short"]), "").title()
+        text_string += "is {0}.".format(event_type)
         self.text.append(text_string)
 
     def _unclaimed(self):
