@@ -25,6 +25,7 @@ from libs.msteams import Teams
 teams = Teams(msteams_conf)
 from libs.audit import audit
 from libs.device_event import device_event
+from libs.alarm import alarm
 ###########################
 ### LOGGING SETTINGS
 try:
@@ -47,17 +48,17 @@ except:
 ### FUNCTIONS
 
 def _title(topic, time):
-    return "%s - %s" % (time, topic)
+    return "{0} - {1}".format(time, topic)
 
 def _get_time(event):
     if "timestamp" in event:
         dt = datetime.fromtimestamp(event["timestamp"])
     else:
         dt = datetime.now()
-    return "%s UTC" %(dt)
+    return "{0} UTC".format(dt)
 
 def new_event(topic, event):
-    console.info("%s" %topic)
+    console.info("{0}".format(topic))
 
     message = []
     for key in event:
@@ -75,6 +76,8 @@ def new_event(topic, event):
         level, text, actions = device_event(topic, mist_host, message_levels, event)
     elif topic == "device-updowns":
         level, text, actions = device_event(topic, mist_host, message_levels, event)
+    elif topic == "alarms":
+        level, text, actions = alarm(topic, mist_host, message_levels, event)
     else:
         text = []
         level = "unknown"
