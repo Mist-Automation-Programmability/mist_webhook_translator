@@ -29,6 +29,10 @@ from libs.alarm import alarm
 ###########################
 ### LOGGING SETTINGS
 try:
+    from config import debug
+except:
+    debug = False
+try:
     from config import log_level
 except:
     log_level = 6
@@ -134,9 +138,9 @@ def postJsonHandler():
     key = str.encode(mist_secret)
     message = request.data
     digester = hmac.new(key, message, hashlib.sha1).hexdigest()
-    if signature == digester or mist_secret == None:
-            
+    if signature == digester or mist_secret == None:        
         content = request.get_json()
+        if debug: print(content)
         topic = content["topic"]
         events = content["events"]
         for event in events:   

@@ -47,13 +47,13 @@ class SwitchEvent(CommonEvent):
     28/09/2020 06:35:31 INFO: type: SW_PORT_DOWN
         '''
         port = "unknown"
-        for tpart in self.text:
+        for tpart in self.event["text"].split(","):
             if "ifName" in tpart:
                 port = tpart.replace("ifName","").replace(" ","")
         text_string = "Port \"{0}\" on switch \"{1}\" (MAC: {2}) ".format(port, self.device_name, self.device_mac)
         if self.site_name:
             text_string += "on site \"{0}\" ".format(self.site_name)
-        text_string += "is {0}.".format(self.event_type.replace("SW_PORT", "").title())
+        text_string += "is {0}.".format(self.event_type.replace("SW_PORT_", "").title())
         self.text.append(text_string)
         
   
