@@ -77,7 +77,7 @@ class CommonEvent():
             if self.device_type in self.device_types:
                 self.device_text = self.device_types[self.device_type]["text"]
                 self.device_short = self.device_types[self.device_type]["short"]
-                self.device_insight = self.device_types[self.device_type]["url"]
+                self.device_insight = self.device_types[self.device_type]["insight"]
         if "reason" in self.event:
             self.reason = self.event["reason"]
         if "audit_id" in self.event:
