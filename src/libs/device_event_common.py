@@ -6,14 +6,14 @@ class CommonEvent():
     def __init__(self, topic, mist_host, message_levels, event):
         self.event = event
         self.org_id = None
-        
+
         self.site_id = None
         self.site_name = None
 
         self.device_id = ""
         self.device_name = ""
         self.device_mac = ""
-        
+
         self.audit_id = None
 
         self.text = []
@@ -21,20 +21,18 @@ class CommonEvent():
         self.level = ""
         self.reason = None
 
-        device_types= {"ap": {"short": "AP_", "text": "AP"}, 
-        "switch": {"short": "SW_", "text": "Switch"}, 
-        "gateway": {"short": "GW_", "text": "Gateway"}}
+        device_types = {"ap": {"text": "AP"},
+                        "switch": {"text": "Switch"},
+                        "gateway": {"text": "Gateway"}}
         if "type" in event:
-            self.device_type=event["type"]
+            self.device_type = event["type"]
         else:
             self.device_type = None
         if self.device_type in device_types:
-            self.device_type_short = device_types[self.device_type]["short"]
             self.device_type_text = device_types[self.device_type]["text"]
         else:
-            self.device_type_short = None
             self.device_type_short = "Device"
-        
+
         d_stop = datetime.now()
         d_start = d_stop - timedelta(days=1)
         self.t_stop = int(datetime.timestamp(d_stop))
@@ -49,14 +47,14 @@ class CommonEvent():
         return [self.level, self.text, self.actions]
 
     def _message_level(self, message_levels):
-        if self.event["type"].replace(self.device_type_short, "") in message_levels["warning"]:
+        if self.event["type"] in message_levels["warning"]:
             self.level = "warning"
-        elif self.event["type"].replace(self.device_type_short, "") in message_levels["info"]:
+        elif self.event["type"] in message_levels["info"]:
             self.level = "info"
-        elif self.event["type"].replace(self.device_type_short, "") in message_levels["debug"]:
+        elif self.event["type"] in message_levels["debug"]:
             self.level = "debug"
-        else: self.level = "unknown"
-
+        else:
+            self.level = "unknown"
 
     def _extract_fields(self):
         if "org_id" in self.event:
@@ -85,7 +83,6 @@ class CommonEvent():
         if "text" in self.event:
             self.event_text = self.event["text"]
 
-
     def _actions(self, mist_host):
         if self.device_type:
             if self.audit_id:
@@ -105,15 +102,13 @@ class CommonEvent():
                     mist_host, self.org_id, self.device_type, self.device_id, self.site_id)
                 self.actions.append(
                     {"tag": "insights", "text": "{0} Configuration".format(self.device_type.title()), "url": url_conf})
-        
-    
+
     def _process(self):
         self.text.append("Device Name: %s" % (self.device_name))
         self.text.append("Device MAC: %s" % (self.device_mac))
         self.text.append("Site: %s" % (self.site_name))
         self.text.append("Event: %s" % (self.event_type))
         self.text.append("Reason: %s" % (self.reason))
-
 
     def _assigned(self):
         '''
@@ -127,12 +122,12 @@ class CommonEvent():
     19/05/2020 00:21:04 INFO: timestamp: 1589847656
     19/05/2020 00:21:04 INFO: type: 1026
         '''
-        text_string = "{0} \"{1}\" (MAC: {2}) is assigned".format(self.device_type_text, self.device_name, self.device_mac)
+        text_string = "{0} \"{1}\" (MAC: {2}) is assigned".format(
+            self.device_type_text, self.device_name, self.device_mac)
         if self.site_name:
             text_string += " to site \"{0}\" ".format(self.site_name)
         text_string += "."
         self.text.append(text_string)
-        
 
     def _unassigned(self):
         '''
@@ -147,12 +142,12 @@ class CommonEvent():
     20/05/2020 12:57:21 INFO: timestamp: 1589979432
     20/05/2020 12:57:21 INFO: type: AP_UNASSIGNED
         '''
-        text_string = "{0} \"{1}\" (MAC: {2}) is unassigned".format(self.device_type_text, self.device_name, self.device_mac)
+        text_string = "{0} \"{1}\" (MAC: {2}) is unassigned".format(
+            self.device_type_text, self.device_name, self.device_mac)
         # if site_name:
         #    text_string += " from site %s" %(site_name)
         text_string += "."
         self.text.append(text_string)
-        
 
     def _upgrade_by_user(self):
         '''
@@ -172,7 +167,6 @@ class CommonEvent():
         #    text_string += " from site %s" %(site_name)
         text_string += "."
         self.text.append(text_string)
-        
 
     def _upgraded(self):
         '''
@@ -193,7 +187,6 @@ class CommonEvent():
         #    text_string += " from site %s" %(site_name)
         text_string += "."
         self.text.append(text_string)
-        
 
     def _common(self):
         '''
@@ -206,12 +199,13 @@ class CommonEvent():
     20/05/2020 06:30:54 INFO: timestamp: 1589956243
     20/05/2020 06:30:54 INFO: type: AP_CONFIGURED
         '''
-        text_string = "{0} \"{1}\" (MAC: {2}) ".format(self.device_type_text, self.device_name, self.device_mac)
+        text_string = "{0} \"{1}\" (MAC: {2}) ".format(
+            self.device_type_text, self.device_name, self.device_mac)
         if self.site_name:
             text_string += "on site \"{0}\" ".format(self.site_name)
-        text_string += "is {0}.".format(self.event_type.replace(self.device_type_short, "").title())
+        text_string += "is {0}.".format(
+            self.event_type.replace(self.device_type_short, "").title())
         self.text.append(text_string)
-        
 
     def _unclaimed(self):
         '''
@@ -226,7 +220,6 @@ class CommonEvent():
         text_string = "{0} \"{1}\" (MAC: {2}) has been Unclaimed".format(
             self.device_type_text, self.device_name, self.device_mac)
         self.text.append(text_string)
-        
 
     def _claimed(self):
         '''
