@@ -30,14 +30,6 @@ class CommonEvent():
                         "switch": {"short": "SW_", "text": "Switch", "insight": "juniperSwitch"},
                         "gateway": {"short": "GW_", "text": "Gateway", "insight": "juniperGateway"}}
 
-        if "type" in event:
-            self.device_type = event["type"]
-
-        if self.device_type in self.device_types:
-            self.device_text = self.device_types[self.device_type]["text"]
-            self.device_short = self.device_types[self.device_type]["short"]
-            self.device_insight = self.device_types[self.device_type]["url"]
-
         d_stop = datetime.now()
         d_start = d_stop - timedelta(days=1)
         self.t_stop = int(datetime.timestamp(d_stop))
@@ -80,9 +72,14 @@ class CommonEvent():
             self.site_name = self.event["site_name"]
         if "type" in self.event:
             self.event_type = self.event["type"]
+        if "device_type" in self.event:
+            self.device_type = self.event["device_type"]
+            if self.device_type in self.device_types:
+                self.device_text = self.device_types[self.device_type]["text"]
+                self.device_short = self.device_types[self.device_type]["short"]
+                self.device_insight = self.device_types[self.device_type]["url"]
         if "reason" in self.event:
             self.reason = self.event["reason"]
-            self.event_type = self.event["type"]
         if "audit_id" in self.event:
             self.audit_id = self.event["audit_id"]
         if "text" in self.event:
@@ -99,14 +96,16 @@ class CommonEvent():
                 self.actions.append(
                     {"tag": "audit", "text": "Audit Logs", "url": url_audit})
             if not self.event["type"].replace(self.device_type, "") == "UNASSIGNED":
-                url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/{2}/{3}/24h/{4}/{5}/{6}".format(
-                    mist_host, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
-                self.actions.append(
-                    {"tag": "insights", "text": "{0} Insights".format(self.device_text.title()), "url": url_insights})
-                url_conf = "https://{0}/admin/?org_id={1}#!{2}/detail/{3}/{4}".format(
-                    mist_host, self.org_id, self.device_type, self.device_id, self.site_id)
-                self.actions.append(
-                    {"tag": "insights", "text": "{0} Configuration".format(self.device_text.title()), "url": url_conf})
+                if self.device_insight:
+                    url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/{2}/{3}/24h/{4}/{5}/{6}".format(
+                        mist_host, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
+                    self.actions.append(
+                        {"tag": "insights", "text": "{0} Insights".format(self.device_text.title()), "url": url_insights})
+                if self.device_type:
+                    url_conf = "https://{0}/admin/?org_id={1}#!{2}/detail/{3}/{4}".format(
+                        mist_host, self.org_id, self.device_type, self.device_id, self.site_id)
+                    self.actions.append(
+                        {"tag": "insights", "text": "{0} Configuration".format(self.device_text.title()), "url": url_conf})
 
     def _process(self):
         self.text.append("Device Name: %s" % (self.device_name))
