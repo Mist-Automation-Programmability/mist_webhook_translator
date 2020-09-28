@@ -211,7 +211,7 @@ class CommonEvent():
         event_type = self.event_type
         for device_type in self.device_types:
             if self.event_type.startswith(self.device_types[device_type]["short"]):
-                event_type = self.event_type.replace("{0}".format(device_types[device_type]["short"]), "").title()
+                event_type = self.event_type.replace("{0}".format(self.device_types[device_type]["short"]), "").title()
         text_string += "is {0}.".format(event_type)
         self.text.append(text_string)
 
