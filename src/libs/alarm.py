@@ -1,13 +1,14 @@
 
 def get_device_type(self, mist_host, side_id, device_id):
     api_host = mist_host.replace("manage", "api")
+    return api_host
 
 def alarm(self, mist_host, approved_admins, event):
     org_id = None
     site_id = None
     url = None
     actions = []
-    message = None
+    message = ""
 
     if "admin_name" in event:
         admin = event["admin_name"]

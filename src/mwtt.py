@@ -116,6 +116,7 @@ def display_conf():
     print("MWTT URI: {0}".format(server_uri))
     print("Ignored Sites: {0}".format(site_id_ignored))
     print("Approved Admins: {0}".format(approved_admins))
+    print("Debug Mode: {0}".format(debug))
 
 
 ###########################
