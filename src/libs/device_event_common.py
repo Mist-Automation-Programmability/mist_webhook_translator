@@ -21,18 +21,22 @@ class CommonEvent():
         self.level = ""
         self.reason = None
 
-        self.device_types = {"ap": {"short": "AP_", "text": "AP"},
-                        "switch": {"short": "SW_", "text": "Switch"},
-                        "gateway": {"short": "GW_", "text": "Gateway"}}
+        self.device_type = ""
+        self.device_text = "Device"
+        self.device_short = ""
+        self.device_insight = ""
+
+        self.device_types = {"ap": {"short": "AP_", "text": "AP", "insight": "device"},
+                        "switch": {"short": "SW_", "text": "Switch", "insight": "juniperSwitch"},
+                        "gateway": {"short": "GW_", "text": "Gateway", "insight": "juniperGateway"}}
 
         if "type" in event:
             self.device_type = event["type"]
-        else:
-            self.device_type = None
+
         if self.device_type in self.device_types:
-            self.device_type_text = self.device_types[self.device_type]["text"]
-        else:
-            self.device_type_text = "Device"
+            self.device_text = self.device_types[self.device_type]["text"]
+            self.device_short = self.device_types[self.device_type]["short"]
+            self.device_insight = self.device_types[self.device_type]["url"]
 
         d_stop = datetime.now()
         d_start = d_stop - timedelta(days=1)
@@ -95,14 +99,14 @@ class CommonEvent():
                 self.actions.append(
                     {"tag": "audit", "text": "Audit Logs", "url": url_audit})
             if not self.event["type"].replace(self.device_type, "") == "UNASSIGNED":
-                url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/device/{2}/24h/{3}/{4}/{5}".format(
-                    mist_host, self.org_id, self.device_id, self.t_start, self.t_stop, self.site_id)
+                url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/{2}/{3}/24h/{4}/{5}/{6}".format(
+                    mist_host, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
                 self.actions.append(
-                    {"tag": "insights", "text": "{0} Insights".format(self.device_type.title()), "url": url_insights})
+                    {"tag": "insights", "text": "{0} Insights".format(self.device_text.title()), "url": url_insights})
                 url_conf = "https://{0}/admin/?org_id={1}#!{2}/detail/{3}/{4}".format(
                     mist_host, self.org_id, self.device_type, self.device_id, self.site_id)
                 self.actions.append(
-                    {"tag": "insights", "text": "{0} Configuration".format(self.device_type.title()), "url": url_conf})
+                    {"tag": "insights", "text": "{0} Configuration".format(self.device_text.title()), "url": url_conf})
 
     def _process(self):
         self.text.append("Device Name: %s" % (self.device_name))
@@ -124,7 +128,7 @@ class CommonEvent():
     19/05/2020 00:21:04 INFO: type: 1026
         '''
         text_string = "{0} \"{1}\" (MAC: {2}) is assigned".format(
-            self.device_type_text, self.device_name, self.device_mac)
+            self.device_text, self.device_name, self.device_mac)
         if self.site_name:
             text_string += " to site \"{0}\" ".format(self.site_name)
         text_string += "."
@@ -144,7 +148,7 @@ class CommonEvent():
     20/05/2020 12:57:21 INFO: type: AP_UNASSIGNED
         '''
         text_string = "{0} \"{1}\" (MAC: {2}) is unassigned".format(
-            self.device_type_text, self.device_name, self.device_mac)
+            self.device_text, self.device_name, self.device_mac)
         # if site_name:
         #    text_string += " from site %s" %(site_name)
         text_string += "."
@@ -163,7 +167,7 @@ class CommonEvent():
     07/08/2020 08:14:23 INFO: type: AP_UPGRADE_BY_USER
         '''
         text_string = "{0} \"{1}\" (MAC: {2}): Firmware upgrade requested".format(
-            self.device_type_text, self.device_name, self.device_mac)
+            self.device_text, self.device_name, self.device_mac)
         # if site_name:
         #    text_string += " from site %s" %(site_name)
         text_string += "."
@@ -183,7 +187,7 @@ class CommonEvent():
     07/08/2020 08:14:53 INFO: type: AP_UPGRADED
         '''
         text_string = "{0} \"{1}\" (MAC: {2}): Firmware upgrade finished {3}".format(
-            self.device_type_text, self.device_name, self.device_mac, self.event_text)
+            self.device_text, self.device_name, self.device_mac, self.event_text)
         # if site_name:
         #    text_string += " from site %s" %(site_name)
         text_string += "."
@@ -201,14 +205,14 @@ class CommonEvent():
     20/05/2020 06:30:54 INFO: type: AP_CONFIGURED
         '''
         text_string = "{0} \"{1}\" (MAC: {2}) ".format(
-            self.device_type_text, self.device_name, self.device_mac)
+            self.device_text, self.device_name, self.device_mac)
         if self.site_name:
             text_string += "on site \"{0}\" ".format(self.site_name)
 
         event_type = self.event_type
         for device_type in self.device_types:
             if self.event_type.startswith(self.device_types[device_type]["short"]):
-                event_type = self.event_type.replace("{0}_".format(device_type["short"]), "").title()
+                event_type = self.event_type.replace("{0}".format(device_type["short"]), "").title()
         text_string += "is {0}.".format(event_type)
         self.text.append(text_string)
 
@@ -223,7 +227,7 @@ class CommonEvent():
     10/08/2020 07:56:43 INFO: type: AP_UNCLAIMED
         '''
         text_string = "{0} \"{1}\" (MAC: {2}) has been Unclaimed".format(
-            self.device_type_text, self.device_name, self.device_mac)
+            self.device_text, self.device_name, self.device_mac)
         self.text.append(text_string)
 
     def _claimed(self):
@@ -239,7 +243,7 @@ class CommonEvent():
     10/08/2020 14:36:33 INFO: type: AP_CLAIMED
         '''
         text_string = "{0} \"{1}\" (MAC: {2}) has been Claimed".format(
-            self.device_type_text, self.device_name, self.device_mac)
+            self.device_text, self.device_name, self.device_mac)
         if self.site_name:
             text_string += "on site \"{0}\" ".format(self.site_name)
         self.text.append(text_string)
