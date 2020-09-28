@@ -14,6 +14,8 @@ class CommonEvent():
         self.device_name = ""
         self.device_mac = ""
         
+        self.audit_id = None
+
         self.text = []
         self.actions = []
         self.level = ""
