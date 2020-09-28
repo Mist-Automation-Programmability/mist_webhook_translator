@@ -31,7 +31,7 @@ class CommonEvent():
         if self.device_type in device_types:
             self.device_type_text = device_types[self.device_type]["text"]
         else:
-            self.device_type_short = "Device"
+            self.device_type_text = "Device"
 
         d_stop = datetime.now()
         d_start = d_stop - timedelta(days=1)
