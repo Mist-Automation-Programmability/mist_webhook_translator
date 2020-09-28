@@ -9,6 +9,9 @@ def alarm(self, mist_host, approved_admins, event):
     url = None
     actions = []
     message = ""
+    admin = ""
+    src_ip = ""
+    
 
     if "admin_name" in event:
         admin = event["admin_name"]
@@ -78,7 +81,7 @@ def alarm(self, mist_host, approved_admins, event):
             actions.append({"tag": "wxtag", "text":  "See Inventory", "url": url})
 
 
-    if admin.split(" ")[-1:][0] in approved_admins:
+    if admin and admin.split(" ")[-1:][0] in approved_admins:
         level = "info"
         # if event["type"] in self.message_levels["device-events"]["warning"]:
         #     slack_url = self.url_warning
