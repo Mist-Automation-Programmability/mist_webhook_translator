@@ -58,11 +58,11 @@ color_config = {
 #Only apply to device_events and device_updowns
 message_levels = {
     "debug": [
-        "CONFIG_CHANGED_BY_RRM",
+        "AP_CONFIG_CHANGED_BY_RRM",
         "1026",
-        "RECONFIGURED",
-        "RESTART_BY_USER",
-        "CONFIG_CHANGED_BY_USER",
+        "AP_RECONFIGURED",
+        "AP_RESTART_BY_USER",
+        "AP_CONFIG_CHANGED_BY_USER",
         "AP_ASSIGNED",
         "AP_UNASSIGNED",
         "GW_ASSIGNED",
@@ -75,8 +75,10 @@ message_levels = {
         "AP_DISCONNECTED",
         "AP_RESTARTED",
         "AP_CONFIGURED",
+        "GW_RECONFIGURED",
         "GW__CONFIGURED",
         "SW_RESTARTED",
+        "SW_RECONFIGURED",
         "SW_CONFIGURED",
         "SW_PORT_UP",
         "SW_PORT_DOWN"

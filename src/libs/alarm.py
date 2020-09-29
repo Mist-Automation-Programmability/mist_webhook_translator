@@ -11,7 +11,7 @@ def alarm(self, mist_host, approved_admins, event):
     message = ""
     admin = ""
     src_ip = ""
-    
+
 
     if "admin_name" in event:
         admin = event["admin_name"]
@@ -25,6 +25,8 @@ def alarm(self, mist_host, approved_admins, event):
         site_id = event["site_id"]
     # if "wxtunnel_id" in event:
     # if "wxrules_id" in event:
+    if "aps" in event:
+        
     if "wxtag_id" in event:
         if site_id:
             url = "https://%s/admin/?org_id=%s#!tags/detail/%s/%s" % (mist_host,

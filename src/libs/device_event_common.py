@@ -100,12 +100,12 @@ class CommonEvent():
                     url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/{2}/{3}/24h/{4}/{5}/{6}".format(
                         mist_host, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
                     self.actions.append(
-                        {"tag": "insights", "text": "{0} Insights".format(self.device_text.title()), "url": url_insights})
+                        {"tag": "insights", "text": "{0} Insights".format(self.device_text), "url": url_insights})
                 if self.device_type:
                     url_conf = "https://{0}/admin/?org_id={1}#!{2}/detail/{3}/{4}".format(
                         mist_host, self.org_id, self.device_type, self.device_id, self.site_id)
                     self.actions.append(
-                        {"tag": "insights", "text": "{0} Configuration".format(self.device_text.title()), "url": url_conf})
+                        {"tag": "insights", "text": "{0} Configuration".format(self.device_text), "url": url_conf})
 
     def _process(self):
         self.text.append("Device Name: %s" % (self.device_name))
