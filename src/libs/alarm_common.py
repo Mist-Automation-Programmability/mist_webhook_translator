@@ -82,7 +82,7 @@ class CommonAlarm():
         if device_type in self.event and len(self.event[device_type]) == 1:
             return [self.device_types[device_type], self.event[device_type][0]]
         else:
-            return None
+            return [None, None]
 
     def _actions(self, mist_host):
         if self.site_id:
