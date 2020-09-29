@@ -3,8 +3,8 @@ from .device_event_common import CommonEvent
 
 class GatewayEvent(CommonEvent):
 
-    def __init__(self, topic, mist_host, message_levels, event):
-        CommonEvent.__init__(self, topic, mist_host, message_levels, event)
+    def __init__(self, mist_host, message_levels, event):
+        CommonEvent.__init__(self, mist_host, message_levels, event)
 
 
 

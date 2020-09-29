@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta
 
-def device_updown(topic, mist_host, message_levels, event):
+def device_updown(topic, mist_host, updown_channels, event):
     org_id = None
     site_id = None
     ap = None
     event_type = None
     text = []
     actions = []
+    channel = None
     d_stop = datetime.now()
     d_start = d_stop - timedelta(days=1)
     t_stop= int(datetime.timestamp(d_stop))
@@ -48,14 +49,9 @@ def device_updown(topic, mist_host, message_levels, event):
     url_conf = "https://%s/admin/?org_id=%s#!ap/detail/%s/%s" %(mist_host,org_id, ap_id, site_id)
     actions.append({"tag": "insights", "text": "AP Configuration", "url": url_conf})
 
-    if event_type in message_levels["device-updowns"]["warning"]:
-        level = "warning"
-    elif event_type in message_levels["device-updowns"]["info"]:
-        level = "info"
-    elif event_type in message_levels["device-updowns"]["debug"]:
-        level = "debug"
-    else:
-        level = "unknown"
 
+    if event["type"] in updown_channels:
+        channel = updown_channels[event["type"]]
 
-    return [level, text, actions]
+    return [channel, text, actions]
+

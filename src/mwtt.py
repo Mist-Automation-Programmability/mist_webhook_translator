@@ -16,7 +16,9 @@ from config import mist_conf
 from config import slack_conf
 from config import msteams_conf
 from config import color_config
-from config import message_levels
+from config import event_channels
+from config import updown_channels
+from config import alarm_channels
 
 
 from libs.slack import Slack
@@ -75,13 +77,13 @@ def new_event(topic, event):
         color = None
 
     if topic == "audits":
-        level, text, actions = audit(topic, mist_host, approved_admins, event)
+        level, text, actions = audit(mist_host, approved_admins, event)
     elif topic == "device-events":
-        level, text, actions = device_event(topic, mist_host, message_levels, event)
+        level, text, actions = device_event(mist_host, event_channels, event)
     elif topic == "device-updowns":
-        level, text, actions = device_event(topic, mist_host, message_levels, event)
+        level, text, actions = device_event(mist_host, updown_channels, event)
     elif topic == "alarms":
-        level, text, actions = alarm(topic, mist_host, message_levels, event)
+        level, text, actions = alarm(mist_host, alarm_channels, event)
     else:
         text = []
         level = "unknown"

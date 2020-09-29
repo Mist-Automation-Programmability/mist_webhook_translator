@@ -21,24 +21,21 @@ mist_conf = {
 log_level = 6
 slack_conf = {
     "enabled": True,
+    "default_url": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX4",
     "url": {
         "debug": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX1",
         "info": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX2",
-        "warning": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX3",
-        "unknown": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX4",
-        "ap": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX4",
-        "sw": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX4",
-        "gw": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX4"
+        "warning": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX3"
     }
 }
 
 msteams_conf = {
     "enabled": True,
+    "default_url": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
     "url": {
         "warning": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
         "info": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
-        "debug": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
-        "unknown": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx"
+        "debug": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx"
     }
 }
 
@@ -55,40 +52,59 @@ color_config = {
     "client-sessions": "#884EA0",
 }
 
-#Only apply to device_events and device_updowns
-message_levels = {
-    "debug": [
-        "AP_CONFIG_CHANGED_BY_RRM",
-        "1026",
-        "AP_RECONFIGURED",
-        "AP_RESTART_BY_USER",
-        "AP_CONFIG_CHANGED_BY_USER",
-        "AP_ASSIGNED",
-        "AP_UNASSIGNED",
-        "GW_ASSIGNED",
-        "GW_UNASSIGNED",
-        "SW_ASSIGNED",
-        "SW_UNASSIGNED"
-    ],
-    "info": [
-        "AP_CONNECTED",
-        "AP_DISCONNECTED",
-        "AP_RESTARTED",
-        "AP_CONFIGURED",
-        "GW_RECONFIGURED",
-        "GW__CONFIGURED",
-        "SW_RESTARTED",
-        "SW_RECONFIGURED",
-        "SW_CONFIGURED",
-        "SW_PORT_UP",
-        "SW_PORT_DOWN"
-    ],
-    "warning": [
-        "DISCONNECTED_LONG",
-        "SW_CONNECTED",
-        "SW_DISCONNECTED",
-        "GW_CONNECTED",
-        "GW_DISCONNECTED",
-        "GW_RESTARTED"
-    ]
+# Only apply to device_events and device_updowns
+event_channels = {
+    "AP_CONFIG_CHANGED_BY_RRM": "debug",
+    "1026": "debug",
+    "AP_RECONFIGURED": "debug",
+    "AP_RESTART_BY_USER": "debug",
+    "AP_CONFIG_CHANGED_BY_USER": "debug",
+    "AP_ASSIGNED": "debug",
+    "AP_UNASSIGNED": "debug",
+    "AP_CONNECTED": "info",
+    "AP_DISCONNECTED": "info",
+    "AP_RESTARTED": "info",
+    "AP_CONFIGURED": "info",
+    "AP_DISCONNECTED_LONG": "warning",
+
+    "GW_ASSIGNED": "debug",
+    "GW_UNASSIGNED": "debug",
+    "GW_RECONFIGURED": "info",
+    "GW__CONFIGURED": "info",
+    "GW_CONNECTED": "warning",
+    "GW_DISCONNECTED": "warning",
+    "GW_RESTARTED": "warning",
+    "GW_DISCONNECTED_LONG": "warning",
+
+    "SW_ASSIGNED": "debug",
+    "SW_UNASSIGNED": "debug",
+    "SW_RESTARTED": "info",
+    "SW_RECONFIGURED": "info",
+    "SW_CONFIGURED": "info",
+    "SW_PORT_UP": "info",
+    "SW_PORT_DOWN": "info",
+    "SW_CONNECTED": "warning",
+    "SW_DISCONNECTED": "warning",
+    "SW_DISCONNECTED_LONG": "warning"
+}
+
+updown_channels = {
+    "AP_CONNECTED": "info",
+    "AP_DISCONNECTED": "info",
+    "AP_RESTARTED": "info",
+    "GW_CONNECTED": "info",
+    "GW_DISCONNECTED": "info",
+    "GW_RESTARTED": "info",
+    "SW_CONNECTED": "info",
+    "SW_DISCONNECTED": "info",
+    "SW_RESTARTED": "info"
+}
+
+alarm_channels = {
+    "device_down": "info",
+    "device_restarted": "info",
+    "gateway_down": "warning",
+    "gateway_restarted": "warning",
+    "switch_down": "warning",
+    "switch_restarted": "warning"
 }

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 class CommonEvent():
 
-    def __init__(self, topic, mist_host, message_levels, event):
+    def __init__(self, mist_host, event_channels, event):
         self.event = event
         self.org_id = None
 
@@ -18,7 +18,7 @@ class CommonEvent():
 
         self.text = []
         self.actions = []
-        self.level = ""
+        self.channel = None
         self.reason = None
 
         self.device_type = ""
@@ -35,23 +35,17 @@ class CommonEvent():
         self.t_stop = int(datetime.timestamp(d_stop))
         self.t_start = int(datetime.timestamp(d_start))
 
-        self._message_level(message_levels)
+        self._message_channel(event_channels)
         self._extract_fields()
         self._actions(mist_host)
         self._process()
 
     def get(self):
-        return [self.level, self.text, self.actions]
+        return [self.channel, self.text, self.actions]
 
-    def _message_level(self, message_levels):
-        if self.event["type"] in message_levels["warning"]:
-            self.level = "warning"
-        elif self.event["type"] in message_levels["info"]:
-            self.level = "info"
-        elif self.event["type"] in message_levels["debug"]:
-            self.level = "debug"
-        else:
-            self.level = "unknown"
+    def _message_channel(self, event_channels):
+        if self.event["type"] in event_channels:
+            self.channel = event_channels[self.event["type"]]
 
     def _extract_fields(self):
         if "org_id" in self.event:

@@ -8,7 +8,8 @@ class Slack:
     def __init__(self, config):
         if config:
             self.enabled = config["enabled"]
-            self.url = config["url"]            
+            self.url = config["url"]  
+            self.default_url = config["default_url"]          
         self.severity = 7
         self.color = {
             "green": "#36a64f",
@@ -47,7 +48,7 @@ class Slack:
                 "actions": actions
             }]
 
-    def send_manual_message(self, title, text=[], level='unknown', color="eee", actions=[]):
+    def send_manual_message(self, title, text=[], channel=None, color="eee", actions=[]):
         slack_text = ""
         for tpart in text:
             slack_text+="%s\r" %(tpart)
@@ -63,10 +64,10 @@ class Slack:
             "attachments": attachments
         }
 
-        if level in self.url:
-            slack_url = self.url[level]
+        if channel and channel in self.url:
+            slack_url = self.url[channel]
         else: 
-            slack_url = self.url["unknown"]
+            slack_url = self.default_url
 
         data = json.dumps(body)
         data = data.encode("ascii")

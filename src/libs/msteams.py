@@ -9,6 +9,7 @@ class Teams:
         if config:
             self.enabled = config["enabled"]
             self.url = config["url"]
+            self.default_url = config["default_url"]
         self.severity = 7
         self.color = {
             "green": "#36a64f",
@@ -35,7 +36,7 @@ class Teams:
                 "targets": [{"os": "default", "uri": url}]
             }   
 
-    def send_manual_message(self, title, subtitle, text, level, color, actions=[]):
+    def send_manual_message(self, title, subtitle, text=[], channel=None, color="eee", actions=[]):
         facts = []
         for tpart in text:
             name = tpart.split(":")[0]
@@ -62,10 +63,10 @@ class Teams:
             
         }
 
-        if level in self.url:
-            msteam_url = self.url[level]
+        if channel and channel in self.url:
+            msteam_url = self.url[channel]
         else:
-            msteam_url = self.url["unknown"]
+            msteam_url = self.default_url
         
         data = json.dumps(body)
         data = data.encode("ascii")
