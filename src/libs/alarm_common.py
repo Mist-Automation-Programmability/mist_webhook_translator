@@ -80,7 +80,7 @@ class CommonAlarm():
 
     def _lookup_device_type(self, device_type):
         if device_type in self.event and len(self.event[device_type]) == 1:
-            return self.device_types[device_type], self.event[device_type][0]
+            return [self.device_types[device_type], self.event[device_type][0]]
         else:
             return None
 
