@@ -11,8 +11,12 @@ class SwitchEvent(CommonEvent):
     def _process(self):
         if self.event_type in ["SW_PORT_DOWN", "SW_PORT_UP"]:
             self._sw_port()
-        elif self.event_type in ["SW_CONFIGURED", "SW_RECONFIGURED", "SW_RESTARTED", "SW_RESTART_BY_USER", "SW_CONNECTED", "SW_DISCONNECTED", "SW_DISCONNECTED_LONG"]:
+        elif self.event_type == "SW_CONFIG_CHANGED_BY_USER":
+            self._config_changed_by_user()
+        elif self.event_type in ["SW_CONFIGURED", "SW_CONFIG_CHANGED_BY_USER", "SW_RECONFIGURED", "SW_RESTARTED", "SW_RESTART_BY_USER", "SW_CONNECTED", "SW_DISCONNECTED", "SW_DISCONNECTED_LONG"]:
             self._common()
+        elif self.event_type == "SW_DYNAMIC_PORT_ASSIGNED":
+            self._sw_dynamic_port()
         elif self.event_type == "SW_ASSIGNED":
             self._assigned()
         elif self.event_type == "SW_UNASSIGNED":
@@ -56,4 +60,21 @@ class SwitchEvent(CommonEvent):
         text_string += "is {0}.".format(self.event_type.replace("SW_PORT_", "").title())
         self.text.append(text_string)
         
-  
+    def _sw_dynamic_port(self):        
+        '''
+    23/10/2020 08:02:26 INFO: device-events
+    23/10/2020 08:02:26 INFO: device_name: sw-jn-01
+    23/10/2020 08:02:26 INFO: device_type: switch
+    23/10/2020 08:02:26 INFO: mac: 2c21311c37b0
+    23/10/2020 08:02:26 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+    23/10/2020 08:02:26 INFO: site_id: f5fcbee5-fbca-45b3-8bf1-1619ede87879
+    23/10/2020 08:02:26 INFO: site_name: lab
+    23/10/2020 08:02:26 INFO: text: Interface ge-0/0/0 is assigned to port profile: lab_reg
+    23/10/2020 08:02:26 INFO: timestamp: 1603439910
+    23/10/2020 08:02:26 INFO: type: SW_DYNAMIC_PORT_ASSIGNED
+        '''
+        text_string = "Dynamic Port Assignment on switch \"{0}\" (MAC: {1}) ".format(self.device_name, self.device_mac)        
+        if self.site_name:
+            text_string += "on site \"{0}\" ".format(self.site_name)
+        text_string += ". {0}".format(self.event["text"])
+        self.text.append(text_string)

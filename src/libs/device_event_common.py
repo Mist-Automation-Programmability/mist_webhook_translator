@@ -209,6 +209,25 @@ class CommonEvent():
         text_string += "is {0}.".format(event_type)
         self.text.append(text_string)
 
+    def _config_changed_by_user(self):
+        '''
+    19/05/2020 07:16:11 INFO: device-events
+    19/05/2020 07:16:11 INFO: ap: d420b0002e95
+    19/05/2020 07:16:11 INFO: device_name: ap-41.off.lab
+    19/05/2020 07:16:11 INFO: audit_id: b2b06f12-02f1-48d7-9682-f82766c4002c
+    19/05/2020 07:16:11 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+    19/05/2020 07:16:11 INFO: site_id: fa018c13-008b-46ae-aa18-1eeb894a96c4
+    19/05/2020 07:16:11 INFO: site_name: lab
+    19/05/2020 07:16:11 INFO: timestamp: 1589872563
+    19/05/2020 07:16:11 INFO: type: AP_CONFIG_CHANGED_BY_USER
+        '''
+        text_string = "Configuration for {0} \"{1}\" (MAC: {2}) ".format(
+            self.device_text, self.device_name, self.device_mac)
+        if self.site_name:
+            text_string += "on site \"%s\" " % (self.site_name)
+        text_string += "is changed by User."
+        self.text.append(text_string)
+
     def _unclaimed(self):
         '''
     10/08/2020 07:56:43 INFO: device-events

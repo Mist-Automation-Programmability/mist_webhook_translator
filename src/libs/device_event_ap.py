@@ -12,7 +12,7 @@ class ApEvent(CommonEvent):
         if self.event_type == "AP_CONFIG_CHANGED_BY_RRM":
             self._ap_config_changed_by_rrm()
         elif self.event_type == "AP_CONFIG_CHANGED_BY_USER":
-            self._ap_config_changed_by_user()
+            self._config_changed_by_user()
         elif self.event_type == "1026":
             self._1026()
         elif self.event_type in ["AP_CONFIGURED", "AP_RECONFIGURED", "AP_RESTARTED", "AP_RESTART_BY_USER", "AP_CONNECTED", "AP_DISCONNECTED", "AP_DISCONNECTED_LONG"]:
@@ -55,26 +55,6 @@ class ApEvent(CommonEvent):
         if self.site_name:
             text_string += "on site \"%s\" " % (self.site_name)
         text_string += "is changed by RRM."
-        self.text.append(text_string)
-        
-
-    def _ap_config_changed_by_user(self):
-        '''
-    19/05/2020 07:16:11 INFO: device-events
-    19/05/2020 07:16:11 INFO: ap: d420b0002e95
-    19/05/2020 07:16:11 INFO: device_name: ap-41.off.lab
-    19/05/2020 07:16:11 INFO: audit_id: b2b06f12-02f1-48d7-9682-f82766c4002c
-    19/05/2020 07:16:11 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
-    19/05/2020 07:16:11 INFO: site_id: fa018c13-008b-46ae-aa18-1eeb894a96c4
-    19/05/2020 07:16:11 INFO: site_name: lab
-    19/05/2020 07:16:11 INFO: timestamp: 1589872563
-    19/05/2020 07:16:11 INFO: type: AP_CONFIG_CHANGED_BY_USER
-        '''
-        text_string = "Configuration for AP \"%s\" (MAC: %s) " % (
-            self.device_name, self.device_mac)
-        if self.site_name:
-            text_string += "on site \"%s\" " % (self.site_name)
-        text_string += "is changed by User."
         self.text.append(text_string)
         
 

@@ -11,6 +11,8 @@ class GatewayEvent(CommonEvent):
     def _process(self):
         if self.event_type in ["GW_PORT_DOWN", "GW_PORT_UP"]:
             self._gw_port()
+        elif self.event_type == "GW_CONFIG_CHANGED_BY_USER":
+            self._config_changed_by_user()
         elif self.event_type in ["GW_CONFIGURED", "GW_RECONFIGURED", "GW_RESTARTED", "GW_RESTART_BY_USER", "GW_CONNECTED", "GW_DISCONNECTED", "GW_DISCONNECTED_LONG"]:
             self._common()
         elif self.event_type == "GW_ASSIGNED":
