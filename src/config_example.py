@@ -80,6 +80,8 @@ event_channels = {
     "GW_DISCONNECTED": "warning",
     "GW_RESTARTED": "warning",
     "GW_DISCONNECTED_LONG": "warning",
+    "GW_OSPF_UP_NEIGHBOR_UP", "info",
+    "GW_OSPF_NEIGHBOR_DOWN": "info",
 
     "SW_UNCLAIMED": "warning",
     "SW_CLAIMED": "warning",

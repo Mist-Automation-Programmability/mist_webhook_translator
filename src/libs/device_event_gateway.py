@@ -11,6 +11,8 @@ class GatewayEvent(CommonEvent):
     def _process(self):
         if self.event_type in ["GW_PORT_DOWN", "GW_PORT_UP"]:
             self._gw_port()
+        if self.event_type in ["GW_OSPF_UP_NEIGHBOR_DOWN", "GW_OSPF_UP_NEIGHBOR_UP"]:
+            self._gw_ospf()
         elif self.event_type == "GW_CONFIG_CHANGED_BY_USER":
             self._config_changed_by_user()
         elif self.event_type in ["GW_CONFIGURED", "GW_RECONFIGURED", "GW_RESTARTED", "GW_RESTART_BY_USER", "GW_CONNECTED", "GW_DISCONNECTED", "GW_DISCONNECTED_LONG"]:
@@ -50,12 +52,32 @@ class GatewayEvent(CommonEvent):
     28/09/2020 06:35:31 INFO: type: GW_PORT_DOWN
         '''
         port = "unknown"
-        for tpart in self.text:
+        for tpart in self.event["text"].split(","):
             if "ifName" in tpart:
                 port = tpart.replace("ifName","").replace(" ","")
         text_string = "Port \"{0}\" on gateway \"{1}\" (MAC: {2}) ".format(port, self.device_name, self.device_mac)
         if self.site_name:
             text_string += "on site \"{0}\" ".format(self.site_name)
-        text_string += "is {0}.".format(self.event_type.replace("GW_PORT", "").title())
+        text_string += "is {0}.".format(self.event_type.replace("GW_PORT_", "").title())
+        self.text.append(text_string)
+       
+    def _gw_ospf(self):        
+        '''
+    27/10/2020 03:23:33 INFO: device-events
+    27/10/2020 03:23:33 INFO: device_name: ro-jn-01
+    27/10/2020 03:23:33 INFO: device_type: gateway
+    27/10/2020 03:23:33 INFO: mac: 9ccc83b1f480
+    27/10/2020 03:23:33 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+    27/10/2020 03:23:33 INFO: site_id: f5fcbee5-fbca-45b3-8bf1-1619ede87879
+    27/10/2020 03:23:33 INFO: site_name: lab
+    27/10/2020 03:23:33 INFO: text: RPD_OSPF_NBRUP: OSPF neighbor 10.3.100.10 (realm ospf-v2 irb.100 area 10.3.0.0) state changed from Loading to Full due to LoadDone (event reason: OSPF loading completed)
+    27/10/2020 03:23:33 INFO: timestamp: 1603768790
+    27/10/2020 03:23:33 INFO: type: GW_OSPF_UP_NEIGHBOR_UP
+        '''
+        text_string = "OSPF Neighbor on gateway \"{0}\" (MAC: {1}) ".format(self.device_name, self.device_mac)
+        if self.site_name:
+            text_string += "on site \"{0}\" ".format(self.site_name)
+        text_string += "is {0}.".format(self.event_type.replace("GW_OSPF_UP_NEIGHBOR_", "").title())
+        text_string += self.event["text"].split(":")[1]
         self.text.append(text_string)
        
