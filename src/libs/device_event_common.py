@@ -221,11 +221,11 @@ class CommonEvent():
     19/05/2020 07:16:11 INFO: timestamp: 1589872563
     19/05/2020 07:16:11 INFO: type: AP_CONFIG_CHANGED_BY_USER
         '''
-        text_string = "Configuration for {0} \"{1}\" (MAC: {2}) ".format(
+        text_string = "Configuration for {0} \"{1}\" (MAC: {2})".format(
             self.device_text, self.device_name, self.device_mac)
         if self.site_name:
-            text_string += "on site \"%s\" " % (self.site_name)
-        text_string += "is changed by User."
+            text_string += " on site \"%s\"" % (self.site_name)
+        text_string += " is changed by User."
         self.text.append(text_string)
 
     def _unclaimed(self):
@@ -257,5 +257,5 @@ class CommonEvent():
         text_string = "{0} \"{1}\" (MAC: {2}) has been Claimed".format(
             self.device_text, self.device_name, self.device_mac)
         if self.site_name:
-            text_string += "on site \"{0}\" ".format(self.site_name)
+            text_string += " on site \"{0}\" ".format(self.site_name)
         self.text.append(text_string)
