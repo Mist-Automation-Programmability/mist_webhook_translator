@@ -1,7 +1,7 @@
 # Mist Want To Talk
 MWTT is a small python app to publish Mist Webhook messages to Slack or MsTeams channels.
 
-It is composed of lightweight python web server ([Flask](https://github.com/pallets/flask)) and python code to process the webhook information and change the switchport configuration.
+It is composed of lightweight python web server ([Flask](https://github.com/pallets/flask)) and python code to process the webhook information and send it the Slack/MsTeams channels.
 
 This script is available as is and can be run on any server with Python3. 
 
