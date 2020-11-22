@@ -17,6 +17,8 @@ class GatewayEvent(CommonEvent):
             self._config_changed_by_user()
         elif self.event_type in ["GW_CONFIGURED", "GW_RECONFIGURED", "GW_RESTARTED", "GW_RESTART_BY_USER", "GW_CONNECTED", "GW_DISCONNECTED", "GW_DISCONNECTED_LONG"]:
             self._common()
+        elif self.event_type == "GW_CONFIG_FAILED":
+            self._gw_config_failed()
         elif self.event_type == "GW_ASSIGNED":
             self._assigned()
         elif self.event_type == "GW_UNASSIGNED":
@@ -79,5 +81,24 @@ class GatewayEvent(CommonEvent):
             text_string += "on site \"{0}\" ".format(self.site_name)
         text_string += "is {0}.".format(self.event_type.replace("GW_OSPF_UP_NEIGHBOR_", "").title())
         text_string += self.event["text"].split(":")[1]
+        self.text.append(text_string)
+       
+    def _gw_config_failed(self):        
+        '''
+21/11/2020 01:44:44 INFO: device-events
+21/11/2020 01:44:44 INFO: device_name: ro-jn-01
+21/11/2020 01:44:44 INFO: device_type: gateway
+21/11/2020 01:44:44 INFO: mac: 9ccc83b1f480
+21/11/2020 01:44:44 INFO: org_id: 203d3d02-dbc0-4c1b-9f41-76896a3330f4
+21/11/2020 01:44:44 INFO: site_id: f5fcbee5-fbca-45b3-8bf1-1619ede87879
+21/11/2020 01:44:44 INFO: site_name: lab
+21/11/2020 01:44:44 INFO: text: error commit-confirm: Error invoking '<commit-configuration><log>version=1605036925</log><confirmed/><confirm-timeout>10</confirm-timeout></commit-configuration>': Netconf-ExecTimeout <nil>
+21/11/2020 01:44:44 INFO: timestamp: 1605923075
+21/11/2020 01:44:44 INFO: type: GW_CONFIG_FAILED
+        '''
+        text_string = "Config failed on gateway \"{0}\" (MAC: {1}) ".format(self.device_name, self.device_mac)
+        if self.site_name:
+            text_string += "on site \"{0}\" ".format(self.site_name)
+        text_string += "with error \"{0}\".".format(self.event_text.split(":")[1])        
         self.text.append(text_string)
        
