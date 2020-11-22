@@ -101,8 +101,8 @@ event_channels = {
     "SW_PORT_DOWN": "debug",
     "SW_CONNECTED": "info",
     "SW_DISCONNECTED": "info",
-    "SW_DISCONNECTED_LONG": "warning"
-    "SW_RESTARTED": "info",
+    "SW_DISCONNECTED_LONG": "warning",
+    "SW_RESTARTED": "info"
 }
 
 updown_channels = {
