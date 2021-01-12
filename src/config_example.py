@@ -19,6 +19,8 @@ mist_conf = {
     "approved_admins": ["user@domain.com"]
 }
 log_level = 6
+# You can create more slack / msteams channel urls depending on your needs, you just need to be sure each
+# channel has a unique name
 slack_conf = {
     "enabled": True,
     "default_url": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX4",
