@@ -24,7 +24,7 @@ This will tell Mist Cloud to send events (like AP Connected/Disconnected) to the
    `
 
 
-# features ():
+# features:
 * Send the messages to different slack channels depending on the severity level (can be configured):
 <img src="_readme_img/slack.png" width="50%">
 
@@ -33,9 +33,10 @@ This will tell Mist Cloud to send events (like AP Connected/Disconnected) to the
 
 # How to use it
 ## Docker Image
-You can easily deploy this application with [Docker](https://www.docker.com/). The image is publicly available on Docker Hub at https://hub.docker.com/r/tmunzer/mwtt/.
+You can easily deploy this application as a [Docker](https://www.docker.com/) image. The image is publicly available on Docker Hub at https://hub.docker.com/r/tmunzer/mwtt/.
 In this case, you can choose to manually deploy the image and create the container, or you can use the automation script (for Linux).
 
+If you want to manually deploy the Docker image, the Mwtt container will listen for HTTP messages on port `TCP51361`
 ### Automation Script
 The Automation script will allow you to easily 
 * Create the application permanent folder and generate a config file
@@ -59,7 +60,7 @@ Please note, in this case, you will have to manually generate all the required c
 ### MWTT Configuration
 Before starting the MWTT application, you will have to configure it. To do so, edit the file `config.py` located in the folder permananent_folder/mwtt created by the deployment script.
 
-The file `config.py`already contains the configuration structure with example values. 
+The file `config.py` already contains the configuration structure with example values. 
 
 If you want to manually create this file, you can check the `src/config_example.py` file to see the required variables.
 
