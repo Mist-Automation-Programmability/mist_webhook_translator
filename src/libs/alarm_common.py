@@ -85,14 +85,15 @@ class CommonAlarm():
             return [None, None]
 
     def _actions(self, mist_host):
+        host = mist_host.replace("api", "manage")
         if self.site_id:
             site_url = "https://{0}/admin/?org_id={1}#!alerts/site/{2}/customDate/{3}/{3}/true/{4}/{5}/{6}/{7}/{2}".format(
-                mist_host, self.org_id, self.site_id, self.timestamp, self.group, self._alarm_level("critical"), self._alarm_level("warn"), self._alarm_level("info"))
+                host, self.org_id, self.site_id, self.timestamp, self.group, self._alarm_level("critical"), self._alarm_level("warn"), self._alarm_level("info"))
             self.actions.append(
                 {"tag": "alarm", "text": "See Alarm", "url": site_url})
         else:
             org_url = "https://{0}/admin/?org_id={1}#!alerts/org/{1}/customDate/{2}/{2}/true/{3}/{4}/{5}/{6}/{1}".format(
-                mist_host, self.org_id, self.timestamp, self.group, self._alarm_level("critical"), self._alarm_level("warn"), self._alarm_level("info"))
+                host, self.org_id, self.timestamp, self.group, self._alarm_level("critical"), self._alarm_level("warn"), self._alarm_level("info"))
             self.actions.append(
                 {"tag": "alarm", "text": "See Alarm", "url": org_url})
 
@@ -101,11 +102,11 @@ class CommonAlarm():
             if device_info:
                 if device_info["insight"] and device_id:
                     url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/{2}/{3}/24h/{4}/{5}/{6}".format(
-                        mist_host, self.org_id, device_info["insight"], device_id, self.t_start, self.t_stop, self.site_id)
+                        host, self.org_id, device_info["insight"], device_id, self.t_start, self.t_stop, self.site_id)
                     self.actions.append(
                         {"tag": "insights", "text": "{0} Insights".format(device_info["text"]), "url": url_insights})
                 if device_info["type"] and device_id:
                     url_conf = "https://{0}/admin/?org_id={1}#!{2}/detail/{3}/{4}".format(
-                        mist_host, self.org_id, device_info["type"], device_id, self.site_id)
+                        host, self.org_id, device_info["type"], device_id, self.site_id)
                     self.actions.append(
                         {"tag": "insights", "text": "{0} Configuration".format(device_info["text"]), "url": url_conf})

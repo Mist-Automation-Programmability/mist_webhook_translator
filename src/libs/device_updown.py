@@ -44,9 +44,11 @@ def device_updown(topic, mist_host, updown_channels, event):
         text.append("Event: %s" %(event_type))
         text.append("Reason: %s" %(reason))
 
-    url_insights= "https://%s/admin/?org_id=%s#!dashboard/insights/device/%s/24h/%s/%s/%s" % (mist_host,org_id, ap_id, t_start, t_stop, site_id)
+
+    host = mist_host.replace("api", "manage")
+    url_insights= "https://%s/admin/?org_id=%s#!dashboard/insights/device/%s/24h/%s/%s/%s" % (host,org_id, ap_id, t_start, t_stop, site_id)
     actions.append({"tag": "insights", "text": "AP Insights", "url": url_insights})
-    url_conf = "https://%s/admin/?org_id=%s#!ap/detail/%s/%s" %(mist_host,org_id, ap_id, site_id)
+    url_conf = "https://%s/admin/?org_id=%s#!ap/detail/%s/%s" %(host,org_id, ap_id, site_id)
     actions.append({"tag": "insights", "text": "AP Configuration", "url": url_conf})
 
 

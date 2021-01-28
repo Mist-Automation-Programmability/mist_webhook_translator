@@ -85,19 +85,20 @@ class CommonEvent():
                 self.text.append("Check the audit logs for more details.")
 
             if "audit_id" in self.event:
+                host = mist_host.replace("api", "manage")
                 url_audit = "https://{0}/admin/?org_id={1}#!auditLogs".format(
-                    mist_host, self.org_id)
+                    host, self.org_id)
                 self.actions.append(
                     {"tag": "audit", "text": "Audit Logs", "url": url_audit})
             if not self.event["type"].replace(self.device_type, "") == "UNASSIGNED":
                 if self.device_insight:
                     url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/{2}/{3}/24h/{4}/{5}/{6}".format(
-                        mist_host, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
+                        host, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
                     self.actions.append(
                         {"tag": "insights", "text": "{0} Insights".format(self.device_text), "url": url_insights})
                 if self.device_type:
                     url_conf = "https://{0}/admin/?org_id={1}#!{2}/detail/{3}/{4}".format(
-                        mist_host, self.org_id, self.device_type, self.device_id, self.site_id)
+                        host, self.org_id, self.device_type, self.device_id, self.site_id)
                     self.actions.append(
                         {"tag": "insights", "text": "{0} Configuration".format(self.device_text), "url": url_conf})
 
