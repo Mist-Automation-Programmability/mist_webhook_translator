@@ -93,16 +93,28 @@ event_channels = {
     "SW_ASSIGNED": "info",
     "SW_UNASSIGNED": "info",
     "SW_CONFIG_CHANGED_BY_USER": "info",
-    "SW_DYNAMIC_PORT_ASSIGNED": "debug",
+    "SW_DYNAMIC_PORT_ASSIGNED": "info",
     "SW_CONFIGURED": "debug",
     "SW_RECONFIGURED": "debug",
     "SW_CONFIG_FAILED": "warning",
+    "SW_ZTP_FINISHED": "info",
     "SW_PORT_UP": "debug",
     "SW_PORT_DOWN": "debug",
     "SW_CONNECTED": "info",
     "SW_DISCONNECTED": "info",
-    "SW_DISCONNECTED_LONG": "warning",
-    "SW_RESTARTED": "info"
+    "SW_RESTARTED": "info",
+    'SW_GET_SUPPORT_FILES': "info",
+    'SW_HANDSHAKE_ERROR': "warning",
+    'SW_PORT_STORM_CONTROL': "warning",
+    'SW_REASSIGNED': "debug",
+    'SW_REJECTED': "warning",
+    'SW_RESTART_BY_USER': "info",
+    'SW_STP_TOPO_CHANGED': "info",
+    'SW_VC_BACKUP_ELECTED': "warning",
+    'SW_VC_MASTER_CHANGED': "warning",
+    'SW_VC_MEMBER_ADDED': "info",
+    'SW_VC_MEMBER_DELETED': "warning"
+
 }
 
 updown_channels = {
