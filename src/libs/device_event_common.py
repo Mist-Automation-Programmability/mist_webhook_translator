@@ -5,6 +5,7 @@ class CommonEvent():
 
     def __init__(self, mist_host, event_channels, event):
         self.event = event
+        self.mist_dashboard = mist_host.replace("api", "manage")
         self.org_id = None
 
         self.site_id = None
@@ -27,8 +28,8 @@ class CommonEvent():
         self.device_insight = ""
 
         self.device_types = {"ap": {"short": "AP_", "text": "AP", "insight": "device"},
-                        "switch": {"short": "SW_", "text": "Switch", "insight": "juniperSwitch"},
-                        "gateway": {"short": "GW_", "text": "Gateway", "insight": "juniperGateway"}}
+                             "switch": {"short": "SW_", "text": "Switch", "insight": "juniperSwitch"},
+                             "gateway": {"short": "GW_", "text": "Gateway", "insight": "juniperGateway"}}
 
         d_stop = datetime.now()
         d_start = d_stop - timedelta(days=1)
@@ -37,7 +38,7 @@ class CommonEvent():
 
         self._message_channel(event_channels)
         self._extract_fields()
-        self._actions(mist_host)
+        self._actions()
         self._process()
 
     def get(self):
@@ -79,26 +80,25 @@ class CommonEvent():
         if "text" in self.event:
             self.event_text = self.event["text"]
 
-    def _actions(self, mist_host):
+    def _actions(self):
         if self.device_type:
             if self.audit_id:
                 self.text.append("Check the audit logs for more details.")
 
             if "audit_id" in self.event:
-                host = mist_host.replace("api", "manage")
                 url_audit = "https://{0}/admin/?org_id={1}#!auditLogs".format(
-                    host, self.org_id)
+                    self.mist_dashboard, self.org_id)
                 self.actions.append(
                     {"tag": "audit", "text": "Audit Logs", "url": url_audit})
             if not self.event["type"].replace(self.device_type, "") == "UNASSIGNED":
                 if self.device_insight:
                     url_insights = "https://{0}/admin/?org_id={1}#!dashboard/insights/{2}/{3}/24h/{4}/{5}/{6}".format(
-                        host, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
+                        self.mist_dashboard, self.org_id, self.device_insight, self.device_id, self.t_start, self.t_stop, self.site_id)
                     self.actions.append(
                         {"tag": "insights", "text": "{0} Insights".format(self.device_text), "url": url_insights})
                 if self.device_type:
                     url_conf = "https://{0}/admin/?org_id={1}#!{2}/detail/{3}/{4}".format(
-                        host, self.org_id, self.device_type, self.device_id, self.site_id)
+                        self.mist_dashboard, self.org_id, self.device_type, self.device_id, self.site_id)
                     self.actions.append(
                         {"tag": "insights", "text": "{0} Configuration".format(self.device_text), "url": url_conf})
 
@@ -206,7 +206,8 @@ class CommonEvent():
         event_type = self.event_type
         for device_type in self.device_types:
             if self.event_type.startswith(self.device_types[device_type]["short"]):
-                event_type = self.event_type.replace("{0}".format(self.device_types[device_type]["short"]), "").title()
+                event_type = self.event_type.replace("{0}".format(
+                    self.device_types[device_type]["short"]), "").title()
         text_string += "is {0}.".format(event_type)
         self.text.append(text_string)
 
