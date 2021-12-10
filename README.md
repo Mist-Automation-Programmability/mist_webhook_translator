@@ -26,10 +26,10 @@ This will tell Mist Cloud to send events (like AP Connected/Disconnected) to the
 
 # features:
 * Send the messages to different slack channels depending on the severity level (can be configured):
-<img src="_readme_img/slack.png" width="50%">
+<img src="https://github.com/tmunzer/mwtt/raw/main/._readme/img/slack.png" width="50%">
 
 * Send the messages to different MS Teams channels depending on the severity level (can be configured):
-<img src="_readme_img/msteams.png" width="50%">
+<img src="https://github.com/tmunzer/mwtt/raw/main/._readme/img/msteams.png" width="50%">
 
 # How to use it
 ## Docker Image
