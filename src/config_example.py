@@ -27,7 +27,8 @@ slack_conf = {
     "url": {
         "debug": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX1",
         "info": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX2",
-        "warning": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX3"
+        "warning": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX3",
+        "critical": "https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX3",
     }
 }
 
@@ -35,9 +36,10 @@ msteams_conf = {
     "enabled": True,
     "default_url": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
     "url": {
-        "warning": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
+        "debug": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
         "info": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
-        "debug": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx"
+        "warning": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx",
+        "critical": "https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx"
     }
 }
 
@@ -89,6 +91,11 @@ event_channels = {
     "GW_DISCONNECTED_LONG": "warning",
     "GW_OSPF_UP_NEIGHBOR_UP": "debug",
     "GW_OSPF_NEIGHBOR_DOWN": "debug",
+    "GW_VPN_PATH_DOWN": "debug",
+    "GW_VPN_PATH_UP": "debug",
+    "GW_CERT_REGENERATED": "debug",
+    "GW_DHCP_RESOLVED": "debug",
+    "GW_ALARM": "warning",
 
     "SW_UNCLAIMED": "warning",
     "SW_CLAIMED": "warning",
@@ -115,7 +122,8 @@ event_channels = {
     'SW_VC_BACKUP_ELECTED': "warning",
     'SW_VC_MASTER_CHANGED': "warning",
     'SW_VC_MEMBER_ADDED': "info",
-    'SW_VC_MEMBER_DELETED': "warning"
+    'SW_VC_MEMBER_DELETED': "warning",
+    'SW_SYSTEM_SERVICE_RESTART': "warning"
 
 }
 
@@ -132,10 +140,69 @@ updown_channels = {
 }
 
 alarm_channels = {
-    "device_down": "info",
+    # infrastructure
+    "device_down": "warning",
     "device_restarted": "info",
-    "gateway_down": "warning",
-    "gateway_restarted": "warning",
     "switch_down": "warning",
-    "switch_restarted": "warning"
+    "switch_restarted": "info",
+    "gateway_down": "warning",
+    "device_reconnected": "info",
+    "switch_reconnected": "info",
+    "gateway_reconnected": "info",
+    "vpn_peer_down": "warning",
+    "vc_master_changed": "critical",
+    "vc_backup_failed": "critical",
+    "vc_member_added": "info",
+    "vc_member_deleted": "critical",
+    "sw_alarm_chassis_poe": "warning",
+    "sw_alarm_chassis_pem": "warning",
+    "sw_alarm_chassis_psu": "warning",
+    "sw_alarm_chassis_partition": "warning",
+    "sw_dhcp_pool_exhausted": "warning",
+    "gw_dhcp_pool_exhausted": "warning",
+    "sw_bgp_neighbor_state_changed": "info",
+    "sw_bad_optics": "warning",
+    "sw_bpdu_error": "warning",
+    # security
+    "secpolicy_violation": "warning",
+    "bssid_spoofing": "info",
+    "honeypot_ssid": "info",
+    "adhoc_network": "warning",
+    "rogue_ap": "critical",
+    "rogue_client": "critical",
+    "watched_station": "warning",
+    "eap_handshake_flood": "info",
+    "air_magnet_scan": "info",
+    "excessive_eapol_start": "warning",
+    "eapol_logoff_attack": "warning",
+    "eap_dictionary_attack": "warning",
+    "disassociation_flood": "warning",
+    "beacon_flood": "warning",
+    "essid_jack": "warning",
+    "krack_attack": "warning",
+    "vendor_ie_missing": "warning",
+    "tkip_icv_attack": "warning",
+    "repeated_auth_failures": "info",
+    "eap_failure_injection": "warning",
+    "eap_spoofed_success": "warning",
+    "out_of_sequence": "warning",
+    "zero_ssid_association": "warning",
+    "monkey_jack": "warning",
+    "excessive_client": "warning",
+    "ssid_injection": "warning",
+    # marvis
+    "missing_vlan": "critical",
+    "bad_cable": "critical",
+    "port_flap": "warning",
+    "gw_bad_cable": "critical",
+    "authentication_failure": "critical",
+    "dhcp_failure": "critical",
+    "arp_failure": "critical",
+    "dns_failure": "critical",
+    "negotiation_mismatch": "critical",
+    "gw_negotiation_mismatch": "critical",
+    "ap_offline": "warning",
+    "non_compliant": "warning",
+    "ap_bad_cable": "critical",
+    "health_check_failed": "warning",
 }
