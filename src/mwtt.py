@@ -54,12 +54,12 @@ def _get_time(event):
         dt = datetime.fromtimestamp(event["timestamp"])
     else:
         dt = datetime.now()
-    return f"{0} UTC".format(dt)
+    return f"{dt} UTC"
 
 
 def new_event(topic, event):
     """Process new event"""
-    console.info(f"{0}".format(topic))
+    console.info(f"{topic}")
 
     message = []
     for key in event:
@@ -94,9 +94,6 @@ def new_event(topic, event):
     if msteams_conf["enabled"]:
         TEAMS.send_manual_message(
             topic, data["title"], data["text"], data["info"], data["actions"], data["channel"])
-    print(event)
-    print(topic)
-    print(message)
     print("------")
 
 ###########################
