@@ -7,7 +7,7 @@ class GatewayEvent(CommonEvent):
 
 
 
-    def process(self):
+    def _process(self):
         if self.event_type in ["GW_CLAIMED", "GW_UNCLAIMED"]:
             self._claimed()
         elif self.event_type == "GW_ASSIGNED":
