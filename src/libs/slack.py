@@ -38,14 +38,15 @@ class Slack:
 
     def _generate_info(self, info):
         if info:
-            slack_info = {
-                "type": "context",
-                "elements": []
-            }
+            slack_info = []
+
             for elem in info:
-                slack_info["elements"].append({
-                    "type": "mrkdwn",
-                    "text": elem
+                slack_info.append({
+                    "type": "context",
+                    "elements":[ {
+                        "type": "mrkdwn",
+                        "text": elem
+                    }]
                 })
         else:
             slack_info = None
@@ -87,10 +88,10 @@ class Slack:
             ]
         }
         if slack_info:
-            body["blocks"].append(slack_info)
+            for tmp in slack_info:
+                body["blocks"].append(tmp)
         if slack_button:
             body["blocks"].append(slack_button)
-                
 
         if channel and channel in self.url:
             slack_url = self.url[channel]
