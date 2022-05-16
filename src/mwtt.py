@@ -46,7 +46,6 @@ try:
 except:
     pass
 
-
 #######################################
 #  FUNCTIONS
 
@@ -106,7 +105,7 @@ def new_event(topic, event):
 
 def load_conf(value):
     """Process config"""
-    print(f"Loading {0} ".format(value).ljust(79, "."), end="", flush=True)
+    print(f"Loading {value} ".ljust(79, "."), end="", flush=True)
     if value in mist_conf:
         print("\033[92m\u2714\033[0m")
         return mist_conf[value]
@@ -117,14 +116,13 @@ def load_conf(value):
 
 def display_conf():
     """Display config"""
-    print(f"Mist Hist: {0}".format(MIST_HOST))
-    print(f"API Token: {0}........{1}".format(
-        APITOKEN[:6], APITOKEN[len(APITOKEN)-6:]))
-    print(f"Webhook Secret: {0}".format(MIST_SECRET))
-    print(f"MWTT URI: {0}".format(SERVER_URI))
-    print(f"Ignored Sites: {0}".format(SITE_ID_IGNORED))
-    print(f"Approved Admins: {0}".format(APPROVED_ADMINS))
-    print(f"Debug Mode: {0}".format(DEBUG))
+    print(f"Mist Hist       : {MIST_HOST}")
+    print(f"API Token       : {APITOKEN[:6]}........{APITOKEN[len(APITOKEN)-6:]}")
+    print(f"Webhook Secret  : {MIST_SECRET}")
+    print(f"MWTT URI        : {SERVER_URI}")
+    print(f"Ignored Sites   : {SITE_ID_IGNORED}")
+    print(f"Approved Admins : {APPROVED_ADMINS}")
+    print(f"Debug Mode      : {DEBUG}")
 
 
 ###########################
