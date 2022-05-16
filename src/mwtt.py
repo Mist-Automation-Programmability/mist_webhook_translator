@@ -3,6 +3,7 @@ import sys
 from datetime import datetime
 import hmac
 import hashlib
+import os
 from flask import Flask
 from flask import request
 from config import mist_conf
@@ -41,6 +42,14 @@ try:
     from config import port as SERVER_PORT
 except:
     pass
+
+try:
+    from config import dev_mode as FLASK_DEV
+except:
+    FLASK_DEV=False
+finally:
+    if not FLASK_DEV:
+        os.environ['FLASK_ENV'] = 'PRODUCTION'
 
 
 #######################################
