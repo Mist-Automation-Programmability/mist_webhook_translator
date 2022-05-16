@@ -5,51 +5,49 @@ from .alarm_common import CommonAlarm
 class MarvisAlarm(CommonAlarm):
 
     def __init__(self, mist_host, alarm_channels, event):
+        self.email = None
+        self.category = None
+        self.status = "UNKNOWN"
+        self.action = None
+        self.symptom = None
+
+        if "email_content" in event:
+            self.email = event["email_content"]
+            self.category = event["email_content"].get("category", None)
+        if "details" in event:
+            self.status = event["details"].get("status", None)
+            self.action = event["details"].get("action", None)
+            self.symptom = event["details"].get("symptom", None)
         CommonAlarm.__init__(self, mist_host, alarm_channels, event)
-        self.display =  {
-            "missing_vlan": "Missing VLAN",
-            "bad_cable": "Bad cable",
-            "port_flap": "Port flap",
-            "gw_bad_cable": "Bad cable",
-            "authentication_failure": "Authentication failure",
-            "dhcp_failure": "DHCP failure",
-            "arp_failure": "ARP failure",
-            "dns_failure": "DNS failure",
-            "negotiation_mismatch": "Negotiation mismatch",
-            "gw_negotiation_mismatch": "Negotiation mismatch",
-            "ap_offline": "Offline",
-            "non_compliant": "Non-compliant",
-            "ap_bad_cable": "Bad cable",
-            "health_check_failed": "AP health check failed"
-        }
 
     def _process(self):
+        if self.alarm_type in [
+            "missing_vlan",
+            "bad_cable", "gw_bad_cable", "ap_bad_cable",
+            "authentication_failure", "dhcp_failure", "arp_failure", "dns_failure",
+            "port_flap",
+            "negotiation_mismatch", "gw_negotiation_mismatch",
+            "ap_offline",
+            "non_compliant",
+            "health_check_failed"
+        ]:
             self._marvis()
-
+        else:
+            self._common()
 
     def _marvis(self):
         """
-        {
-            "severity": "critical",
-            "timestamp": 1631854164,
-            "last_seen": 1631854164,
-            "org_id": "1688605f-916a-47a1-8c68-f19618300a08",
-            "site_id": "ec3b5624-73f1-4ed3-b3fd-5ba3ee40368a",
-            "count": 1,
-            "id": "bb1aa333-b2c8-4afa-8a43-103f94919be6",
-            "type": "authentication_failure",
-            "group": "marvis"
-        }
         """
-        display = self.display[self.event["type"]]
-        text_string = "Marvis has reported "
-        if (self.event["count"] > 1):
-            text_string += self.event["count"] + " new " + display + " issues"
-        else:
-            text_string += self.event["count"] + " new " + display + " issue"
-        if "timestamp" in self.event:
-            text_string += " at {0}".format(
-                datetime.fromtimestamp(self.event["timestamp"]))
-        self.text.append(text_string)
-
- 
+        self.text = f"MARVIS {self.alarm_type.replace('_', ' ').upper()} issue on site {self.site_name}"
+        if self.category:
+            print(self.category)
+            self.info.append(f"*CATEGORY*: {self.category}")
+        self.info.append(f"*STATUS*: {self.status}")
+        if self.action:
+            self.info.append(f"*ACTION*: {self.action}")
+        if self.symptom:
+            self.info.append(f"*SYMPTOM*: {self.symptom}")
+        if self.email:
+            for entry in self.email:
+                self.info.append(
+                    f"*{entry.replace('_', ' ').upper()}*: {self.email[entry]}")

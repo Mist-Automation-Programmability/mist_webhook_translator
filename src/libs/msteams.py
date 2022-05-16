@@ -12,37 +12,46 @@ class Teams:
             self.default_url = config["default_url"]
         self.severity = 7
         self.color = {
-            "green": "#36a64f",
-            "blue": "#2196f3",
-            "orange": "warning",
-            "red": "danger"
+            "audit": "#36a64f",
+            "device-events": "#2196f3",
+            "device-updowns": "warning",
+            "alarm": "danger"
 
         }
 
-    def _get_color(self):
-        if self.severity >= 6:
-            return self.color["green"]
-        elif self.severity >= 5:
-            return self.color["blue"]
-        elif self.severity >= 4:
-            return self.color["orange"]
+
+    def _generage_facts(self, info):
+        if info:
+            data_facts =  []
+            for data in info:
+                data_facts.append({
+                "name": "info",
+                "value": data
+            })
         else:
-            return self.color["red"]
+            data_facts = None
+        return data_facts
 
     def _generate_button(self, text, url):
         return {
-                "@type": "OpenUri",
-                "name": text,
-                "targets": [{"os": "default", "uri": url}]
-            }   
+            "@type": "OpenUri",
+            "name": text,
+            "targets": [{"os": "default", "uri": url}]
+        }
 
-    def send_manual_message(self, title, subtitle, text=[], channel=None, color="eee", actions=[]):
-        facts = []
-        for tpart in text:
-            name = tpart.split(":")[0]
-            value = ":".join(tpart.split(":")[1:]).strip()
-            facts.append({"name": name, "value": value})
+    def send_manual_message(self, topic,  title, text, info=None, actions=None, channel=None):
+        '''
+        Send message to MsTeams Channel
 
+        Params:
+            topic   str         Mist webhook topic
+            title   str         Message Title
+            text    str         Message Text
+            info    [str]       Array of info
+            actions [obj]       Array of actions {text: btn text, action: btn url, tag: btn id}
+            channel str         Slack Channel
+        '''
+        color = self.color[topic]
         msteams_actions = []
         for action in actions:
             msteams_actions.append(self._generate_button(
@@ -53,23 +62,25 @@ class Teams:
             "@context": "http://schema.org/extensions",
             "themeColor": color,
             "summary": title,
-            "sections": [{
-                "activityTitle": title,
-                "activitySubtitle": subtitle,
-                "facts": facts,
-                "markdown": False
-            }],
+            "sections": [
+                {
+                    "activityTitle": title,
+                    "activitySubtitle": text,
+                    "facts": self._generage_facts(info),
+                    "markdown": True
+                }
+            ],
             "potentialAction": msteams_actions
-            
+
         }
 
         if channel and channel in self.url:
             msteam_url = self.url[channel]
         else:
             msteam_url = self.default_url
-        
+
         data = json.dumps(body)
-        data = data.encode("ascii")
-        
+        # data = data.encode("ascii")
+        # print(data)
         requests.post(msteam_url, headers={
                       "Content-type": "application/json"}, data=data)

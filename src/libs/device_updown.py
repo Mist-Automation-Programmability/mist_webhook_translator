@@ -1,62 +1,45 @@
 from datetime import datetime, timedelta
 
 
-def device_updown(topic, mist_host, updown_channels, event):
+def device_updown(mist_host, updown_channels, event):
+
     mist_dashboard = mist_host.replace("api", "manage")
-    org_id = None
-    site_id = None
-    ap = None
-    event_type = None
+    org_id = event.get("org_id", None)
+    site_id = event.get("site_id", None)
+    site_name = event.get("site_name", None)
+    device_type = event.get("device_type", None)
+    device_name = event.get("device_name", None)
+    device_mac = event.get("mac", None)
+    if device_mac:
+        device_id = f"00000000-0000-0000-1000-{device_mac}"
+    event_type = event.get("type", None)
+    reason = event.get("reason", None)
+
+    subtitle = ""
     text = []
     actions = []
     channel = None
+
     d_stop = datetime.now()
     d_start = d_stop - timedelta(days=1)
     t_stop = int(datetime.timestamp(d_stop))
     t_start = int(datetime.timestamp(d_start))
 
-    if "org_id" in event:
-        org_id = event["org_id"]
-    if "site_id" in event:
-        site_id = event["site_id"]
-    if "ap" in event:
-        ap = event["ap"]
-        ap_id = "00000000-0000-0000-1000-%s" % (ap)
-    if "ap_name" in event:
-        ap_name = event["ap_name"]
-    if "site_name" in event:
-        site_name = event["site_name"]
-    if "reason" in event:
-        reason = event["reason"]
-    if "type" in event:
-        event_type = event["type"]
-        try:
-            mod_event_type = event_type.replace("AP_", "").title()
-            text.append("AP %s (MAC: %s) %s because of %s" %
-                        (ap_name, ap, mod_event_type, reason))
-        except:
-            text.append("AP Name: %s" % (ap_name))
-            text.append("AP MAC: %s" % (ap))
-            text.append("Site: %s" % (site_name))
-            text.append("Event: %s" % (event_type))
-            text.append("Reason: %s" % (reason))
-    else:
-        text.append("AP Name: %s" % (ap_name))
-        text.append("AP MAC: %s" % (ap))
-        text.append("Site: %s" % (site_name))
-        text.append("Event: %s" % (event_type))
-        text.append("Reason: %s" % (reason))
+    text.append(f"*Device* : {device_name} ({device_id})")
+    text.append(f"*Event*  : {event_type}")
+    if reason:
+        text.append(f"*Reason*: {reason}")
 
-    url_insights = "https://%s/admin/?org_id=%s#!dashboard/insights/device/%s/24h/%s/%s/%s" % (
-        mist_dashboard, org_id, ap_id, t_start, t_stop, site_id)
+    subtitle = f"{event_type.split('_')[0]} {device_name} (MAC: {device_mac}) {event_type}"
+
+    url_insights = f"https://{mist_dashboard}/admin/?org_id={org_id}#!dashboard/insights/device/{device_id}/24h/{t_start}/{t_stop}/{site_id}"
     actions.append(
         {"tag": "insights", "text": "AP Insights", "url": url_insights})
-    url_conf = "https://%s/admin/?org_id=%s#!ap/detail/%s/%s" % (
-        mist_dashboard, org_id, ap_id, site_id)
+    url_conf = f"https://{mist_dashboard}/admin/?org_id={org_id}#!ap/detail/{device_id}/{site_id}"
     actions.append(
         {"tag": "insights", "text": "AP Configuration", "url": url_conf})
 
     if event["type"] in updown_channels:
         channel = updown_channels[event["type"]]
 
-    return [channel, text, actions]
+    return [channel, subtitle, text, actions]

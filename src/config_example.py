@@ -43,19 +43,6 @@ msteams_conf = {
     }
 }
 
-color_config = {
-    "location": "#D5D8DC",
-    "zone": "#808B96",
-    "rssizone": "#1C2833",
-    "vbeacon": "#5D6D7E",
-    "asset-raw": "#AEB6BF",
-    "device-events": "#229954",
-    "device-updowns": "#2E86C1",
-    "alarms": "#C70039",
-    "audits": "#FFC300",
-    "client-sessions": "#884EA0",
-}
-
 # Only apply to device_events and device_updowns
 event_channels = {
     "AP_UNCLAIMED": "warning",

@@ -108,4 +108,4 @@ def audit(mist_host, approved_admins, event):
 
     text = ["Admin: %s (IP: %s)" % (admin, src_ip), "Action: %s" % (message)]
 
-    return [level, text, actions]
+    return [level, "", text, actions]

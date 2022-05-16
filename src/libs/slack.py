@@ -8,69 +8,93 @@ class Slack:
     def __init__(self, config):
         if config:
             self.enabled = config["enabled"]
-            self.url = config["url"]  
-            self.default_url = config["default_url"]          
+            self.url = config["url"]
+            self.default_url = config["default_url"]
         self.severity = 7
-        self.color = {
-            "green": "#36a64f",
-            "blue": "#2196f3",
-            "orange": "warning",
-            "red": "danger"
 
-        }
-
-    def _get_color(self):
-        if self.severity >= 6:
-            return self.color["green"]
-        elif self.severity >= 5:
-            return self.color["blue"]
-        elif self.severity >= 4:
-            return self.color["orange"]
+    def _generate_button(self, actions):
+        if actions:
+            slack_actions = {
+                "type": "actions",
+                        "elements": []
+            }
+            i = 0
+            for action in actions:
+                i += 1
+                slack_actions["elements"].append({
+                    "type": "button",
+                    "text": {
+                            "type": "plain_text",
+                            "text": action["text"]
+                    },
+                    "url": action["url"],
+                    "action_id": f"{action['tag']}-{i}",
+                    "style": "primary"
+                }
+                )
         else:
-            return self.color["red"]
+            slack_actions = None
+        return slack_actions
 
-    def _generate_button(self, tag, text, url):
-        return {
-                    "name": tag,
-					"type": "button",
-					"text": {
-						"text": text
-					},
-					"url": url
-				}
+    def _generate_info(self, info):
+        if info:
+            slack_info = {
+                "type": "context",
+                "elements": []
+            }
+            for elem in info:
+                slack_info["elements"].append({
+                    "type": "mrkdwn",
+                    "text": elem
+                })
+        else:
+            slack_info = None
+        return slack_info
 
-    def _generate_attachments(self, text, color, actions=None):
-            return [{
-                "fallback": "New MWTT event",
-                "color": color,
-                "text": text,
-                "attachment_type": "default",
-                "actions": actions
-            }]
+    def send_manual_message(self, topic, title, text, info=None,  actions=None, channel=None):
+        '''
+        Send message to Slack Channel
 
-    def send_manual_message(self, title, text=[], channel=None, color="eee", actions=[]):
-        slack_text = ""
-        for tpart in text:
-            slack_text+="%s\r" %(tpart)
-
-        slack_actions = []
-        for action in actions:
-            slack_actions.append(self._generate_button(action["tag"], action["text"], action["url"]))
-
-        attachments = self._generate_attachments(slack_text, color, slack_actions)
-
+        Params:
+            topic   str         Mist webhook topic
+            title   str         Message Title
+            text    str         Message Text
+            info    [str]       Array of info
+            actions [obj]       Array of actions {text: btn text, action: btn url, tag: btn id}
+            channel str         Slack Channel
+        '''
+        slack_info = self._generate_info(info)
+        slack_button = self._generate_button(actions)
         body = {
-            "text": title,
-            "attachments": attachments
+            "blocks": [
+                {
+                    "type": "header",
+                    "text": {
+                        "type": "plain_text",
+                        "text": title
+                    }
+                },
+                {
+                    "type": "divider"
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "plain_text",
+                        "text": text
+                    }
+                },
+                slack_info,
+                slack_button
+            ]
         }
 
         if channel and channel in self.url:
             slack_url = self.url[channel]
-        else: 
+        else:
             slack_url = self.default_url
 
         data = json.dumps(body)
         data = data.encode("ascii")
-
         requests.post(slack_url, headers={
                       "Content-type": "application/json"}, data=data)
