@@ -103,7 +103,7 @@ class CommonEvent():
     def _actions(self):
         if self.device_type:
             if self.audit_id:
-                self.text.append("Check the audit logs for more details.")
+                self.info.append("Check the audit logs for more details.")
 
             if "audit_id" in self.event:
                 url_audit = f"https://{self.mist_dashboard}/admin/?org_id={self.org_id}#!auditLogs"
@@ -328,7 +328,7 @@ class CommonEvent():
         self.text = f"{self.device_text} \"{self.device_name}\" (MAC: {self.device_mac})"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
-        self.text += f" has been {self.event_text.split('_')[1]}"
+        self.text += f" has been {self.event_type.split('_')[1]}"
 
     def _cert_regenerated(self):
         '''
