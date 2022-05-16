@@ -86,8 +86,8 @@ def audit(mist_host, approved_admins, audit_channels, event):
 
     text = message
     info = [
-        f"**Admin**: {admin}",
-        f"**IP**:: {src_ip}"
+        f"*Admin*: {admin}",
+        f"*IP*: {src_ip}"
     ]
     #text = [f"Admin: {admin} (IP: {src_ip})", f"Action: {message}"]
 
