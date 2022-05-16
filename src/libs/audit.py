@@ -34,24 +34,26 @@ def audit(mist_host, approved_admins, audit_channels, event):
     if "ticket_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!tickets/ticket/{event['ticket_id']}/{org_id}"
         actions.append({"tag": "wxtag", "text":  "See Ticket", "url": url})
-    if "template_id" in event:
-        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!templates/template/{event['template_id']}"
-        actions.append({"tag": "wxtag", "text":  "See Template", "url": url})
-    # if "sitegroup_id" in event:
-    # if "secpolicy_id" in event:
-    if "rftemplate_id" in event:
-        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!rftemplates/rftemplate/{event['rftemplate_id']}"
-        actions.append(
-            {"tag": "wxtag", "text":  "See RF Template", "url": url})
-    # if "psk_id" in event:
-    if "networktemplate_id" in event:
-        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!switchTemplate/detail/{event['networktemplate_id']}"
-        actions.append(
-            {"tag": "wxtag", "text":  "See Switch Template", "url": url})
+
     if "gatewaytemplate_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!gatewayTemplates/detail/{event['gatewaytemplate_id']}"
         actions.append(
             {"tag": "wxtag", "text":  "See Gateway Template", "url": url})
+    elif "template_id" in event:
+        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!templates/template/{event['template_id']}"
+        actions.append({"tag": "wxtag", "text":  "See Template", "url": url})
+    elif "rftemplate_id" in event:
+        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!rftemplates/rftemplate/{event['rftemplate_id']}"
+        actions.append(
+            {"tag": "wxtag", "text":  "See RF Template", "url": url})
+    elif "networktemplate_id" in event:
+        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!switchTemplate/detail/{event['networktemplate_id']}"
+        actions.append(
+            {"tag": "wxtag", "text":  "See Switch Template", "url": url})
+
+    # if "sitegroup_id" in event:
+    # if "secpolicy_id" in event:
+    # if "psk_id" in event:
     if "mxtunnel_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!mistTunnels/detail/{event['mxtunnel_id']}"
         actions.append(
