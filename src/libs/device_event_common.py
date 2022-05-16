@@ -129,7 +129,6 @@ class CommonEvent():
         '''
         Event default processing
         '''
-        print("COMMON--------------------------")
         self.title = "UNKNOWN EVENT!"
         for entry in self.event:
             self.info.append(f"*{entry}*: {self.event[entry]}")
@@ -145,7 +144,7 @@ class CommonEvent():
     "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
 }
         '''
-        self.text = f"{self.device_text} \"{self.device_name}\" (MAC: {self.device_mac}) has been {self.event_text.split('_')[1]}"
+        self.text = f"{self.device_text} \"{self.device_name}\" (MAC: {self.device_mac}) has been {self.event_type.split('_')[1]}"
         if self.site_name:
             self.text += f" to site \"{self.site_name}\""
 
@@ -178,7 +177,7 @@ class CommonEvent():
     20/05/2020 12:57:21 INFO: timestamp: 1589979432
     20/05/2020 12:57:21 INFO: type: AP_UNASSIGNED
         '''
-        self.text = f"{self.device_text} \"{self.device_name}\" (MAC: {self.device_mac}) has been {self.event_text.split('_')[1]}"
+        self.text = f"{self.device_text} \"{self.device_name}\" (MAC: {self.device_mac}) has been {self.event_type.split('_')[1]}"
         if self.site_name:
             self.text += f" from site \"{self.site_name}\""
 
@@ -197,7 +196,7 @@ class CommonEvent():
         self.text = f"{self.device_text} \"{self.device_name}\" (MAC: {self.device_mac})"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
-        self.text += f" is now {self.event_text.split('_')[1]}"
+        self.text += f" is now {self.event_type.split('_')[1]}"
 
     def _disconnected_long(self):
         '''
