@@ -18,6 +18,8 @@ def audit(mist_host, approved_admins, audit_channels, event):
         org_id = event["org_id"]
     if "site_id" in event:
         site_id = event["site_id"]
+
+    actions.append({"tag": "logs", "text": "See Audit Logs", "url": f"https://manage.mist.com/admin/?org_id={org_id}#!auditLogs"})
     # if "wxtunnel_id" in event:
     # if "wxrules_id" in event:
     if "wxtag_id" in event:
@@ -30,26 +32,26 @@ def audit(mist_host, approved_admins, audit_channels, event):
     if "wlan_id" in event:
         if site_id:
             url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!wlan/detail/{event['wlan_id']}/{org_id}"
-            actions.append({"tag": "wxtag", "text":  "See WLAN", "url": url})
+            actions.append({"tag": "wlan", "text":  "See WLAN", "url": url})
     if "ticket_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!tickets/ticket/{event['ticket_id']}/{org_id}"
-        actions.append({"tag": "wxtag", "text":  "See Ticket", "url": url})
+        actions.append({"tag": "ticket", "text":  "See Ticket", "url": url})
 
     if "gatewaytemplate_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!gatewayTemplates/detail/{event['gatewaytemplate_id']}"
         actions.append(
-            {"tag": "wxtag", "text":  "See Gateway Template", "url": url})
+            {"tag": "gatewaytemplate", "text":  "See Gateway Template", "url": url})
     elif "template_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!templates/template/{event['template_id']}"
-        actions.append({"tag": "wxtag", "text":  "See Template", "url": url})
+        actions.append({"tag": "networktemplate", "text":  "See Template", "url": url})
     elif "rftemplate_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!rftemplates/rftemplate/{event['rftemplate_id']}"
         actions.append(
-            {"tag": "wxtag", "text":  "See RF Template", "url": url})
+            {"tag": "rftemplate", "text":  "See RF Template", "url": url})
     elif "networktemplate_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!switchTemplate/detail/{event['networktemplate_id']}"
         actions.append(
-            {"tag": "wxtag", "text":  "See Switch Template", "url": url})
+            {"tag": "networktemplate", "text":  "See Switch Template", "url": url})
 
     # if "sitegroup_id" in event:
     # if "secpolicy_id" in event:
@@ -57,36 +59,36 @@ def audit(mist_host, approved_admins, audit_channels, event):
     if "mxtunnel_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!mistTunnels/detail/{event['mxtunnel_id']}"
         actions.append(
-            {"tag": "wxtag", "text":  "See Mist Tunnel", "url": url})
+            {"tag": "mxtunnel", "text":  "See Mist Tunnel", "url": url})
     if "mxcluster_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!edge/clusterdetail/{event['mxcluster_id']}"
-        actions.append({"tag": "wxtag", "text":  "See Cluster", "url": url})
+        actions.append({"tag": "mxcluster", "text":  "See Cluster", "url": url})
     if "mxedge_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!edge/edgedetail/{event['mxedge_id']}"
-        actions.append({"tag": "wxtag", "text":  "See mxEdge", "url": url})
+        actions.append({"tag": "mxedge", "text":  "See mxEdge", "url": url})
     # if "assetfilter_id" in event:
     if "deviceprofile_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!deviceProfiles/detail/{event['deviceprofile_id']}"
         actions.append(
-            {"tag": "wxtag", "text":  "See Device Profile", "url": url})
+            {"tag": "deviceprofile", "text":  "See Device Profile", "url": url})
     if "device_id" in event:
         if site_id:
             url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!ap/detail/{event['device_id']}/{site_id}"
-            actions.append({"tag": "wxtag", "text":  "See Device", "url": url})
+            actions.append({"tag": "device", "text":  "See Device", "url": url})
         else:
             url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!apInventory"
             actions.append(
-                {"tag": "wxtag", "text":  "See Inventory", "url": url})
+                {"tag": "device", "text":  "See Inventory", "url": url})
 
     if "Reboot Device" in message or "ssign Device" in message:
         if site_id:
             url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!ap/{site_id}"
             actions.append(
-                {"tag": "wxtag", "text":  "See Devices", "url": url})
+                {"tag": "action", "text":  "See Devices", "url": url})
         else:
             url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!apInventory"
             actions.append(
-                {"tag": "wxtag", "text":  "See Inventory", "url": url})
+                {"tag": "action", "text":  "See Inventory", "url": url})
 
     if admin.split(" ")[-1:][0] in approved_admins:
         channel = audit_channels["approved_admins"]
@@ -99,7 +101,13 @@ def audit(mist_host, approved_admins, audit_channels, event):
         f"*IP*: {src_ip}"
     ]
     #text = [f"Admin: {admin} (IP: {src_ip})", f"Action: {message}"]
-
+    print({
+        "channel": channel,
+        "title": "AUDIT LOGS",
+        "text": text,
+        "info": info,
+        "actions": actions
+    })
     return {
         "channel": channel,
         "title": "AUDIT LOGS",
