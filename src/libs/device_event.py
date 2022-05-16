@@ -7,7 +7,7 @@ def device_event(mist_host, message_levels, mist_event):
     event = None
     if "device_type" in mist_event:
         if mist_event["device_type"] == "ap":
-            event = ApEvent(mist_host, message_levels, mist_event)            
+            event = ApEvent(mist_host, message_levels, mist_event)
         elif mist_event["device_type"] == "switch":
             event = SwitchEvent(
                 mist_host, message_levels, mist_event)

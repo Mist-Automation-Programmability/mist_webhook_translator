@@ -24,7 +24,7 @@ class GatewayEvent(CommonEvent):
             self._config_lock_failed()
         elif self.event_type == "GW_CONFIG_FAILED":
             self._config_failed()
-        if self.event_type in ["GW_PORT_DOWN", "GW_PORT_UP"]:
+        elif self.event_type in ["GW_PORT_DOWN", "GW_PORT_UP"]:
             self._port()
         elif self.event_type in ["GW_CONNECTED", "GW_DISCONNECTED"]:
             self._connected()

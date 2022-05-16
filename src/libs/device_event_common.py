@@ -70,8 +70,8 @@ class CommonEvent():
 
         self._message_channel(event_channels)
         # self._text()
-        self._actions()
         self._process()
+        self._actions()
 
     def get(self):
         '''
@@ -129,7 +129,6 @@ class CommonEvent():
         '''
         Event default processing
         '''
-        self.title = "UNKNOWN EVENT!"
         for entry in self.event:
             self.info.append(f"*{entry}*: {self.event[entry]}")
 

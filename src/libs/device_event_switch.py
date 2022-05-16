@@ -26,7 +26,7 @@ class SwitchEvent(CommonEvent):
             self._config_lock_failed()
         elif self.event_type == "SW_CONFIG_FAILED":
             self._config_failed()
-        if self.event_type in ["SW_PORT_DOWN", "SW_PORT_UP"]:
+        elif self.event_type in ["SW_PORT_DOWN", "SW_PORT_UP"]:
             self._port()
         elif self.event_type in ["SW_CONNECTED", "SW_DISCONNECTED"]:
             self._connected()
@@ -74,7 +74,11 @@ class SwitchEvent(CommonEvent):
             self._sw_master_rec()
         elif self.event_type == "SW_MEMBER_ON_RECOVERY":
             self._sw_member_rec()
-        elif self.event_type in ["SW_RECOVERY_SNAPSHOT_REQUESTED", "SW_RECOVERY_SNAPSHOT_SUCCEEDED", "SW_RECOVERY_SNAPSHOT_FAILED"]:
+        elif self.event_type in [
+            "SW_RECOVERY_SNAPSHOT_REQUESTED",
+            "SW_RECOVERY_SNAPSHOT_SUCCEEDED",
+            "SW_RECOVERY_SNAPSHOT_FAILED"
+        ]:
             self._sw_snapshot()
         elif self.event_type == "SW_RECOVERY_SNAPSHOT_NOTNEEDED":
             self._sw_snapshot_notneeded()
@@ -116,7 +120,6 @@ class SwitchEvent(CommonEvent):
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
 
-   
     def _sw_bpdu(self):
         '''
 {
