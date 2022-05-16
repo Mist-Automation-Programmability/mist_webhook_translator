@@ -44,7 +44,14 @@ def audit(mist_host, approved_admins, audit_channels, event):
         actions.append(
             {"tag": "wxtag", "text":  "See RF Template", "url": url})
     # if "psk_id" in event:
-    # if "networktemplate_id" in event:
+    if "networktemplate_id" in event:
+        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!switchTemplate/detail/{event['networktemplate_id']}"
+        actions.append(
+            {"tag": "wxtag", "text":  "See Switch Template", "url": url})
+    if "gatewaytemplate_id" in event:
+        url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!gatewayTemplates/detail/{event['gatewaytemplate_id']}"
+        actions.append(
+            {"tag": "wxtag", "text":  "See Gateway Template", "url": url})
     if "mxtunnel_id" in event:
         url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!mistTunnels/detail/{event['mxtunnel_id']}"
         actions.append(
