@@ -84,10 +84,13 @@ class Slack:
                         "text": text
                     }
                 },
-                slack_info,
-                slack_button
             ]
         }
+        if slack_info:
+            body["blocks"].append(slack_info)
+        if slack_button:
+            body["blocks"].append(slack_button)
+                
 
         if channel and channel in self.url:
             slack_url = self.url[channel]
@@ -95,6 +98,8 @@ class Slack:
             slack_url = self.default_url
 
         data = json.dumps(body)
-        data = data.encode("ascii")
+        #data = data.encode("ascii")
+        print(slack_url)
+        print(data)
         requests.post(slack_url, headers={
                       "Content-type": "application/json"}, data=data)

@@ -12,7 +12,7 @@ class Teams:
             self.default_url = config["default_url"]
         self.severity = 7
         self.color = {
-            "audit": "#36a64f",
+            "audits": "#36a64f",
             "device-events": "#2196f3",
             "device-updowns": "warning",
             "alarm": "danger"
@@ -25,7 +25,7 @@ class Teams:
             data_facts =  []
             for data in info:
                 data_facts.append({
-                "name": "info",
+                "name": "",
                 "value": data
             })
         else:
@@ -81,6 +81,7 @@ class Teams:
 
         data = json.dumps(body)
         # data = data.encode("ascii")
+        # print(msteam_url)
         # print(data)
         requests.post(msteam_url, headers={
                       "Content-type": "application/json"}, data=data)

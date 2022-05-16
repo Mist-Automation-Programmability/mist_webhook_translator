@@ -11,6 +11,7 @@ from config import msteams_conf
 from config import event_channels
 from config import updown_channels
 from config import alarm_channels
+from config import audit_channels
 from libs.slack import Slack
 from libs.msteams import Teams
 from libs.audit import audit
@@ -64,7 +65,7 @@ def new_event(topic, event):
 
     if topic == "audits":
         data = audit(
-            MIST_HOST, APPROVED_ADMINS, event)
+            MIST_HOST, APPROVED_ADMINS, audit_channels, event)
     elif topic == "device-events":
         data = device_event(
             MIST_HOST, event_channels, event)
@@ -85,9 +86,11 @@ def new_event(topic, event):
     # dt = _get_time(event)
     print(data)
     if slack_conf["enabled"]:
-        SLACK.send_manual_message(topic, data["title"], data["text"], data["info"], data["actions"], data["channel"])
+        SLACK.send_manual_message(
+            topic, data["title"], data["text"], data["info"], data["actions"], data["channel"])
     if msteams_conf["enabled"]:
-        TEAMS.send_manual_message(topic, data["title"], data["text"], data["info"], data["actions"], data["channel"])
+        TEAMS.send_manual_message(
+            topic, data["title"], data["text"], data["info"], data["actions"], data["channel"])
     print(event)
     print(topic)
     print(message)
