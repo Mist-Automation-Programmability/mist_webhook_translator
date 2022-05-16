@@ -39,15 +39,25 @@ class MarvisAlarm(CommonAlarm):
         """
         """
         self.text = f"MARVIS {self.alarm_type.replace('_', ' ').upper()} issue on site {self.site_name}"
+        done = []
         if self.category:
-            print(self.category)
             self.info.append(f"*CATEGORY*: {self.category}")
-        self.info.append(f"*STATUS*: {self.status}")
+            done.append("category")
+        if self.status:
+            self.info.append(f"*STATUS*: {self.status}")
+            done.append("status")
         if self.action:
             self.info.append(f"*ACTION*: {self.action}")
+            done.append("action")
         if self.symptom:
             self.info.append(f"*SYMPTOM*: {self.symptom}")
+            done.append("symptom")
         if self.email:
             for entry in self.email:
-                self.info.append(
-                    f"*{entry.replace('_', ' ').upper()}*: {self.email[entry]}")
+                if not entry in done:
+                    if isinstance(self.email[entry], list):
+                        self.info.append(
+                            f"*{entry.replace('_', ' ').upper()}*: {', '.join(self.email[entry])}")
+                    else:
+                        self.info.append(
+                            f"*{entry.replace('_', ' ').upper()}*: {self.email[entry]}")
