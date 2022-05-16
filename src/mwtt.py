@@ -29,7 +29,10 @@ SERVER_PORT = 51361
 try:
     from config import debug as DEBUG
 except:
-    pass
+    DEBUG=False
+finally:
+    if not DEBUG:
+        os.environ['FLASK_ENV'] = 'PRODUCTION'
 
 try:
     from config import log_level as LOG_LEVEL
@@ -42,14 +45,6 @@ try:
     from config import port as SERVER_PORT
 except:
     pass
-
-try:
-    from config import dev_mode as FLASK_DEV
-except:
-    FLASK_DEV=False
-finally:
-    if not FLASK_DEV:
-        os.environ['FLASK_ENV'] = 'PRODUCTION'
 
 
 #######################################
