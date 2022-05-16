@@ -15,7 +15,7 @@ class Teams:
             "audits": "#36a64f",
             "device-events": "#2196f3",
             "device-updowns": "warning",
-            "alarm": "danger"
+            "alarms": "danger"
 
         }
 
