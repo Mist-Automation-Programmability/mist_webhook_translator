@@ -93,7 +93,7 @@ def new_event(topic, event):
             data["info"].append(mpart)
 
     # dt = _get_time(event)
-    print(data)
+    
     if slack_conf["enabled"]:
         SLACK.send_manual_message(
             topic, data["title"], data["text"], data["info"], data["actions"], data["channel"])
