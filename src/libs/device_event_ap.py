@@ -5,9 +5,9 @@ class ApEvent(CommonEvent):
 
     def __init__(self, mist_host, message_levels, event):
         self.band = event.get("band", None)
-        self.channel = event.get("channel", None)
-        self.bandwidth = event.get("bandwidth", None)
-        self.power = event.get("power", None)
+        self.post_channel = event.get("channel", None)
+        self.post_bandwidth = event.get("bandwidth", None)
+        self.post_power = event.get("power", None)
         self.pre_channel = event.get("pre_channel", None)
         self.pre_bandwidth = event.get("pre_bandwidth", None)
         self.pre_power = event.get("pre_power", None)
@@ -77,7 +77,7 @@ class ApEvent(CommonEvent):
         self.text = f"Configuration for AP \"{self. device_name}\" (MAC: {self.device_mac})"
         if self.site_name:
             self.text +=  f" on site \"{self.site_name}\""
-        self.text += " is changed by RRM."
+        self.text += " changed by RRM."
         
 
     def _ap_event_1026(self):
@@ -118,7 +118,9 @@ class ApEvent(CommonEvent):
         self.text = f"RRM CHANGES in {self.band}GHz for the AP \"{self. device_name}\" (MAC: {self.device_mac})"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
-        self.text += f"from channel {self.pre_channel}/{self.pre_bandwidth}MHz at {self.pre_power}dBm to {self.channel}/{self.bandwidth}MHz at {self.power}Dbm"
+        self.info.append(f"*Channel*: {self.pre_channel} -> {self.post_channel}")
+        self.info.append(f"*Bandwidth*: {self.pre_bandwidth}MHz -> {self.post_bandwidth}MHz")
+        self.info.append(f"*Power*: {self.pre_power}dBm -> {self.post_power}dBm")
 
     def _ap_beacon_stuck(self):
         '''
@@ -158,7 +160,9 @@ class ApEvent(CommonEvent):
         self.text = f"RADAR DETECTED on channel {self.pre_channel}/{self.pre_bandwidth}MHz by the AP \"{self. device_name}\" (MAC: {self.device_mac})"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
-        self.text += f". AP moved to channel {self.channel}/{ self.bandwidth}MHz"
+        self.info.append(f"*Channel*: {self.pre_channel} -> {self.post_channel}")
+        self.info.append(f"*Bandwidth*: {self.pre_bandwidth}MHz -> {self.post_bandwidth}MHz")
+        self.info.append(f"*Power*: {self.pre_power}dBm -> {self.post_power}dBm")
 
     def _ap_upgraded_by_schedule(self):
         '''
@@ -173,7 +177,7 @@ class ApEvent(CommonEvent):
         self.text = f"AP \"{self. device_name}\" (MAC: {self.device_mac})"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
-        self.text += " is UPGRADED BY SCHEDULE POLICY"
+        self.text += " UPGRADED BY SCHEDULE POLICY"
 
     def _ap_support_file(self):
         '''
