@@ -76,14 +76,14 @@ class Slack:
                     }
                 },
                 {
-                    "type": "divider"
-                },
-                {
                     "type": "section",
                     "text": {
                         "type": "plain_text",
                         "text": text
                     }
+                },
+                {
+                    "type": "divider"
                 },
             ]
         }
