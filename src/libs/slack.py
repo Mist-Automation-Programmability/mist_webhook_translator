@@ -74,8 +74,11 @@ class Slack:
                         "type": "plain_text",
                         "text": title
                     }
-                },
-                {
+                }
+            ]
+        }
+        if text:
+            body["blocks"].append( {
                     "type": "section",
                     "text": {
                         "type": "plain_text",
@@ -84,9 +87,8 @@ class Slack:
                 },
                 {
                     "type": "divider"
-                },
-            ]
-        }
+                })
+        
         if slack_info:
             for tmp in slack_info:
                 body["blocks"].append(tmp)
