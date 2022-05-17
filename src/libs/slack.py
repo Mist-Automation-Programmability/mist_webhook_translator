@@ -43,7 +43,7 @@ class Slack:
             for elem in info:
                 slack_info.append({
                     "type": "context",
-                    "elements":[ {
+                    "elements": [{
                         "type": "mrkdwn",
                         "text": elem
                     }]
@@ -78,17 +78,12 @@ class Slack:
             ]
         }
         if text:
-            body["blocks"].append( {
-                    "type": "section",
-                    "text": {
-                        "type": "plain_text",
-                        "text": text
-                    }
-                },
-                {
-                    "type": "divider"
-                })
-        
+            body["blocks"].append({
+                "type": "section",
+                "text": {"type": "plain_text", "text": text}
+            })
+            body["blocks"].append({"type": "divider"})
+
         if slack_info:
             for tmp in slack_info:
                 body["blocks"].append(tmp)
