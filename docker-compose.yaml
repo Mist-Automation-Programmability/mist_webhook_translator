@@ -19,6 +19,4 @@ services:
         environment:
             - VIRTUAL_HOST=<your_app_hostname>
         volumes:
-            - <your_folder>/docker/mwtt/config.py:/app/config.py:ro         
-        links:
-            - mongodb:mist-mongo
+            - <your_folder>/docker/mwtt/config.py:/app/config.py:ro       
