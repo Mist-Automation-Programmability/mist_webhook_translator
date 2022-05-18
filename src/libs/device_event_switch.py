@@ -84,6 +84,8 @@ class SwitchEvent(CommonEvent):
             self._sw_snapshot_notneeded()
         elif self.event_type == "SW_RECOVERY_SNAPSHOT_UNSUPPORTED":
             self._sw_snapshot_unsported()
+        elif self.event_type == "SW_DOT1XD_USR_AUTHENTICATED":
+            self._sw_dot1x_user()
         else:
             self._common()
 
@@ -323,5 +325,23 @@ class SwitchEvent(CommonEvent):
 }
         '''
         self.text = f"RECOVERY SNAPSHOT UNSUPPORTED by the Switch \"{self.device_name}\" (MAC: {self.device_mac})"
+        if self.site_name:
+            self.text += f" on site \"{self.site_name}\""
+
+    def _sw_dot1x_user(self):
+        '''
+{
+    "device_name": "sw-jn-02.lab",
+    "device_type": "switch",
+    "mac": "2c21311c37b0",
+    "org_id": "203d3d02-dbc0-4c1b-9f41-76896a3330f4",
+    "site_id": "f5fcbee5-fbca-45b3-8bf1-1619ede87879",
+    "site_name": "BR-Spoke-01",
+    "text": "DOT1XD_USR_AUTHENTICATED: Custom_log MAC-RADIUS User b827eb93afac logged in MacAddress b8:27:eb:93:af:ac interface ge-0/0/7.0 vlan srv",
+    "timestamp": 1652773155,
+    "type": "SW_DOT1XD_USR_AUTHENTICATED"
+}
+'''
+        self.text = f"NEW DOT1X AUTHENTICATION on the Switch \"{self.device_name}\" (MAC: {self.device_mac})"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
