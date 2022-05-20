@@ -10,9 +10,5 @@ RUN pip install --no-cache-dir flask requests
 COPY ./src /app/
 WORKDIR /app
 
-RUN addgroup --gid 1000 -S mistlab && adduser --uid 1000 -S mistlab -G mistlab
-RUN chown -R mistlab:mistlab /app
-USER mistlab
-
 EXPOSE 51361
 CMD ["python","-u","/app/mwtt.py"]
