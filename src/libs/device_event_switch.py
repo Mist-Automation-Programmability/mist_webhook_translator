@@ -86,6 +86,8 @@ class SwitchEvent(CommonEvent):
             self._sw_snapshot_unsported()
         elif self.event_type == "SW_DOT1XD_USR_AUTHENTICATED":
             self._sw_dot1x_user()
+        elif self.event_type == "SW_RADIUS_SERVER_UNREACHABLE":
+            self._sw_radius_unreachable()
         else:
             self._common()
 
@@ -343,5 +345,23 @@ class SwitchEvent(CommonEvent):
 }
 '''
         self.text = f"NEW DOT1X AUTHENTICATION on the Switch \"{self.device_name}\" (MAC: {self.device_mac})"
+        if self.site_name:
+            self.text += f" on site \"{self.site_name}\""
+
+    def _sw_radius_unreachable(self):
+        '''
+{
+    "device_name": "sw-jn-02.lab",
+    "device_type": "switch",
+    "mac": "2c21311c37b0",
+    "org_id": "203d3d02-dbc0-4c1b-9f41-76896a3330f4",
+    "site_id": "f5fcbee5-fbca-45b3-8bf1-1619ede87879",
+    "site_name": "BR-Spoke-01",
+    "text": "AUTHD_RADIUS_SERVER_STATUS_CHANGE: Status of radius server 10.3.20.2 set to UNREACHABLE (profile dot1x)",
+    "timestamp": 1653305242,
+    "type": "SW_RADIUS_SERVER_UNREACHABLE"
+}        
+        '''
+        self.text = f"Switch \"{self.device_name}\" (MAC: {self.device_mac}) in unable to reach the RADIUS server"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
