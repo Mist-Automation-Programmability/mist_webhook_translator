@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~leaflet/dist/leaflet.css";
+
+/*@import '@angular/material/prebuilt-themes/deeppurple-amber.css';*/
+
+.bg {
+    position: fixed;
+    display: block;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(236 236 236);
+    /* 
+    opacity: 0.6; 
+    background-image: url(assets/img/main3.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(8px);
+    -webkit-filter: blur(5px);
+    */
+}
+
+html,
+body {
+    max-height: 100vh;
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.card-outer {
+    box-shadow: none !important;
+}
+
+.empty {
+    margin: 1em auto;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.loading {
+    margin: auto;
+}
+
+.content {
+    margin: 20px !important;
+}

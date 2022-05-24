@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Be careful</h1>
+<div mat-dialog-content>
+    <div> {{data.text}} </div>
+    <div>
+        <div style="margin: 2em 0em 0;font-weight: bold;">Details:</div>
+        <ul style="list-style: none; padding: 0;">
+            <li *ngFor="let element of data.vlan_check">{{element.reason}}</li>
+        </ul>
+    </div>
+    <div fxLayout="column" *ngIf="data.bigWarning == true" style="color: red;justify-content: center;margin: 2em 0 0;">
+        <div style="font-weight: bold; margin: auto;">Warning:</div>
+        <div style="margin: auto;">Changes may have impact on existing users, especially for users using PSK without VLAN.
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions style="justify-content: space-around;" fxLayout="row">
+    <button mat-raised-button (click)="cancel()">I Don't Care</button>
+    <button mat-button color="accent" (click)="ok()">Fix It</button>
+</div>

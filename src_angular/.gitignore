@@ -1,0 +1,4 @@
+# NativeScriptnode_modules/
+platforms/
+hooks/
+src/**/*.js

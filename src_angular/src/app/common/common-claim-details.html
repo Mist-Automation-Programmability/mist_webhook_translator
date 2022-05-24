@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Claim Result Details</h1>
+<div mat-dialog-content>
+    <pre>{{details | json}}</pre>
+</div>
+
+<div mat-dialog-actions style="justify-content: space-around;" fxLayout="row">
+    <button mat-raised-button color="accent" cdkFocusInitial (click)="cancel()">Done</button>
+</div>

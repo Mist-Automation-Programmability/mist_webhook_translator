@@ -1,0 +1,58 @@
+<mat-card class="card-outer">
+    <div fxLayout="column" class="top-bar-container">
+        <div fxLayout="row wrap" class="top-bar  mat-elevation-z8">
+            <mat-form-field appearance="outline" class="list">
+                <mat-label>Organization</mat-label>
+                <mat-select [(value)]="selected_org_obj" (selectionChange)="changeOrg()">
+                    <mat-select-trigger>
+                        {{selected_org_obj.name}}
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let org of orgs" [value]="org">
+                        <span style="margin-right: 1em; background-color: lightgray; border-radius: 14px; padding: 5px; font-size: smaller;">{{org.role}}</span>
+                        <span>{{org.name}}</span>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div style="width: 100%; height: 4px; background-color: rgb(111 157 43);" *ngIf="topBarLoading == false">
+        </div>
+        <mat-progress-bar mode="indeterminate" color="accent" *ngIf="topBarLoading == true"></mat-progress-bar>
+    </div>
+    <div>
+        <mat-card *ngIf="!org_id" fxLayoutAlign="center">
+            <span style="color:#777">
+                Please Select an Organization
+            </span>
+        </mat-card>
+        <mat-card *ngIf="noSiteToDisplay" fxLayout="column" fxLayoutAlign="center stretch">
+            <div style="color:#777; margin: 2em auto;" fxLayoutAlign="center stretch">
+                You don't have access to any Site in this Organization. Please chose another Organization.
+            </div>
+            <div style="color: #777; font-size: small; margin-bottom: 2em;" fxLayoutAlign="center stretch">
+                Only the Sites with "Administrator" authorization are listed.
+            </div>
+        </mat-card>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="start stretch">
+        <mat-card *ngFor="let site of sites" class="mat-elevation-z2" fxLayout="column" fxLayoutAlign="space-between stretch" style="cursor: pointer;margin: 10px; padding: 0px; width: 300px;">
+            <div (click)="setSite(site)">
+                <mat-card-title style="margin:10px">
+                    {{site.name}}
+                </mat-card-title>
+                <mat-card-subtitle style="margin: 10px">
+                    <div style="width: 100%;">{{site.address}}</div>
+                </mat-card-subtitle>
+            </div>
+            <div (click)="setSite(site)">
+                <mat-card-content style="margin: 0px">
+                    <google-map [center]="site.latlng" [zoom]="map.zoom" height="300px" width="300px" [options]="map.options">
+                        <map-marker [position]="site.latlng"></map-marker>
+                        <map-info-window>Test</map-info-window>
+                    </google-map>
+                </mat-card-content>
+            </div>
+        </mat-card>
+    </div>
+
+</mat-card>
