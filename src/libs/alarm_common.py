@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from .logger import Console
 
 
 class CommonAlarm():
@@ -12,6 +13,7 @@ class CommonAlarm():
     '''
 
     def __init__(self, mist_host, alarm_channels, event):
+        self.console = Console("alarm")
 
         self.device_types = {
             "aps": {"short": "AP_", "text": "AP", "insight": "device", "type": "ap"},
@@ -68,13 +70,16 @@ class CommonAlarm():
                 info        message additional info
                 actions     message buttons
         '''
-        return {
+        data = {
             "channel": self.channel,
             "title": self.title,
             "text": self.text,
             "info": self.info,
             "actions": self.actions
         }
+        self.console.info("Processing done")
+        self.console.debug(f"Result: {data}")
+        return data
 
     def _message_channel(self, alarm_channels):
         if self.event["type"] in alarm_channels:

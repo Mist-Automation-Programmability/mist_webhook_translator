@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from .logger import Console
 
 
 class CommonEvent():
@@ -12,6 +13,7 @@ class CommonEvent():
     '''
 
     def __init__(self, mist_host, event_channels, event):
+        self.console = Console("event")
         self.device_types = {
             "ap": {"short": "AP_", "text": "AP", "insight": "device"},
             "switch": {"short": "SW_", "text": "Switch", "insight": "juniperSwitch"},
@@ -85,13 +87,16 @@ class CommonEvent():
                 info        message additional info
                 actions     message buttons
         '''
-        return {
+        data = {
             "channel": self.channel,
             "title": self.title,
             "text": self.text,
             "info": self.info,
             "actions": self.actions
         }
+        self.console.info("Processing done")
+        self.console.debug(f"Result: {data}")
+        return data
 
     def _process(self):
         self._common()

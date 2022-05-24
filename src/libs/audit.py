@@ -1,6 +1,7 @@
-
+from .logger import Console
 
 def audit(mist_host, approved_admins, audit_channels, event):
+    console = Console("audit")
     mist_dashboard = mist_host.replace("api", "manage")
     org_id = None
     site_id = None
@@ -89,29 +90,30 @@ def audit(mist_host, approved_admins, audit_channels, event):
             url = f"https://{mist_dashboard}/admin/?org_id={org_id}#!apInventory"
             actions.append(
                 {"tag": "action", "text":  "See Inventory", "url": url})
+    
 
-    if admin.split(" ")[-1:][0] in approved_admins:
-        channel = audit_channels["approved_admins"]
-    else:
-        channel = audit_channels["other_admins"]
+    channel = None
+    try:
+        if admin.split(" ")[-1:][0] in approved_admins:
+            channel = audit_channels["approved_admins"]
+        else:
+            channel = audit_channels["other_admins"]
+    except:
+        pass
 
     text = message
     info = [
         f"*Admin*: {admin}",
         f"*IP*: {src_ip}"
     ]
-    #text = [f"Admin: {admin} (IP: {src_ip})", f"Action: {message}"]
-    print({
-        "channel": channel,
-        "title": "AUDIT LOGS",
-        "text": text,
-        "info": info,
-        "actions": actions
-    })
-    return {
+    data = {
         "channel": channel,
         "title": "AUDIT LOGS",
         "text": text,
         "info": info,
         "actions": actions
     }
+    #text = [f"Admin: {admin} (IP: {src_ip})", f"Action: {message}"]
+    console.info("Processing done")
+    console.debug(f"Result: {data}")
+    return data
