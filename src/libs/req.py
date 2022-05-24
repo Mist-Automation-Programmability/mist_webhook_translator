@@ -1,15 +1,9 @@
 import requests
 from requests.exceptions import HTTPError
 
-import json
+from .logger import Console
+console = Console("req")
 
-try:
-    from config import log_level
-except:
-    log_level = 6
-finally:
-    from .debug import Console
-    console = Console(log_level)
 
 
 def _response( resp, uri="", multi_pages_result=None):
@@ -19,12 +13,12 @@ def _response( resp, uri="", multi_pages_result=None):
         else: 
             result = multi_pages_result
         error = ""
-        console.debug("Response Status Code: %s" % resp.status_code)
+        console.debug(f"Response Status Code: {resp.status_code}")
     else:
         result = ""
         error = resp.json()
-        console.info("Response Status Code: %s" % resp.status_code)
-        console.debug("Response: %s" % error)
+        console.info(f"Response Status Code: {resp.status_code}")
+        console.debug(f"Response: {error}")
     return {"result": result, "headers":resp.headers, "status_code": resp.status_code, "error": error, "uri":uri}
 
 def get(url, headers={}, query={}):
@@ -35,8 +29,8 @@ def get(url, headers={}, query={}):
         html_query = "?"
         if not query == {}:
             for query_param in query:
-                html_query += "%s=%s&" %(query_param, query[query_param])
-        console.debug("Request > GET %s" % url)
+                html_query += f"{query_param}={query[query_param]}&"
+        console.debug(f"Request > GET {url}")
         resp = requests.get(url, headers=headers)
         resp.raise_for_status()
     except HTTPError as http_err:
@@ -54,8 +48,8 @@ def post(url, headers={}, body=None):
     try: 
         if not "Content-Type" in headers:
             headers['Content-Type'] = "application/json"
-        console.debug("Request > POST %s" % url)
-        console.debug("Request body: \r\n%s" % body)
+        console.debug(f"Request > POST {url}")
+        console.debug(f"Request body: \r\n{body}")
         if type(body) == str:
             resp = requests.post(url, data=body, headers=headers)
         elif type(body) == dict:
@@ -76,8 +70,8 @@ def put(url, headers={}, body={}):
     Params: uri, HTTP body
     Return: HTTP response"""
     try:
-        console.debug("Request > PUT %s" % url)
-        console.debug("Request body: \r\n%s" % body)
+        console.debug(f"Request > PUT {url}")
+        console.debug(f"Request body: \r\n{body}")
         if type(body) == str:
             resp = requests.put(url, headers=headers, data=body)
         elif type(body) == dict:
@@ -98,7 +92,7 @@ def delete(url, headers={}):
     Params: uri
     Return: HTTP response"""
     try: 
-        console.debug("Request > DELETE %s" % url)
+        console.debug(f"Request > DELETE {url}")
         resp = requests.delete(url, headers=headers)
         resp.raise_for_status()
     except HTTPError as http_err:
@@ -114,7 +108,7 @@ def post_file(url, headers={}, files=None):
     Params: uri, HTTP body
     Return: HTTP response"""
     try:                 
-        console.info("Request > POST %s" % url)
+        console.debug(f"Request > POST {url}")
         resp = requests.post(url, headers=headers, files=files)
         resp.raise_for_status()
     except HTTPError as http_err:

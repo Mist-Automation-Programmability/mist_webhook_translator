@@ -18,7 +18,8 @@ mist_conf = {
     "site_id_ignored": [],
     "approved_admins": ["user@domain.com"]
 }
-log_level = 6
+
+log_level = "INFO"
 # You can create more slack / msteams channel urls depending on your needs, you just need to be sure each
 # channel has a unique name
 slack_conf = {
