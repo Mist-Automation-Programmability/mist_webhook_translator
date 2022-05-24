@@ -7,6 +7,7 @@ import libs.msteams as Teams
 from libs.audit import audit
 from libs.device_event import device_event
 from libs.alarm import alarm
+from libs.device_updown import device_updown
 from libs.logger import Console
 console = Console("mwtt")
 
@@ -30,24 +31,24 @@ def _process_event(topic, event, mist_conf, channels, slack_conf, msteams_conf):
         data = audit(
             mist_conf.get("mist_host", None),
             mist_conf.get("approved_admins", []),
-            channels.get("audit", {}),
+            channels.get("audit_channels", {}),
             event
         )
     elif topic == "device-events":
         data = device_event(
             mist_conf.get("mist_host", None),
-            channels.get("event", {}),
+            channels.get("event_channels", {}),
             event
         )
     elif topic == "device-updowns":
-        data = device_event(
+        data = device_updown(
             mist_conf.get("mist_host", None),
-            channels.get("updown", {}),
+            channels.get("updown_channels", {}),
             event)
     elif topic == "alarms":
         data = alarm(
             mist_conf.get("mist_host", None),
-            channels.get("alarm", {}),
+            channels.get("alarm_channels", {}),
             event
         )
     else:
