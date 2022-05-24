@@ -11,4 +11,4 @@ COPY ./src /app/
 WORKDIR /app
 
 EXPOSE 51361
-CMD ["python","-u","/app/mwtt.py"]
+CMD ["python","-u","/app/main.py"]
