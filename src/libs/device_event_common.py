@@ -381,14 +381,14 @@ class CommonEvent():
 }
         '''
         try:
-            port = self.event["text"].split(" on interface ")[1]
+            port = self.event["text"].split("ifName ")[1]
         except:
             port = "unknown"
         self.text = f"INTERFACE \"{port}\" on {self.device_text} \"{self.device_name}\" (MAC: {self.device_name})"
         if self.site_name:
             self.text += f" on site \"{self.site_name}\""
         tmp = self.event_type.split("_")
-        self.text += f"is {tmp[len(tmp)-1]}"
+        self.text += f" is {tmp[len(tmp)-1]}"
 
     def _ospf(self):
         '''
