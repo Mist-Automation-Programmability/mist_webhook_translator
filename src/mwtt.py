@@ -1,9 +1,14 @@
+import sys
+import os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(SCRIPT_DIR)
+
 """System modules"""
 from datetime import datetime
 import hmac
 import hashlib
-import libs.slack as Slack
-import libs.msteams as Teams
+from libs import slack as Slack
+from libs import msteams as Teams
 from libs.audit import audit
 from libs.device_event import device_event
 from libs.alarm import alarm
