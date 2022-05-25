@@ -4,7 +4,26 @@ from requests.exceptions import HTTPError
 from .logger import Console
 console = Console("req")
 
-
+def generate_headers(apitoken=None, cookies=None):
+    '''
+    Generate Mist Request Headers from the apitoken or the session cookies
+    params:
+        apitoken    str     optional
+        cookies     obj     optional    cookies from the login request
+    return:
+        headers     obj
+    '''
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    if apitoken:
+        headers["Authorization"] = f"Token {apitoken}"
+    elif cookies:
+        for entry in cookies:
+            cookie = entry.split(';')[0].split("=")
+            if cookie[0].startswith("csrftoken"):
+                headers["X-CSRFToken"] = cookie[1]
+    return headers
 
 def _response( resp, uri="", multi_pages_result=None):
     if resp.status_code == 200 or resp.status_code == 201 :
