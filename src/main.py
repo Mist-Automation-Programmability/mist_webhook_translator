@@ -1,6 +1,8 @@
 """System modules"""
 import os
 import sys
+from datetime import datetime
+
 from flask import Flask
 from flask import request
 from config import mist_conf
@@ -77,6 +79,7 @@ app = Flask(__name__)
 @app.route(SERVER_URI, methods=["POST"])
 def postJsonHandler():
     console.info(" New message reveived ".center(60, "-"))
+    start =  datetime.now()
     res= mwtt.new_event(
         request,
         mist_conf,
@@ -89,6 +92,8 @@ def postJsonHandler():
         slack_conf,
         msteams_conf
     )
+    delta = datetime.now() - start
+    console.info(f"Processing time {delta.seconds}.{delta.microseconds}s")
     return res
     # mwtt.new_event(topic, event)
 

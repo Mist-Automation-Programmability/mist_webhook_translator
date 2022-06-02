@@ -67,6 +67,7 @@ def _process_event(topic, event, mist_conf, channels, slack_conf, msteams_conf):
     # dt = _get_time(event)
 
     if slack_conf["enabled"]:
+        console.warning(slack_conf)
         Slack.send_manual_message(
             slack_conf,
             topic,
@@ -106,15 +107,14 @@ def new_event(req, mist_conf, channels, slack_conf, msteams_conf):
     msteams_conf    obj             MsTeams configuration (enable: bool, default_url: str, url: {})
     console         console
     '''
-    start =  datetime.now()
-    signature = req.headers['X-Mist-Signature'] if "X-Mist-Signature" in req.headers else None
-    key = str.encode(mist_conf.get("mist_secret", None))
-    message = req.data
-    digester = hmac.new(key, message, hashlib.sha1).hexdigest()
-    if signature != digester and mist_conf.get("secret", None):
+    secret = mist_conf.get("secret", None)
+    if secret:
+        signature = req.headers['X-Mist-Signature'] if "X-Mist-Signature" in req.headers else None
+        key = str.encode(secret)
+        message = req.data
+        digester = hmac.new(key, message, hashlib.sha1).hexdigest()
+    if secret and signature != digester:
         console.error("Webhook signature doesn't match")
-        delta = datetime.now() - start
-        console.info(f"Processing time {delta.seconds}.{delta.microseconds}s")
         return '', 401
     else:
         console.info("Processing new webhook message")
@@ -131,6 +131,4 @@ def new_event(req, mist_conf, channels, slack_conf, msteams_conf):
                 slack_conf,
                 msteams_conf
             )
-        delta = datetime.now() - start
-        console.info(f"Processing time {delta.seconds}.{delta.microseconds}s")
         return '', 200

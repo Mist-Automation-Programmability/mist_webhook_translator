@@ -19,15 +19,15 @@ def generate_headers(apitoken=None, cookies=None):
     if apitoken:
         headers["Authorization"] = f"Token {apitoken}"
     elif cookies:
-        for entry in cookies:
-            cookie = entry.split(';')[0].split("=")
+        for entry in cookies.split(';'):
+            cookie = entry.split("=")
             if cookie[0].startswith("csrftoken"):
                 headers["X-CSRFToken"] = cookie[1]
     return headers
 
 def _response( resp, uri="", multi_pages_result=None):
     if resp.status_code == 200 or resp.status_code == 201 :
-        if multi_pages_result == None:
+        if multi_pages_result is None:
             result = resp.json()
         else: 
             result = multi_pages_result

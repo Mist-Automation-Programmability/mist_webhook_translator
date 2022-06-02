@@ -11,6 +11,7 @@
 # mist_secret:      the webhook secret configuration on the Mist Cloud
 #                   to secure webhook reception
 mist_conf = {
+    # file deepcode ignore HardcodedNonCryptoSecret: This is just an example
     "apitoken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "mist_host": "manage.mist.com",
     "mist_secret": None,
