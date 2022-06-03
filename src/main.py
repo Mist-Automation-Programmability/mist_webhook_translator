@@ -9,8 +9,16 @@ from flask import Flask, session, request, render_template, redirect, g
 import functools
 import os
 from dotenv import load_dotenv
+
+
+def getenv_bool(variable):
+    if os.getenv(variable, False) in [ 1, True, "true", "TRUE", "True" ]:
+        return True
+    return False
+
+
 load_dotenv()
-DEBUG = os.getenv('FLASK_DEBUG')
+DEBUG = getenv_bool('FLASK_DEBUG')
 if DEBUG:
     os.environ['FLASK_ENV'] = 'PRODUCTION'
     os.environ["LOG_LEVEL"] = "DEBUG"
@@ -18,21 +26,21 @@ else:
     os.environ["LOG_LEVEL"] = "INFO"
 
 FLASK_SECRET = os.getenv('FLASK_SECRET')
-FLASK_PORT = os.getenv('FLASK_PORT')
+FLASK_PORT = os.getenv('FLASK_PORT', 51360)
 MONGO_USER = os.getenv('MONGO_USER')
 MONGO_PASSWORD = os.getenv('MONGO_PASSWORD')
 MONGO_HOST = os.getenv('MONGO_HOST')
-MONGO_PORT = os.getenv('MONGO_PORT')
-MONGO_DB = os.getenv('MONGO_DB')
+MONGO_PORT = os.getenv('MONGO_PORT', 27017)
+MONGO_DB = os.getenv('MONGO_DB', 'translator')
 WH_HOST = os.getenv('WH_HOST')
-WH_HTTPS = os.getenv('WH_HTTPS')
-WH_PORT = os.getenv('WH_PORT')
+WH_HTTPS = getenv_bool('WH_HTTPS')
+WH_PORT = os.getenv('WH_PORT', 51360)
 WH_PREFIX = os.getenv('WH_PREFIX', 'webhooks')
 ABOUT_TOKEN = os.getenv('ABOUT_TOKEN', 'secret_token')
 if WH_HTTPS:
     WH_COLLECTOR = f"https://{WH_HOST}:{WH_PORT}/{WH_PREFIX}"
 else:
-    WH_COLLECTOR = f"https://{WH_HOST}:{WH_PORT}/{WH_PREFIX}"
+    WH_COLLECTOR = f"http://{WH_HOST}:{WH_PORT}/{WH_PREFIX}"
 
 """System modules"""
 #from flask_pymongo import PyMongo
@@ -84,9 +92,11 @@ server_session.init_app(app)
 
 session_db = mongodb_client["flask-session"]
 
+
 def clean_session_db():
     for session in session_db.translator.find({}):
-        expired = session["expiration"].replace(tzinfo=timezone.utc).timestamp() < datetime.today().timestamp()
+        expired = session["expiration"].replace(
+            tzinfo=timezone.utc).timestamp() < datetime.today().timestamp()
         print(expired)
         if expired:
             session_db.translator.delete_one({"_id": session["_id"]})
@@ -105,12 +115,14 @@ def login_required(view):
 ########
 # ROUTES
 SINCE = datetime.today()
+
+
 @app.route('/status/about/<string:token>', methods=["GET"])
 def status(token):
     if token == ABOUT_TOKEN:
         dt = datetime.today() - SINCE
         sessions = session_db.translator.count_documents({})
-        return {"status": "ok", "uptime": f"{dt}", "session_in_db":sessions}, 200
+        return {"status": "ok", "uptime": f"{dt}", "session_in_db": sessions}, 200
     else:
         return "", 404
 
