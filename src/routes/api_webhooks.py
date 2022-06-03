@@ -65,7 +65,7 @@ def apiWebhooksPost(request, session, org_id, WH_COLLECTOR, db):
     if len(data["topics"]) > 0:
         console.debug(f"topic(s) enabled for org {org_id}")
         current_settings = db["settings"].find_one({"org_id": org_id})
-        
+
         if not current_settings:
             console.error(
                 f"Unable to find the settings in the DB for org {org_id}")
@@ -100,7 +100,9 @@ def apiWebhooksPost(request, session, org_id, WH_COLLECTOR, db):
             "topics": data["topics"],
             "secret": secret,
             "enabled": True,
-            "verify_cert": True
+            "verify_cert": True,
+            "type": "http-post",
+            "headers": {}
         }
         return setWebhook(
             session["host"],
