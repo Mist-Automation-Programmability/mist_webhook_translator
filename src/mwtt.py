@@ -67,7 +67,6 @@ def _process_event(topic, event, mist_conf, channels, slack_conf, msteams_conf):
     # dt = _get_time(event)
 
     if slack_conf["enabled"]:
-        console.warning(slack_conf)
         Slack.send_manual_message(
             slack_conf,
             topic,
