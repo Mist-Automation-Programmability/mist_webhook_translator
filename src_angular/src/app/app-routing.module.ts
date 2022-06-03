@@ -10,7 +10,7 @@ import { OrgComponent } from './org/org.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'select', component: OrgComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'config/:org_id', component: DashboardComponent },
   { path: '',   redirectTo: '/login', pathMatch: 'full' }, // redirect to `first-component`
   { path: '**',   redirectTo: '/login' }, // redirect to `first-component`
 ];

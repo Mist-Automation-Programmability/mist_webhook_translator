@@ -3,8 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { ConnectorService } from '../connector.service';
-import {PlatformLocation} from '@angular/common';
+import { SessionService } from '../services/session.service'
 import { TwoFactorDialog } from './login-2FA';
 
 export interface TwoFactorData {
@@ -20,18 +19,19 @@ export interface TwoFactorData {
 
 export class LoginComponent implements OnInit {
 
-  constructor(private _formBuilder: FormBuilder, private _http: HttpClient, private _router: Router, private _appService: ConnectorService, public _dialog: MatDialog, private _platformLocation: PlatformLocation
-    ) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _http: HttpClient,
+    private _router: Router,
+    private _sessionService: SessionService,
+    public _dialog: MatDialog
+  ) { }
 
-
-  github_url: string;
-  docker_url: string;
-  disclaimer: string;
-  host = null;
-  headers = {};
-  cookies = {};
-  self = {};
-  loading: boolean;
+  github_url!: string;
+  docker_url!: string;
+  disclaimer!: string;
+  host: string = "";
+  loading: boolean = false;
   hosts = [
     { value: 'api.mist.com', viewValue: 'US - manage.mist.com' },
     { value: 'api.eu.mist.com', viewValue: 'EU - manage.eu.mist.com' },
@@ -41,32 +41,19 @@ export class LoginComponent implements OnInit {
   // LOGIN FORM
   frmStepLogin = this._formBuilder.group({
     host: [''],
-    credentials: this._formBuilder.group({
-      email: [''],
-      password: [''],
-    }),
-    token: [''],
+    username: [''],
+    password: ['']
   });
-  error_mess = {
-    "credentials": "",
-    "token": ""
-  }
+  error_message = ''
 
 
   //// INIT ////
   ngOnInit(): void {
     this.frmStepLogin = this._formBuilder.group({
       host: ['api.mist.com'],
-      credentials: this._formBuilder.group({
-        email: [''],
-        password: [''],
-      }),
-      token: [""],
+      username: [''],
+      password: ['']
     });
-    this._http.get<any>('/api/gap').subscribe({
-      next: data => this._appService.googleApiKeySet(data.gap),
-      error: error => console.error("Unable to load the Google API Key... Maps won't be available...")      
-    })
     this._http.get<any>("/api/disclaimer").subscribe({
       next: data => {
         if (data.disclaimer) this.disclaimer = data.disclaimer;
@@ -87,56 +74,37 @@ export class LoginComponent implements OnInit {
 
   // RESET AUTHENTICATION FORM
   reset_response(): void {
-    this.host = null;
-    this._appService.headersSet({});
-    this._appService.cookiesSet({});
-    this._appService.selfSet({});
-    this._appService.hostSet(this.host);
-    this.reset_error_mess();
-  }
-  reset_error_mess(): void{
-    this.error_mess = {
-      "credentials": "",
-      "token": ""
-    }
+    this.host = "";
+    this.error_message = ''
   }
 
   // PARSE AUTHENTICATION RESPONSE FROM SERVER
-  parse_response(data): void {
+  parse_response(data: any): void {
+    this.loading = false;
     if ("error" in data) {
-      this.loading = false;
-      this.error_mess["username"] = data.error;
-    } else if ("data" in data) {
-      if ("detail" in data.data) {
-        this.error_message(data["method"], data.data.detail);
-      } else if ("two_factor_required" in data.data && "two_factor_passed" in data.data) {
-        if (data.data["two_factor_required"] == false) {
-          this.authenticated(data)
-        } else if (data.data["two_factor_passed"] == true) {
-          this.authenticated(data)
-        } else {
-          this.open2FA()
-        }
-      } else {
+      this.error_message = data.error;
+    } else if ("two_factor_required" in data && "two_factor_passed" in data) {
+      if (data.two_factor_required == false || data.two_factor_passed == true) {
         this.authenticated(data)
+      } else {
+        this.open2FA()
       }
+    } else {
+      this.authenticated(data)
     }
   }
 
   // WHEN AUTHENTICATION IS NOT OK
-  error_message(method, message): void {
+  parse_error(message: any): void {
     this.loading = false;
-    this.error_mess[method] = message;
+    this.error_message = message.detail;
   }
 
 
   // WHEN AUTHENTICATION IS OK
   authenticated(data): void {
-    this._appService.headersSet(data.headers);
-    this._appService.cookiesSet(data.cookies);
-    this._appService.hostSet(data.host);
-    this._appService.selfSet(data.data)
-    this.loading = false; 
+    this.loading = false;
+    this._sessionService.selfSet(data);
     this._router.navigate(['/select']);
   }
 
@@ -145,28 +113,18 @@ export class LoginComponent implements OnInit {
     this.reset_response();
     if (this.check_host()) {
       this.loading = true;
-      this._http.post<any>('/api/login/', { host: this.frmStepLogin.value.host, email: this.frmStepLogin.value.credentials.email, password: this.frmStepLogin.value.credentials.password }).subscribe({
+      this._http.post<any>('/api/login/', { host: this.frmStepLogin.value.host, username: this.frmStepLogin.value.username, password: this.frmStepLogin.value.password }).subscribe({
         next: data => this.parse_response(data),
-        error: error => this.error_message("credentials", error.error.message)      
-      })
-    }
-  }
-  submitToken(): void {
-    this.reset_response();
-    if (this.check_host()) {
-      this.loading = true;
-      this._http.post<any>('/api/login/', { host: this.frmStepLogin.value.host, token: this.frmStepLogin.value.token }).subscribe({
-        next: data => this.parse_response(data),
-        error: error => this.error_message("credentials", error.error.message)
+        error: error => this.parse_error(error.error)
       })
     }
   }
   submit2FA(twoFactor: number): void {
     if (this.check_host()) {
       this.loading = true;
-      this._http.post<any>('/api/login/', { host: this.frmStepLogin.value.host, email: this.frmStepLogin.value.credentials.email, password: this.frmStepLogin.value.credentials.password, two_factor: twoFactor }).subscribe({
+      this._http.post<any>('/api/login/', { host: this.frmStepLogin.value.host, username: this.frmStepLogin.value.username, password: this.frmStepLogin.value.password, two_factor_code: twoFactor }).subscribe({
         next: data => this.parse_response(data),
-        error: error => this.error_message("credentials", error.error.message)      
+        error: error => this.parse_error(error.error)
       })
     }
   }
@@ -175,7 +133,7 @@ export class LoginComponent implements OnInit {
   open2FA(): void {
     const dialogRef = this._dialog.open(TwoFactorDialog, {});
     dialogRef.afterClosed().subscribe(result => {
-      this.submit2FA(result)
+      if (result) { this.submit2FA(result) }
     });
   }
 }

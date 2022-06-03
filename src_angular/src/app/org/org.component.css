@@ -2,6 +2,7 @@
     background-color: unset;
     max-width: 1900px;
     margin: auto;
+    background-color: white;
 }
 
 .top-bar-container {
@@ -37,4 +38,14 @@
     display: flex;
     width: 300px;
     justify-content: space-between;
+}
+
+
+/* NAV */
+
+.nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5em 1em;
 }

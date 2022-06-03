@@ -1,115 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-
+import { Router, ActivatedRoute } from "@angular/router";
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { C, COMMA, ENTER, SEMICOLON } from '@angular/cdk/keycodes';
+import { FormControl } from '@angular/forms';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 import { ErrorDialog } from '../common/common-error';
+import { SessionService } from '../services/session.service';
+import { WarningDialog } from '../common/common-warning';
 
-
-import { ConnectorService } from '../connector.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { interval, Subscription } from 'rxjs';
-import { element } from 'protractor';
-
-
-// Configuration element from Devices Details
-export interface DeviceDetailsElement {
-  managed: boolean,
-  role: string,
-  notes: string,
-  ip_config: IpConfigElement,
-  oob_ip_config: IpConfigElement,
-  disable_auto_config: boolean,
-  networks: object,
-  port_usages: object,
-  additional_config_cmds: string[],
-  id: string,
+export interface TopicElement {
+  topic: string,
+  sub_topic: string,
   name: string,
-  site_id: string,
-  org_id: string,
-  created_time: number,
-  modified_time: number,
-  map_id: string | null,
-  mac: string,
-  serial: string,
-  model: string,
-  hw_rev: string,
-  type: string,
-  tag_uuid: string | null,
-  tag_id: number | null,
-  deviceprofile_id: string | null
-}
-
-export interface IpConfigElement {
-  type: string,
-  ip: string | null,
-  netmask: string | null,
-  gateway: string | null,
-  dns: string[] | null,
-  dns_suffix: string | null,
-  network: string
-}
-
-export interface PortElement {
-  mode: string,
-  all_networks: boolean,
-  networks: string[],
-  port_network: string,
-  port_auth: string,
-  enable_mac_auth: string,
-  guest_network: string,
-  bypass_auth_when_server_down: boolean,
-  speed: string,
-  duplex: string,
-  disable_autoneg: boolean,
-  mac_limit: number,
-  stp_edge: boolean,
-  mtu: number,
-  disabled: boolean,
-  poe_disabled: boolean,
-  description: string,
-  voip_network: string,
-  storm_control: {}
-}
-
-
-// Configuration Elements derived from the site
-export interface DerivedElement {
-  additional_config_cmds: string[],
-  network: object,
-  port_usages: object,
-  switch_matching: SwitchMatchingElement,
-  vars: object
-
-}
-export interface SwitchMatchingElement {
-  element: boolean,
-  riles: object[]
-}
-
-// Device Elements for the list
-export interface DeviceElement {
-  id: string,
-  site_id: string,
-  org_id: string,
-  mac: string,
-  vc_mac: string,
-  model: string,
-  type: string,
-  serial: string,
-  status: string,
-  members: object[]
-}
-
-export interface MistDevices {
-  results: DeviceElement[];
-  total: number;
-  limit: number;
-  page: number;
+  channel: string
 }
 
 @Component({
@@ -120,425 +30,372 @@ export interface MistDevices {
 
 
 export class DashboardComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  frmPort = this._formBuilder.group({
-    mode: "access",
-    all_networks: false,
-    networks: [],
-    port_network: "default",
-    port_auth: "",
-    enable_mac_auth: "",
-    guest_network: "",
-    bypass_auth_when_server_down: false,
-    speed: ["auto"],
-    duplex: ["auto"],
-    autoneg: true,
-    mac_limit: 0,
-    stp_edge: true,
-    mtu: 1514,
-    enabled: true,
-    poe: true,
-    description: "",
-    voip_network: "",
-    storm_control: {}
-  })
+  separatorKeysCodes: number[] = [ENTER, COMMA, SEMICOLON];
+  approvedAdminsCtrl = new FormControl();
 
-  defaultConfig = {
-    mode: "access",
-    all_networks: false,
-    networks: [],
-    port_network: "",
-    port_auth: "",
-    enable_mac_auth: "",
-    guest_network: "",
-    bypass_auth_when_server_down: false,
-    speed: "auto",
-    duplex: "auto",
-    disable_autoneg: false,
-    mac_limit: 0,
-    stp_edge: true,
-    mtu: 1514,
-    disabled: false,
-    poe_disabled: false,
-    description: "",
-    voip_network: "",
-    storm_control: {}
-  }
+  displayedColumns: string[] = ['sub_topic', 'name', 'channel'];
+  dataSource = new MatTableDataSource<TopicElement>();
 
   headers = {};
   cookies = {};
-  host = '';
+  url = '';
   self = {};
-  search = "";
-  orgs = [];
-  sites = [];
-  maps = [];
+
   org_id: string = "";
-  orgMode: boolean = false;
-  site_id: string = "__any__";
+  org_name: string = "__any__";
   me: string = "";
 
-  topBarLoading = false;
-  deviceLoading = false;
+  mist_configured: boolean = false;
+  mist_updated: boolean = false;
+  mist_enabled: boolean = false;
+  slack_configured: boolean = false;
+  slack_updated: boolean = false;
+  teams_configured: boolean = false;
+  teams_updated: boolean = false;
+  topics_configured: boolean = false;
+  topics_updated: boolean = false;
 
-  editingDevice = null;
-  editingDeviceSettings = null;
-  editingPorts = [];
-  editingPortNames = [];
-  editingPortsStatus = {}
-  displayedPorts = {}
+  selected_topic: string = ""
+  topics: string[] = [];
+  channels: string[] = [];
 
-  filteredDevicesDatabase: MatTableDataSource<DeviceElement> | null;
-  devices: DeviceElement[] = []
+  default_topics: TopicElement[] = [];
+  custom_settings = {
+    channels: [],
+    topics_status: {},
+    topics: [],
+    slack_settings: {
+      enabled: false,
+      url: {}
+    },
+    teams_settings: {
+      enabled: false,
+      url: {}
+    },
+    approved_admins: []
+  }
 
-  resultsLength = 0;
-  displayedColumns: string[] = ["device"];
-  private _subscription: Subscription
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // LOADINBG INDICATORS
+  mist_in_progress:boolean = true;
+  topics_in_progress: boolean = true;
+  notif_in_progress: boolean = true;
+  loading_in_progress: boolean = false;
 
-  constructor(private _router: Router, private _http: HttpClient, private _appService: ConnectorService, public _dialog: MatDialog, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
+
+
+  constructor(
+    private _http: HttpClient,
+    private _sessionService: SessionService,
+    public _dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) { }
 
   //////////////////////////////////////////////////////////////////////////////
   /////           INIT
   //////////////////////////////////////////////////////////////////////////////
 
   ngOnInit() {
-    const source = interval(60000);
+    this._sessionService.self.subscribe(self => this.self = self || {})
+    this._activatedRoute.params.forEach(p => this.org_id = p["org_id"])
 
-    this._appService.headers.subscribe(headers => this.headers = headers)
-    this._appService.cookies.subscribe(cookies => this.cookies = cookies)
-    this._appService.host.subscribe(host => this.host = host)
-    this._appService.self.subscribe(self => this.self = self || {})
-    this._appService.org_id.subscribe(org_id => this.org_id = org_id)
-    this._appService.site_id.subscribe(site_id => this.site_id = site_id)
-    this._appService.orgMode.subscribe(orgMode => this.orgMode = orgMode)
-    
-    this.getDevices();
-
-    this._subscription = source.subscribe(s => this.getDevices());
-
-  }
-
-  ngOnDestroy() {
-    this._subscription.unsubscribe();
-  }
-
-
-  //////////////////////////////////////////////////////////////////////////////
-  /////           LOAD DEVICE LIST
-  //////////////////////////////////////////////////////////////////////////////
-
-  getDevices() {
-    var body = null
-    body = { host: this.host, cookies: this.cookies, headers: this.headers, site_id: this.site_id, full: true }
-
-    if (body) {
-      this.topBarLoading = true;
-      this._http.post<DeviceElement[]>('/api/devices/', body).subscribe({
-        next: data => {
-          var tmp: DeviceElement[] = []
-          data["results"].forEach(element => {
-            if (this.editingDevice && this.editingDevice.mac == element.mac) {
-              this.editingDevice = element;
-            }
-          });
-          this.filteredDevicesDatabase = new MatTableDataSource(data["results"]);
-
-          this.filteredDevicesDatabase.paginator = this.paginator;
-          this.topBarLoading = false;
-        },
-        error: error => {
-          var message: string = "There was an error... "
-          if ("error" in error) { message += error["error"]["message"] }
-          this.openError(message)
-        }
-      })
-
-    }
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  /////           EDIT DEVICE
-  //////////////////////////////////////////////////////////////////////////////
-  editDevice(device: DeviceElement): void {
-    if (device == this.editingDevice) {
-      this._discardDevice();
-    }
+    if (!this.self) this._router.navigate(["/login"]);
+    else if (!this.org_id) this._router.navigate(["/select"]);
     else {
-      this._discardDevice();
-      this.editingDevice = device;
-      this._getDeviceSettings()
-      this._getPortStatus()
+      this.getOrgSettings();
+      this.getOrgWebhook();
     }
   }
 
-  _getDeviceSettings(): void {
-    this.deviceLoading = true
-    this._http.post<any>('/api/devices/settings/', {
-      host: this.host,
-      cookies: this.cookies,
-      headers: this.headers,
-      site_id: this.site_id,
-      device_id: this.editingDevice.id
-    }).subscribe({
-      next: data => {
-        this.editingDeviceSettings = data
-        this.displayedPorts = data.ports
-        this.deviceLoading = false
-        this.editingPorts = []
-        this.editingPortNames.forEach(element => {
-          this.editingPorts.push(this.editingDeviceSettings.ports[element])
-        })
-      },
-      error: error => {
-        this.deviceLoading = false
-        var message: string = "Unable to load settings for the Device " + this.editingDevice.mac + "... "
-        if ("error" in error) { message += error["error"]["message"] }
-        this.openError(message)
-      }
-    })
-  }
 
-
-  _discardDevice(): void {
-    this.editingDevice = null;
-    this.editingDeviceSettings = null;
-    this.editingPorts = [];
-    this.editingPortNames = [];
-    this.displayedPorts = {};
-    this._discardPorts()
-  }
-  
-  powerDraw(member) {
-    var percentage = (member.poe.power_draw / member.poe.max_power) * 100
-    return percentage
-  }
-  
-  //////////////////////////////////////////////////////////////////////////////
-  /////           Ports Status
-  //////////////////////////////////////////////////////////////////////////////
-  
-  _getPortStatus(): void {
-    this._http.post<any>('/api/devices/portstatus/', {
-      host: this.host,
-      cookies: this.cookies,
-      headers: this.headers,
-      site_id: this.site_id,
-      device_mac: this.editingDevice.mac
-    }).subscribe({
-      next: data => {
-        this.editingPortsStatus = data.result
-      },
-      error: error => {
-        this.deviceLoading = false
-        var message: string = "Unable to load ports status for the Device " + this.editingDevice.mac + "... "
-        if ("error" in error) { message += error["error"]["message"] }
-        this.openError(message)
-      }
-    })
-  }
-  //////////////////////////////////////////////////////////////////////////////
-  /////           EDIT Port
-  //////////////////////////////////////////////////////////////////////////////
-  selectPortFromSwitchView(portName): void {
-    let port = this.editingDeviceSettings.ports[portName]
-    this.selectPort(port)
-  }
-  
-  selectPort(port): void {
-    if (this.editingPorts.includes(port)) {
-      this._deletePort(port);
-      if (this.editingPorts.length == 1) {
-        this._setPortFields(this.editingPorts[0])
-      }
-    }
-    else {
-      this._addPort(port);
-      if (this.editingPorts.length == 1) {
-        this._setPortFields(this.editingPorts[0])
-      } else if (this.editingPorts.length == 2) {
-        this._setDefaultPortFielts()
-      }
-    }
-  }
-  
-  // ADD or REMOVE ports from the editing list
-  _addPort(port): void {
-    this.editingPorts.push(port);
-    this.editingPortNames.push(port.port)
-  }
-  _deletePort(port): void {
-    let index = this.editingPorts.indexOf(port)
-    this.editingPorts.splice(index, 1)
-    let indexName = this.editingPortNames.indexOf(port.port)
-    this.editingPortNames.splice(indexName, 1)
-    if (this.editingPorts.length == 0) {
-      this._discardPorts()
-    }
-  }
-  
-  savePorts(): void {
-    this.editingPorts.forEach(element => {
-      element["new_conf"] = {
-        "mode": this.frmPort.get("mode").value,
-        "all_networks": this.frmPort.get("all_networks").value,
-        "networks": this.frmPort.get("networks").value,
-        "port_network": this.frmPort.get("port_network").value,
-        "port_auth": this.frmPort.get("port_auth").value,
-        "enable_mac_auth": this.frmPort.get("enable_mac_auth").value,
-        "guest_network": this.frmPort.get("guest_network").value,
-        "bypass_auth_when_server_down": this.frmPort.get("bypass_auth_when_server_down").value,
-        "autoneg": this.frmPort.get("autoneg").value,
-        "mac_limit": this.frmPort.get("mac_limit").value,
-        "stp_edge": this.frmPort.get("stp_edge").value,
-        "mtu": this.frmPort.get("mtu").value,
-        "disabled": this.frmPort.get("enabled").value == false,
-        "poe_disabled": this.frmPort.get("poe").value == false,
-        "description": this.frmPort.get("description").value,
-        "voip_network": this.frmPort.get("voip_network").value,
-        "storm_control": this.frmPort.get("storm_control").value,
-        "duplex": this.frmPort.get("duplex").value,
-        "speed": this.frmPort.get("speed").value
-      }
-    })
-    if (this.frmPort.valid) {
-      this.topBarLoading = true
-      var body = {
-        host: this.host,
-        cookies: this.cookies,
-        headers: this.headers,
-        site_id: this.site_id,
-        org_id: this.org_id,
-        port_config: this.editingPorts,
-        device_id: this.editingDevice.id
-      }
-      this._http.post<any>('/api/devices/update/', body).subscribe({
-        next: data => {
-          this.topBarLoading = false
-          //this.updateFrmDeviceValues(data.result)
-          this._getDeviceSettings()
-          this.openSnackBar("Device " + this.editingDevice.mac + " successfully updated", "Done")
-        },
-        error: error => {
-          this.topBarLoading = false
-          var message: string = "Unable to save changes on Device " + this.editingDevice.mac + "... "
-          if ("error" in error) { message += error["error"]["message"] }
-          this.openError(message)
-        }
-      })
-    }
-  }
-  // Reset the ports selection and form
-  _discardPorts(): void {
-    this.editingPorts = []
-    this.editingPortNames = []
-    this.frmPort.reset()
-  }
-
-  // Set Port Form values
-  _setDefaultPortFielts(): void {
-    this.updateFrmDeviceValues(this.defaultConfig)
-  }
-  _setPortFields(port): void {
-    var port_usage = ""
-    // copy default values
-    var config = { ...this.defaultConfig }
-    // getting the port_usage profile name at the switch level, and, if none, at the site level
-    if ("usage" in port.device) {
-      port_usage = port.device.usage
-    } else if ("usage" in port.site) {
-      port_usage = port.site.usage
-    }
-    // if there is a configured port_usage, retrieving its configuration at the switch level, and
-    // if none, at the site level
-    if (port_usage) {
-      var port_config = {}
-      if (port_usage in this.editingDeviceSettings.device.port_usages) {
-        port_config = this.editingDeviceSettings.device.port_usages[port_usage]
-      }
-      else if (port_usage in this.editingDeviceSettings.site.port_usages) {
-        port_config = this.editingDeviceSettings.site.port_usages[port_usage]
-      }
-      // setting the config object with the port_usage settings
-      for (var key in port_config) {
-        config[key] = port_config[key]
-      }
-    }
-    this.updateFrmDeviceValues(config)
-  }
-
-  canbeChecked(portName): boolean {
-    return this.editingPortNames.includes(portName);
-  }
   //////////////////////////////////////////////////////////////////////////////
   /////           COMMON
   //////////////////////////////////////////////////////////////////////////////
-  updateFrmDeviceValues(config: PortElement): void {
-    this.frmPort.reset()
-    this.frmPort.controls["port_network"].setValue(config.port_network)
-    this.frmPort.controls["autoneg"].setValue(config.disable_autoneg == false)
-    this.frmPort.controls["enabled"].setValue(config.disabled == false)
-    this.frmPort.controls["poe"].setValue(config.poe_disabled == false)
-    if (config.disable_autoneg == true) {
-      this.frmPort.controls["duplex"] = new FormControl({ value: config.duplex, disabled: true })
-      this.frmPort.controls["speed"] = new FormControl({ value: config.speed, disabled: true })
-    } else {
-      this.frmPort.controls["speed"].setValue(config.speed)
-      this.frmPort.controls["duplex"].setValue(config.duplex)
+  parseError(error: any): void {
+    if (error.status == "401") this.notAuthenticated()
+    else if (error.status == "403") this._router.navigate(["/select"])
+    else {
+      var message: string = "Unable to contact the server... Please try again later... "
+      if (error.error && error.error.message) message = error.error.message
+      else if (error.error) message = error.error
+      this.openSnackBar(message, "OK")
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////
+  /////           MIST WEBHOOK CONFIGURATION
+  //////////////////////////////////////////////////////////////////////////////
+  parseOrgWebhook(data: {}): void {
+    this.mist_in_progress= false;
+    if (data && data['url']==this.url) {
+      this.mist_configured = true;
+      this.mist_updated = false;
+      this.mist_enabled = data["enabled"];
+      this.topics.forEach(topic => {
+        if (!data["topics"].includes(topic)) this.mist_updated = true;
+      })    
+    }
+  }
 
-  sortList(data, attribute) {
-    return data.sort(function (a, b) {
-      var nameA = a[attribute].toUpperCase(); // ignore upper and lowercase
-      var nameB = b[attribute].toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
+  getOrgWebhook(): void {
+    this._http.get("/api/orgs/webhook/" + this.org_id).subscribe({
+      next: data => this.parseOrgWebhook(data),
+      error: error => this.parseError(error)
     })
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.filteredDevicesDatabase.filter = filterValue.trim().toLowerCase();
+  configureOrgWebhook(): void {
+    var data: string[] = []
+    for (const topic in this.custom_settings.topics_status) {
+      if (this.custom_settings.topics_status[topic]) data.push(topic)
+    }
+    this._http.post("/api/orgs/webhook/" + this.org_id, { topics: data }).subscribe({
+      next: data => this.parseOrgWebhook(data),
+      error: error => {
+        this.mist_in_progress= false;
+        this.parseError(error)
+      }
+    })
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  /////           GET SETTINGS
+  //////////////////////////////////////////////////////////////////////////////
 
-    if (this.filteredDevicesDatabase.paginator) {
-      this.filteredDevicesDatabase.paginator.firstPage();
+  parseOrgSettings(data: {}): void {
+    if (this.org_id == data["org_id"]) {
+      this.notif_in_progress = false;
+      this.topics_in_progress = false;
+
+      this.org_name = data["org_name"];
+      this.default_topics = data["default_topics"];
+      this.custom_settings = data["settings"];
+      this.url = data["url"];
+
+      if (Object.keys(this.custom_settings.slack_settings).length) this.slack_configured = true;
+      else this.custom_settings.slack_settings = { enabled: false, url: {} }
+      if (Object.keys(this.custom_settings.teams_settings).length) this.teams_configured = true;
+      else this.custom_settings.teams_settings = { enabled: false, url: {} }
+      if (Object.keys(this.custom_settings.topics).length) this.topics_configured = true;
+
+      this.custom_settings["topics"] = this.parseTopics(this.default_topics, this.custom_settings["topics"]);
+
+    } else { this.openError("Issue when getting the settings from the server...") }
+  }
+
+  getOrgSettings(): void {
+    this._http.get("/api/orgs/settings/" + this.org_id).subscribe({
+      next: data => this.parseOrgSettings(data),
+      error: error => this.parseError(error)
+    })
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  /////           ORG SETTINGS
+  //////////////////////////////////////////////////////////////////////////////
+  saveOrgSettings(): void {
+    this.notif_in_progress = true;
+    this.topics_in_progress = true;
+    this.mist_in_progress= true;
+    this._http.post('/api/orgs/settings/' + this.org_id, this.custom_settings).subscribe({
+      next: data => {
+        this.topics_updated = false;
+        this.slack_updated = false;
+        this.teams_updated = false;
+        this.notif_in_progress = false;
+        this.topics_in_progress = false;
+        this.configureOrgWebhook();
+      },
+      error: error => {
+        this.notif_in_progress = false;
+        this.topics_in_progress = false;
+        this.parseError(error)
+      }
+    })
+  }
+
+  deleteOrgSettings(): void {
+    this._http.delete("/api/orgs/settings/" + this.org_id).subscribe({
+      next: data => this._router.navigate(["/select"]),
+      error: error => this.parseError(error)
+    })
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  /////           NOTIFICATIONS
+  //////////////////////////////////////////////////////////////////////////////
+  toggleNotif(notif: string, new_status: boolean): void {
+    switch (notif) {
+      case "slack":
+        this.custom_settings.slack_settings.enabled = new_status;
+        this.slack_configured = true;
+        this.slack_updated = true;
+        break;
+      case "teams":
+        this.custom_settings.teams_settings.enabled = new_status;
+        this.teams_configured = true;
+        this.teams_updated = true;
+        break;
     }
   }
 
-  applyPortFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.displayedPorts = {}
-    if (filterValue) {
-      for (var key in this.editingDeviceSettings.ports) {
-        if (key.includes(filterValue)) {
-          this.displayedPorts[key] = this.editingDeviceSettings.ports[key]
+  updateNotifUrl(notif: string, channel: string, e: any): void {
+    var notif_settins = undefined;
+    switch (notif) {
+      case "slack":
+        notif_settins = this.custom_settings.slack_settings;
+        this.slack_updated = true;
+        break;
+      case "teams":
+        notif_settins = this.custom_settings.teams_settings;
+        this.teams_updated = true;
+        break;
+    }
+    notif_settins.url[channel] = e.target.value;
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  /////           PROCESS TOPICS
+  //////////////////////////////////////////////////////////////////////////////
+
+  parseTopics(default_topics: TopicElement[], configured_topics: {}): any[] {
+    var custom_topics = [];
+    if (Object.keys(configured_topics).length) {
+      // reformat the topic list
+      for (const topic in configured_topics) {
+        for (const event in configured_topics[topic]) {
+          const data =custom_topics.push({
+            "topic": topic,
+            "sub_topic": default_topics.filter(t => t.name == event && t.topic == topic)[0]["sub_topic"],
+            "name": event,
+            "channel": configured_topics[topic][event]
+          })
         }
       }
+      // compare the default topics and the customer topics to find missing ones
+      const missing_topics = default_topics.filter(({ name: id1 }) => !custom_topics.some(({ name: id2 }) => id2 === id1));
+      missing_topics.forEach(topic => {
+        topic["new"] = true;
+        custom_topics.push(topic);
+      })
     } else {
-      this.displayedPorts = this.editingDeviceSettings.ports
+      custom_topics = default_topics;
     }
+    // extract the list of channels from custom topics
+    this.channels = ["default", "critical", "warning", "info", "debug"];
+    this.channels.forEach(channel => {
+      if (!this.custom_settings.teams_settings.url[channel]) this.custom_settings.teams_settings.url[channel] = "";
+      if (!this.custom_settings.slack_settings.url[channel]) this.custom_settings.slack_settings.url[channel] = "";
+    })
+    custom_topics.forEach(topic => {
+      if (topic.channel && !this.channels.includes(topic.channel)) {
+        this.channels.push(topic.channel);
+        if (!this.custom_settings.teams_settings.url[topic.channel]) this.custom_settings.teams_settings.url[topic.channel] = "";
+        if (!this.custom_settings.slack_settings.url[topic.channel]) this.custom_settings.slack_settings.url[topic.channel] = "";
+      }
+    })
+
+    // extract the list of topicvs
+    this.topics = [];
+    default_topics.forEach(topic => {
+      if (!this.topics.includes(topic.topic) && this.custom_settings.topics_status[topic.topic]) this.topics.push(topic.topic);
+    })
+
+    return custom_topics;
   }
 
-  back(): void {
+  changeTopic(): void {
+    this.dataSource = new MatTableDataSource<TopicElement>(this.custom_settings.topics.filter(t => t.topic == this.selected_topic));
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    console.log(this.dataSource.paginator)
+  }
+
+  toggleTopic(topic: string, new_status: boolean): void {
+    this.custom_settings.topics_status[topic] = new_status;
+    this.topics_configured = true;
+    this.topics_updated = true;
+    if (new_status) {
+      this.topics.push(topic)
+      this.selected_topic = topic;
+    } else {
+      this.topics.splice(this.topics.indexOf(topic), 1);
+      this.selected_topic = undefined;
+    }
+    this.mist_updated = true;
+    this.changeTopic();
+  }
+
+  topicsUpdated(): void {
+    this.topics_configured = true;
+    this.topics_updated = true;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  /////           APPROVED ADMINS
+  //////////////////////////////////////////////////////////////////////////////
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    if (value) {
+      this.custom_settings.approved_admins.push(value);
+    }
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.approvedAdminsCtrl.setValue(null);
+  }
+
+  remove(fruit: string): void {
+    const index = this.custom_settings.approved_admins.indexOf(fruit);
+
+    if (index >= 0) {
+      this.custom_settings.approved_admins.splice(index, 1);
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  /////           NAV
+  //////////////////////////////////////////////////////////////////////////////
+  backToOrgs(): void {
     this._router.navigate(["/select"]);
+  }
+
+  logout(): void {
+    this._http.post<any>("/api/logout", {}).subscribe({
+      next: data => {
+        this._router.navigate(["/"])
+          .catch(console.error)
+          .then(() => window.location.reload());
+      },
+      error: error => this.parseError(error)
+    })
   }
 
   //////////////////////////////////////////////////////////////////////////////
   /////           DIALOG BOXES
   //////////////////////////////////////////////////////////////////////////////
+
+  openNewTab(url: string): void {
+    window.open(url, "_blank");
+  }
   // ERROR
   openError(message: string): void {
     const dialogRef = this._dialog.open(ErrorDialog, {
       data: message
     });
+  }
+
+  openWarning(message: string, cb): void {
+    const dialogRef = this._dialog.open(WarningDialog, {
+      data: message
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      cb(result);
+    });
+  }
+
+  notAuthenticated(): void {
+    this._router.navigate(["/"]);
   }
 
   // SNACK BAR

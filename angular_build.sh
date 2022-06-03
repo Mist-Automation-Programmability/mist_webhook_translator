@@ -2,6 +2,7 @@
 
 cd src_angular/
 ng build --deploy-url static/
-cp dist/psk/* ../django_app/pskGen/static
-cp dist/psk/index.html ../django_app/pskGen/templates
+rm ../src/static/*.js
+cp dist/webhook-translator/* ../src/static
+cp dist/webhook-translator/index.html ../src/templates
 cd ..

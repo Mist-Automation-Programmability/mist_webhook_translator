@@ -1,11 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-export interface WarningData {
-    text: string,
-    vlan_check: [""],
-    bigWarning: boolean
-}
+
 
 @Component({
     selector: 'common-warning',
@@ -15,7 +11,7 @@ export class WarningDialog {
 
     constructor(
         public dialogRef: MatDialogRef<WarningDialog>,
-        @Inject(MAT_DIALOG_DATA) public data: WarningData
+        @Inject(MAT_DIALOG_DATA) public data: string
     ) { }
     ok(): void {
         this.dialogRef.close(true);
