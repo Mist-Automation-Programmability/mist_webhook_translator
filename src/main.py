@@ -12,8 +12,6 @@ from dotenv import load_dotenv
 
 
 def getenv_bool(variable):
-    print(variable)
-    print(os.getenv(variable, False))
     if os.getenv(variable, False) in [ 1, True, "true", "TRUE", "True" ]:
         return True
     return False
@@ -197,5 +195,4 @@ def whCollector(org_id):
 
 if __name__ == '__main__':
     console.info("Starting Server".center(40, "_"))
-    console.info(DEBUG)
     app.run(debug=DEBUG, host='0.0.0.0', port=FLASK_PORT)
