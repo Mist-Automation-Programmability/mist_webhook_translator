@@ -3,3 +3,4 @@ requests
 pymongo>=3.0
 flask_pymongo
 flask_session
+bson
