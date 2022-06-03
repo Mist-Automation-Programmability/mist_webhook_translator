@@ -1,7 +1,5 @@
 python-dotenv
-flask>=1.1
+flask==2.1.2
 requests
-pymongo>=3.0
-flask_pymongo
-flask_session
-bson
+pymongo==3.11.3
+flask_session==0.4.0

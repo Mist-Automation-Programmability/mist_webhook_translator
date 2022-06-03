@@ -3,9 +3,9 @@ from mwtt.src import mwtt as Mwtt
 from routes import api_login, api_orgs, api_webhooks, collector
 from pymongo import MongoClient
 import html
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from flask_session import Session
-from flask import Flask, session, request, render_template, redirect, g
+from flask import Flask, session, request, render_template
 import functools
 import os
 from dotenv import load_dotenv
@@ -94,7 +94,7 @@ session_db = mongodb_client["flask-session"]
 
 
 def clean_session_db():
-    for session in session_db.translator.find({}):
+    for session in session_db["translator"].find({}):
         expired = session["expiration"].replace(
             tzinfo=timezone.utc).timestamp() < datetime.today().timestamp()
         print(expired)
