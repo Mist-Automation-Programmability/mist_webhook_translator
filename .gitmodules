@@ -1,3 +1,3 @@
-[submodule "src/mwtt/mwtt"]
-	path = src/mwtt/mwtt
+[submodule "src/mwtt"]
+	path = src/mwtt
 	url = https://github.com/tmunzer/mwtt
