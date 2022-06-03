@@ -10,5 +10,7 @@ RUN pip install --no-cache-dir flask requests
 COPY ./src /app/
 WORKDIR /app
 
+RUN pip install -r requirements.txt
+
 EXPOSE 51361
 CMD ["python","-u","/app/main.py"]
