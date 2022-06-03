@@ -4,7 +4,7 @@ WH_PORT=51360
 WH_PREFIX=webhooks
 # python -c 'import secrets; print(secrets.token_hex())'
 FLASK_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
-FLASK_DEBUG=TRUE
+FLASK_DEBUG=FALSE
 FLASK_PORT=51360
 MONGO_USER=root
 MONGO_PASSWORD=secretDBpassword

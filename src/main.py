@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 
 
 def getenv_bool(variable):
+    print(variable)
+    print(os.getenv(variable, False))
     if os.getenv(variable, False) in [ 1, True, "true", "TRUE", "True" ]:
         return True
     return False
@@ -20,9 +22,9 @@ def getenv_bool(variable):
 load_dotenv()
 DEBUG = getenv_bool('FLASK_DEBUG')
 if DEBUG:
-    os.environ['FLASK_ENV'] = 'PRODUCTION'
     os.environ["LOG_LEVEL"] = "DEBUG"
 else:
+    os.environ['FLASK_ENV'] = 'PRODUCTION'
     os.environ["LOG_LEVEL"] = "INFO"
 
 FLASK_SECRET = os.getenv('FLASK_SECRET')
@@ -195,4 +197,5 @@ def whCollector(org_id):
 
 if __name__ == '__main__':
     console.info("Starting Server".center(40, "_"))
-    app.run(debug=True, host='0.0.0.0', port=FLASK_PORT)
+    console.info(DEBUG)
+    app.run(debug=DEBUG, host='0.0.0.0', port=FLASK_PORT)
