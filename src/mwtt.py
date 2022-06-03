@@ -30,30 +30,29 @@ def _get_time(event):
 
 def _process_event(topic, event, mist_conf, channels, slack_conf, msteams_conf):
     """Process new event"""
-    console.info(f"Message topic: {topic}")
 
     if topic == "audits":
         data = audit(
             mist_conf.get("mist_host", None),
             mist_conf.get("approved_admins", []),
-            channels.get("audit_channels", {}),
+            channels.get("audits", {}),
             event
         )
     elif topic == "device-events":
         data = device_event(
             mist_conf.get("mist_host", None),
-            channels.get("event_channels", {}),
+            channels.get("device-events", {}),
             event
         )
     elif topic == "device-updowns":
         data = device_updown(
             mist_conf.get("mist_host", None),
-            channels.get("updown_channels", {}),
+            channels.get("device-updowns", {}),
             event)
     elif topic == "alarms":
         data = alarm(
             mist_conf.get("mist_host", None),
-            channels.get("alarm_channels", {}),
+            channels.get("alarms", {}),
             event
         )
     else:
@@ -120,14 +119,21 @@ def new_event(req, mist_conf, channels, slack_conf, msteams_conf):
         content = req.get_json()
         console.debug(content)
         topic = content["topic"]
-        events = content["events"]
-        for event in events:
-            _process_event(
-                topic,
-                event,
-                mist_conf,
-                channels,
-                slack_conf,
-                msteams_conf
-            )
-        return '', 200
+        console.critical(channels)
+        console.critical(channels.get(topic))
+        if len(channels.get(topic, {})) == 0:
+            console.warning(f"topic {topic} is not configured for this org")
+            return '', 404
+        else:
+            console.info(f"Message topic: {topic}")
+            events = content["events"]
+            for event in events:
+                _process_event(
+                    topic,
+                    event,
+                    mist_conf,
+                    channels,
+                    slack_conf,
+                    msteams_conf
+                )
+            return '', 200

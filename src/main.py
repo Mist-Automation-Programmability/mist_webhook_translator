@@ -84,10 +84,10 @@ def postJsonHandler():
         request,
         mist_conf,
         {
-            "event_channels": event_channels,
-            "updown_channels": updown_channels,
-            "alarm_channels": alarm_channels,
-            "audit_channels": audit_channels
+            "device-events": event_channels,
+            "device-updowns": updown_channels,
+            "alarms": alarm_channels,
+            "audits": audit_channels
         },
         slack_conf,
         msteams_conf
