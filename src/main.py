@@ -3,7 +3,7 @@ from mwtt.src import mwtt as Mwtt
 from routes import api_login, api_orgs, api_webhooks, collector
 from pymongo import MongoClient
 import html
-from datetime import timedelta
+from datetime import date, datetime, timedelta, timezone
 from flask_session import Session
 from flask import Flask, session, request, render_template, redirect, g
 import functools
@@ -28,6 +28,7 @@ WH_HOST = os.getenv('WH_HOST')
 WH_HTTPS = os.getenv('WH_HTTPS')
 WH_PORT = os.getenv('WH_PORT')
 WH_PREFIX = os.getenv('WH_PREFIX', 'webhooks')
+ABOUT_TOKEN = os.getenv('ABOUT_TOKEN', 'secret_token')
 if WH_HTTPS:
     WH_COLLECTOR = f"https://{WH_HOST}:{WH_PORT}/{WH_PREFIX}"
 else:
@@ -51,6 +52,7 @@ def display_conf():
     console.info(f"MongoDb User      : {MONGO_USER}")
     console.info(f"MongoDb Database  : {MONGO_DB}")
     console.info(f"Webhooks collector: {WH_COLLECTOR}/<org_id>")
+    console.info(f"About Token       : {ABOUT_TOKEN}")
 
 
 ###########################
@@ -80,6 +82,15 @@ app.config['SESSION_MONGODB_COLLECT'] = "translator"
 server_session = Session()
 server_session.init_app(app)
 
+session_db = mongodb_client["flask-session"]
+
+def clean_session_db():
+    for session in session_db.translator.find({}):
+        expired = session["expiration"].replace(tzinfo=timezone.utc).timestamp() < datetime.today().timestamp()
+        print(expired)
+        if expired:
+            session_db.translator.delete_one({"_id": session["_id"]})
+
 
 def login_required(view):
     @functools.wraps(view)
@@ -90,8 +101,18 @@ def login_required(view):
             return view(**kwargs)
     return wrapped_view
 
+
 ########
 # ROUTES
+SINCE = datetime.today()
+@app.route('/status/about/<string:token>', methods=["GET"])
+def status(token):
+    if token == ABOUT_TOKEN:
+        dt = datetime.today() - SINCE
+        sessions = session_db.translator.count_documents({})
+        return {"status": "ok", "uptime": f"{dt}", "session_in_db":sessions}, 200
+    else:
+        return "", 404
 
 
 @app.route('/webhook', methods=["POST"])
@@ -100,12 +121,10 @@ def postJsonHandler():
 
 
 @app.route('/', methods=["GET"])
-def login():
-    return render_template('index.html')
-
-
+@app.route('/login', methods=["GET"])
 @app.route('/select', methods=["GET"])
-def select():
+def login():
+    clean_session_db()
     return render_template('index.html')
 
 
@@ -155,6 +174,7 @@ def apiOrgWehooks(org_id):
         return api_webhooks.apiWebhooksGet(session, html.escape(org_id), WH_COLLECTOR)
     elif request.method == "POST":
         return api_webhooks.apiWebhooksPost(request, session, html.escape(org_id), WH_COLLECTOR, db)
+
 
 @app.route('/webhooks/<string:org_id>', methods=["POST"])
 def whCollector(org_id):

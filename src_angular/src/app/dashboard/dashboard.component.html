@@ -233,19 +233,19 @@
                         <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
 
-                        <!-- Position Column -->
+                        <!-- sub_topic Column -->
                         <ng-container matColumnDef="sub_topic">
                             <th mat-header-cell *matHeaderCellDef> Sub Topic </th>
                             <td mat-cell *matCellDef="let element"> {{element.sub_topic}} </td>
                         </ng-container>
 
-                        <!-- Name Column -->
+                        <!-- name Column -->
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef> Name </th>
                             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                         </ng-container>
 
-                        <!-- Weight Column -->
+                        <!-- channel Column -->
                         <ng-container matColumnDef="channel">
                             <th mat-header-cell *matHeaderCellDef> Channel </th>
                             <td mat-cell *matCellDef="let element">
