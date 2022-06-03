@@ -175,9 +175,9 @@
                         <mat-icon>notifications_active</mat-icon>
                         <span>Alarms</span>
                     </button>
-                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['audit']" (click)="toggleTopic('audit', true)">
+                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['audits']" (click)="toggleTopic('audits', true)">
                         <mat-icon>list</mat-icon>
-                        <span>Audit</span>
+                        <span>Audits</span>
                     </button>
                     <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-events']" (click)="toggleTopic('device-events', true)">
                         <mat-icon>checklist</mat-icon>
@@ -269,7 +269,7 @@
 
                     </table>
                 </div>
-                <div *ngIf="selected_topic=='audit'" fxLayout="column" style="margin: 3em 1em">
+                <div *ngIf="selected_topic=='audits'" fxLayout="column" style="margin: 3em 1em">
                     <div>You can define here the list of approved admins (with admin email address) or approved API tokens (with token name):</div>
                     <mat-form-field>
                         <mat-label>Approved Admins</mat-label>

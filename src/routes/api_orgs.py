@@ -45,7 +45,7 @@ def apiOrgsSettingsGet(session, org_id, WH_COLLECTOR, db):
                 "alarms": False,
                 "device-events": False,
                 "device-updowns": False,
-                "audit": False
+                "audits": False
             },
             "topics": {}
         }
