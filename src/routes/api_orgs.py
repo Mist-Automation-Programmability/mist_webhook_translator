@@ -130,10 +130,11 @@ def apiOrgsSettingsPost(request, session, org_id, db):
                 if type(data["teams_settings"]["url"][channel]) is str:
                     secured_data["teams_settings"]["url"][channel] = data["teams_settings"]["url"][channel]
 
-    if type(data.get("approved_admins")) is list:
-        for admin in data["approved_admins"]:
-            if type(admin) is list:
-                secured_data["mist_settings"]["approved_admins"].append(admin)
+    if (type(data.get("mist_settings"))) is dict:
+        if type(data["mist_settings"].get("approved_admins")) is list:
+            for admin in data["mist_settings"]["approved_admins"]:
+                if type(admin) is str:
+                    secured_data["mist_settings"]["approved_admins"].append(admin)
 
     secured_data["mist_settings"]["mist_host"] = session["host"]
     secured_data["org_id"] = org_id

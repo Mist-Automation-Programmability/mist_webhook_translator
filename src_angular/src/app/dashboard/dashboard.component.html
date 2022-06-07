@@ -274,7 +274,7 @@
                     <mat-form-field>
                         <mat-label>Approved Admins</mat-label>
                         <mat-chip-list #chipList aria-label="Approved Admins">
-                            <mat-chip *ngFor="let admin of custom_settings.approved_admins" (removed)="remove(admin)">
+                            <mat-chip *ngFor="let admin of custom_settings.mist_settings.approved_admins" (removed)="remove(admin)">
                                 {{admin}}
                                 <button matChipRemove>
                                     <mat-icon>cancel</mat-icon>

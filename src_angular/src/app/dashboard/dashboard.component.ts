@@ -74,7 +74,9 @@ export class DashboardComponent implements OnInit {
       enabled: false,
       url: {}
     },
-    approved_admins: []
+    mist_settings: {
+      approved_admins: []
+    }
   }
 
 
@@ -336,21 +338,25 @@ export class DashboardComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
+    console.log(this.custom_settings)
     if (value) {
-      this.custom_settings.approved_admins.push(value);
+      this.custom_settings.mist_settings.approved_admins.push(value);
     }
     // Clear the input value
     event.chipInput!.clear();
-
     this.approvedAdminsCtrl.setValue(null);
+
+    this.topics_updated = true;
   }
 
   remove(fruit: string): void {
-    const index = this.custom_settings.approved_admins.indexOf(fruit);
+    const index = this.custom_settings.mist_settings.approved_admins.indexOf(fruit);
 
     if (index >= 0) {
-      this.custom_settings.approved_admins.splice(index, 1);
+      this.custom_settings.mist_settings.approved_admins.splice(index, 1);
     }
+    
+    this.topics_updated = true;
   }
   //////////////////////////////////////////////////////////////////////////////
   /////           NAV
