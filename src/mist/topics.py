@@ -1,3 +1,5 @@
+topic_names = ["audits", "alarms", "device-events", "device-updowns"]
+
 topics = [
     {"topic": "device-events", "sub_topic": "access point", "name": "AP_CLAIMED", "channel": "warning"},
     {"topic": "device-events", "sub_topic": "access point", "name": "AP_UNCLAIMED", "channel": "warning"},

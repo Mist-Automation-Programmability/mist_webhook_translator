@@ -1,7 +1,7 @@
 import json
 from routes.common import extract_json, check_privilege
 from routes.api_webhooks import apiWebhooksDelete
-from mist.topics import topics
+from mist.topics import topics, topic_names
 import bson.json_util as json_util
 
 from mwtt import Console
@@ -38,15 +38,13 @@ def apiOrgsSettingsGet(session, org_id, WH_COLLECTOR, db):
 
     if not settings:
         console.info(f"data retrived from DB: New settings for org {org_id}")
+        topics_status = {}
+        for topic in topic_names:
+            topics_status[topic] = False
         settings = {
             "slack_settings": {},
             "teams_settings": {},
-            "topics_status": {
-                "alarms": False,
-                "device-events": False,
-                "device-updowns": False,
-                "audits": False
-            },
+            "topics_status": topics_status,
             "topics": {}
         }
     else:
@@ -79,6 +77,7 @@ def apiOrgsSettingsDelete(session, org_id, WH_COLLECTOR, db):
 
 
 def apiOrgsSettingsPost(request, session, org_id, db):
+
     console.debug(f"Received new apiOrgsSettingsPost from org {org_id}")
     privilege = check_privilege(session, org_id)
     if not privilege:
@@ -100,14 +99,15 @@ def apiOrgsSettingsPost(request, session, org_id, db):
 
     if type(data.get("topics_status") is dict):
         for entry in data["topics_status"]:
-            if type(data["topics_status"][entry]) is bool:
+            if entry in topic_names and type(data["topics_status"][entry]) is bool:
                 secured_data["topics_status"][entry] = data["topics_status"][entry]
 
     if type(data.get("topics")) is list:
         for entry in data["topics"]:
             if type(entry.get("topic")) is str \
                     and type(entry.get("name")) is str \
-                    and type(entry.get("channel")) is str:
+                    and type(entry.get("channel")) is str \
+                    and entry["name"] in topic_names:
                 if not entry["topic"] in secured_data["topics"]:
                     secured_data["topics"][entry["topic"]] = {}
                 secured_data["topics"][entry["topic"]
@@ -154,7 +154,8 @@ def apiOrgsSettingsPost(request, session, org_id, db):
     else:
         try:
             secured_data["mist_settings"]["secret"] = current_settings["mist_settings"]["secret"]
-            res = db["settings"].update({"_id": current_settings["_id"]}, {"$set": secured_data})
+            res = db["settings"].update(
+                {"_id": current_settings["_id"]}, {"$set": secured_data})
             if res["ok"] == 1:
                 console.info(f"data updated for org {org_id}")
                 return "", 200
