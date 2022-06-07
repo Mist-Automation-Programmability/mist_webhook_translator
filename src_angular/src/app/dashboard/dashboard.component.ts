@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit {
 
 
   // LOADINBG INDICATORS
-  mist_in_progress:boolean = true;
+  mist_in_progress: boolean = true;
   topics_in_progress: boolean = true;
   notif_in_progress: boolean = true;
   loading_in_progress: boolean = false;
@@ -130,14 +130,14 @@ export class DashboardComponent implements OnInit {
   /////           MIST WEBHOOK CONFIGURATION
   //////////////////////////////////////////////////////////////////////////////
   parseOrgWebhook(data: {}): void {
-    this.mist_in_progress= false;
-    if (data && data['url']==this.url) {
+    this.mist_in_progress = false;
+    if (data && data['url'] == this.url) {
       this.mist_configured = true;
       this.mist_updated = false;
       this.mist_enabled = data["enabled"];
       this.topics.forEach(topic => {
         if (!data["topics"].includes(topic)) this.mist_updated = true;
-      })    
+      })
     }
   }
 
@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
     this._http.post("/api/orgs/webhook/" + this.org_id, { topics: data }).subscribe({
       next: data => this.parseOrgWebhook(data),
       error: error => {
-        this.mist_in_progress= false;
+        this.mist_in_progress = false;
         this.parseError(error)
       }
     })
@@ -199,7 +199,7 @@ export class DashboardComponent implements OnInit {
   saveOrgSettings(): void {
     this.notif_in_progress = true;
     this.topics_in_progress = true;
-    this.mist_in_progress= true;
+    this.mist_in_progress = true;
     this._http.post('/api/orgs/settings/' + this.org_id, this.custom_settings).subscribe({
       next: data => {
         this.topics_updated = false;
@@ -243,18 +243,17 @@ export class DashboardComponent implements OnInit {
   }
 
   updateNotifUrl(notif: string, channel: string, e: any): void {
-    var notif_settins = undefined;
-    switch (notif) {
-      case "slack":
-        notif_settins = this.custom_settings.slack_settings;
-        this.slack_updated = true;
-        break;
-      case "teams":
-        notif_settins = this.custom_settings.teams_settings;
-        this.teams_updated = true;
-        break;
+    const names = {
+      "slack": { "settings": "slack_settings", "update": "slack_updated" },
+      "teams": { "settings": "teams_settings", "update": "teams_updated" }
     }
-    notif_settins.url[channel] = e.target.value;
+
+    const notif_settings = this.custom_settings[names[notif]["settings"]];
+    if (notif_settings.url[channel] != e.target.value) {
+      notif_settings.url[channel] = e.target.value;
+      this[names[notif]["update"]] = true;
+    }
+
   }
   //////////////////////////////////////////////////////////////////////////////
   /////           PROCESS TOPICS
@@ -266,7 +265,7 @@ export class DashboardComponent implements OnInit {
       // reformat the topic list
       for (const topic in configured_topics) {
         for (const event in configured_topics[topic]) {
-          const data =custom_topics.push({
+          const data = custom_topics.push({
             "topic": topic,
             "sub_topic": default_topics.filter(t => t.name == event && t.topic == topic)[0]["sub_topic"],
             "name": event,
