@@ -3,3 +3,4 @@ flask==2.1.2
 requests
 pymongo==3.11.3
 flask_session==0.4.0
+cryptography

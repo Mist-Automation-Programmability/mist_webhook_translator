@@ -35,7 +35,7 @@ def apiWebhooksGet(session, org_id, WH_COLLECTOR):
         return _find_webhook(session, org_id, WH_COLLECTOR)
 
 
-def apiWebhooksPost(request, session, org_id, WH_COLLECTOR, db):
+def apiWebhooksPost(request, session, org_id, WH_COLLECTOR,  ORG_SETTINGS):
     console.debug(f"Received new apiWebhooksPost from org {org_id}")
     privilege = check_privilege(session, org_id)
     if not privilege:
@@ -64,53 +64,29 @@ def apiWebhooksPost(request, session, org_id, WH_COLLECTOR, db):
 
     if len(data["topics"]) > 0:
         console.debug(f"topic(s) enabled for org {org_id}")
-        current_settings = db["settings"].find_one({"org_id": org_id})
-
-        if not current_settings:
-            console.error(
-                f"Unable to find the settings in the DB for org {org_id}")
-            return "Unable to find the settings in the DB", 500
-        elif current_settings["mist_settings"].get("secret"):
-            console.debug(
-                f"Settings data retrieved from DB for org {org_id}. Secret already set.")
-            secret = current_settings["mist_settings"]["secret"]
-        else:
-            console.debug(
-                f"Settings data retrieved from DB for org {org_id}. Secret not set yet.")
-            try:
-                secret = secrets.token_urlsafe()
-                res = db["settings"].update({"_id": current_settings["_id"]},
-                                            {"$set": {"mist_settings.secret": secret}})
-                if res["ok"] != 1:
-                    console.error(
-                        f"Unable to save the webhook secret in the DB for org {org_id}")
-                    return "", 500
-                else:
-                    console.debug(
-                        f"webhook secret saved in the DB for org {org_id}")
-            except:
-                console.error(
-                    f"Error when saving the webhook secret in the DB for org {org_id}")
-                return "Error when saving data", 500
-
-        url = f"{WH_COLLECTOR}/{org_id}"
-        data = {
-            "name": "Mist Webhook Translator",
-            "url": url,
-            "topics": data["topics"],
-            "secret": secret,
-            "enabled": True,
-            "verify_cert": True,
-            "type": "http-post",
-            "headers": {}
-        }
-        return setWebhook(
-            session["host"],
-            org_id,
-            session["cookies"],
-            data,
-            webhook_id
-        )
+        
+        msg, status_code, secret = ORG_SETTINGS.get_webhook_secret(org_id)
+        if status_code != 200:
+            return msg, status_code
+        else:           
+            url = f"{WH_COLLECTOR}/{org_id}"
+            data = {
+                "name": "Mist Webhook Translator",
+                "url": url,
+                "topics": data["topics"],
+                "secret": secret,
+                "enabled": True,
+                "verify_cert": True,
+                "type": "http-post",
+                "headers": {}
+            }
+            return setWebhook(
+                session["host"],
+                org_id,
+                session["cookies"],
+                data,
+                webhook_id
+            )
     else:
         return apiWebhooksDelete(session, org_id,  WH_COLLECTOR)
 

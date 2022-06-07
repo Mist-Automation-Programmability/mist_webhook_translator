@@ -1,6 +1,7 @@
 
 from mwtt import Console
-
+import os
+MONGO_KEY = os.getenv("MONGO_KEY")
 console = Console("api_common")
 
 def extract_json(request):

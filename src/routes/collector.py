@@ -8,25 +8,25 @@ from datetime import datetime
 console = Console("wh_collector")
 
 
-def whCollectorPost(request, org_id, db):
+def whCollectorPost(request, org_id, ORG_SETTINGS):
     console.info(" New message reveived ".center(60, "-"))
     console.info(f"Org id:  {org_id} ")
 
     start = datetime.now()
-    try:
-        settings = db["settings"].find_one({"org_id": org_id})
-        settings = json.loads(json_util.dumps(settings))
-        console.debug(f"settings loaded from DB for org {org_id}")
-    except:
+
+    settings = ORG_SETTINGS.get(org_id)
+    if not settings:
         console.error(f"unable to load settings from DB for org {org_id}")
-        return "", 500
+        return "", 404
+    console.debug(f"settings loaded from DB for org {org_id}")
+    
     channels = {}
     channels_count = 0
     for topic in settings["topics_status"]:
         if settings["topics_status"][topic]:
-            channels[topic]=settings["topics"][topic]
+            channels[topic] = settings["topics"][topic]
             channels_count += 1
-            
+
     if channels_count:
         res = mwtt.new_event(
             request,

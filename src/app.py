@@ -1,6 +1,7 @@
 from mwtt import Console
 from mwtt.src import mwtt as Mwtt
 from routes import api_login, api_orgs, api_webhooks, collector
+from models.org_settings import OrgSettings
 from pymongo import MongoClient
 import html
 from datetime import datetime, timedelta, timezone
@@ -8,6 +9,7 @@ from flask_session import Session
 from flask import Flask, session, request, render_template
 import functools
 import os
+import base64
 from dotenv import load_dotenv
 
 
@@ -32,6 +34,7 @@ MONGO_PASSWORD = os.getenv('MONGO_PASSWORD')
 MONGO_HOST = os.getenv('MONGO_HOST')
 MONGO_PORT = os.getenv('MONGO_PORT', 27017)
 MONGO_DB = os.getenv('MONGO_DB', 'translator')
+MONGO_KEY = os.getenv('MONGO_KEY', 'cef2c2f6eb7b00c7c67d99f0685178e7')
 WH_HOST = os.getenv('WH_HOST')
 WH_HTTPS = getenv_bool('WH_HTTPS')
 WH_PORT = os.getenv('WH_PORT', 51360)
@@ -65,6 +68,7 @@ def display_conf():
 
 ###########################
 # ENTRY POINT
+
 
 #######
 # FLASK
@@ -112,6 +116,10 @@ def login_required(view):
     return wrapped_view
 
 
+########
+# MODELS
+fernet_key = base64.urlsafe_b64encode(MONGO_KEY.encode())
+ORG_SETTINGS = OrgSettings(fernet_key, db["settings"])
 ########
 # ROUTES
 SINCE = datetime.today()
@@ -170,11 +178,11 @@ def apiOrgs():
 @login_required
 def apiOrgsSettings(org_id):
     if request.method == "GET":
-        return api_orgs.apiOrgsSettingsGet(session, html.escape(org_id), WH_COLLECTOR,  db)
+        return api_orgs.apiOrgsSettingsGet(session, html.escape(org_id), WH_COLLECTOR,  ORG_SETTINGS)
     elif request.method == "POST":
-        return api_orgs.apiOrgsSettingsPost(request, session, html.escape(org_id), db)
+        return api_orgs.apiOrgsSettingsPost(request, session, html.escape(org_id),ORG_SETTINGS)
     elif request.method == "DELETE":
-        return api_orgs.apiOrgsSettingsDelete(session, html.escape(org_id), WH_COLLECTOR, db)
+        return api_orgs.apiOrgsSettingsDelete(session, html.escape(org_id), WH_COLLECTOR, ORG_SETTINGS)
     else:
         return "Not Found", 404
 
@@ -185,12 +193,12 @@ def apiOrgWehooks(org_id):
     if request.method == "GET":
         return api_webhooks.apiWebhooksGet(session, html.escape(org_id), WH_COLLECTOR)
     elif request.method == "POST":
-        return api_webhooks.apiWebhooksPost(request, session, html.escape(org_id), WH_COLLECTOR, db)
+        return api_webhooks.apiWebhooksPost(request, session, html.escape(org_id), WH_COLLECTOR, ORG_SETTINGS)
 
 
 @app.route('/webhooks/<string:org_id>', methods=["POST"])
 def whCollector(org_id):
-    return collector.whCollectorPost(request, html.escape(org_id), db)
+    return collector.whCollectorPost(request, html.escape(org_id), ORG_SETTINGS)
 
 
 if __name__ == '__main__':
