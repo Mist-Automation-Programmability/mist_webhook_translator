@@ -105,9 +105,10 @@ def apiOrgsSettingsPost(request, session, org_id, db):
     if type(data.get("topics")) is list:
         for entry in data["topics"]:
             if type(entry.get("topic")) is str \
+                    and type(entry.get("topic")) is str \
                     and type(entry.get("name")) is str \
                     and type(entry.get("channel")) is str \
-                    and entry["name"] in topic_names:
+                    and entry["topic"] in topic_names:
                 if not entry["topic"] in secured_data["topics"]:
                     secured_data["topics"][entry["topic"]] = {}
                 secured_data["topics"][entry["topic"]
