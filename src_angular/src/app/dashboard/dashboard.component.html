@@ -91,7 +91,7 @@
                 </div>
             </mat-card-content>
             <mat-card-actions style="display: flex;justify-content: flex-end;margin-bottom: 0;">
-                <button mat-raised-button color="primary" (click)="saveOrgSettings()" [disabled]="!slack_updated && !teams_updated && !topics_updated && mist_configured && !mist_updated">Save Configuration</button>
+                <button mat-raised-button color="primary" (click)="saveOrgSettings()" [disabled]="!slack_updated && !teams_updated && !topics_updated && mist_configured && !mist_updated && mist_enabled">Save Configuration</button>
                 <!-- <button mat-stroked-button color="primary" [disabled]="!mist_updated" (click)="configureOrgWebhook()">Update Mist Webhook</button> -->
                 <!-- <button mat-stroked-button color="primary" (click)="configureOrgWebhook()">Update Mist Webhook</button> -->
                 <button mat-stroked-button style="border-color: red; color: red;" (click)="deleteOrgSettings()">Delete Configuration</button>
