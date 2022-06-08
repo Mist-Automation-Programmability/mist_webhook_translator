@@ -115,7 +115,7 @@ topics = [
     {"topic": "device-events", "sub_topic": "switch", "name": "SW_RECOVERY_SNAPSHOT_FAILED", "channel": "warning"},
     {"topic": "device-events", "sub_topic": "switch", "name": "SW_RECOVERY_SNAPSHOT_NOTNEEDED", "channel": "warning"},
     {"topic": "device-events", "sub_topic": "switch", "name": "SW_RECOVERY_SNAPSHOT_UNSUPPORTED", "channel": "info"},
-    {"topic": "device-events", "sub_topic": "switch", "name": "SW_DOT1X_USR_AUTHENTICATED", "channel": "debug"},
+    {"topic": "device-events", "sub_topic": "switch", "name": "SW_DOT1X_USER_AUTHENTICATED", "channel": "debug"},
     {"topic": "device-events", "sub_topic": "switch", "name": "SW_RADIUS_SERVER_UNREACHABLE", "channel": "warning"},
 
     {"topic": "device-events", "sub_topic": "mist edge", "name": "ME_CLAIMED", "channel": "warning"},
