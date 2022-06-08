@@ -16,7 +16,7 @@
             </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="submitOrg()">
+        <button mat-raised-button color="primary" (click)="submitOrg()" [disabled]="!org_id">
                 Select
             </button>
     </mat-card>
