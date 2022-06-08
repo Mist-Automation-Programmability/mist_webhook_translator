@@ -1,7 +1,6 @@
 WH_HOST=localhost
 WH_HTTPS=False
 WH_PORT=51360
-WH_PREFIX=webhooks
 # python -c 'import secrets; print(secrets.token_hex())'
 FLASK_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
 FLASK_DEBUG=FALSE
