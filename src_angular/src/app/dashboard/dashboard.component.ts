@@ -254,6 +254,12 @@ export class DashboardComponent implements OnInit {
     if (notif_settings.url[channel] != e.target.value) {
       notif_settings.url[channel] = e.target.value;
       this[names[notif]["update"]] = true;
+
+      if (channel == "default") {
+        for (const chan in notif_settings.url) {
+          if (!notif_settings.url[chan]) notif_settings.url[chan] = e.target.value
+        }
+      }
     }
 
   }

@@ -116,7 +116,7 @@
                         <mat-label>
                             <span fxLayout="row" fxLayoutAlign="start center">
                                 Channel "{{channel}}"
-                                <span *ngIf="channel == 'default'" style="margin-left: 1em;">(used for webhook messages not yet listed by the app)</span>
+                                <span *ngIf="channel == 'default'" style="margin-left: 1em;">(Only used for webhook messages not supported by the app)</span>
                             </span>
                         </mat-label>
                         <input matInput placeholder="https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX" [value]="custom_settings.slack_settings.url[channel]" (blur)="updateNotifUrl('slack', channel, $event)">
@@ -139,7 +139,12 @@
             <mat-card-content>
                 <div *ngFor="let channel of channels">
                     <mat-form-field appearance="" style="width: 100%">
-                        <mat-label>Channel "{{channel}}"</mat-label>
+                        <mat-label>
+                            <span fxLayout="row" fxLayoutAlign="start center">
+                                Channel "{{channel}}"
+                                <span *ngIf="channel == 'default'" style="margin-left: 1em;">(Only used for webhook messages not supported by the app)</span>
+                            </span>
+                        </mat-label>
                         <input matInput placeholder="https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx" [value]="custom_settings.teams_settings.url[channel]" (blur)="updateNotifUrl('teams', channel, $event)">
                     </mat-form-field>
                 </div>
