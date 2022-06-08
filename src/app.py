@@ -38,12 +38,12 @@ MONGO_KEY = os.getenv('MONGO_KEY', 'cef2c2f6eb7b00c7c67d99f0685178e7')
 WH_HOST = os.getenv('WH_HOST')
 WH_HTTPS = getenv_bool('WH_HTTPS')
 WH_PORT = os.getenv('WH_PORT', 51360)
-WH_PREFIX = os.getenv('WH_PREFIX', 'webhooks')
 ABOUT_TOKEN = os.getenv('ABOUT_TOKEN', 'secret_token')
+
 if WH_HTTPS:
-    WH_COLLECTOR = f"https://{WH_HOST}:{WH_PORT}/{WH_PREFIX}"
+    WH_COLLECTOR = f"https://{WH_HOST}:{WH_PORT}/webhooks"
 else:
-    WH_COLLECTOR = f"http://{WH_HOST}:{WH_PORT}/{WH_PREFIX}"
+    WH_COLLECTOR = f"http://{WH_HOST}:{WH_PORT}/webhooks"
 
 """System modules"""
 #from flask_pymongo import PyMongo

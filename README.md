@@ -75,9 +75,9 @@ MONGO_USER | string | null | If the Mongo server require authentication |
 MONGO_PASSWORD | string | null | If the Mongo server require authentication |
 MONGO_HOST | string | null | Mongo server hostname |
 MONGO_PORT | integer | 27017 | Mongo server port |
-MONGO_DB | string | wh_translator | Mongo Database name |
+MONGO_DB | string | translator | Mongo Database name |
 MONGO_KEY | string |  | Used to encrypt data in the DB. Can be generated with `python -c 'import secrets; print(secrets.token_hex(16))'` |
-ABOUT_TOKEN | string |  | used to "hide" server status URL. The URL `/status/about/<string:token>` is exposing some basic status info about this app |
+ABOUT_TOKEN | string | secret_token | used to "hide" server status URL. The URL `/status/about/<string:token>` is exposing some basic status info about this app |
 
 
 ## Deploy the Standalone Application
