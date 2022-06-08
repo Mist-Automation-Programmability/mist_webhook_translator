@@ -34,7 +34,7 @@ class OrgSettings():
             "topics": {},
             "slack_settings": {"enabled": False, "url": {}},
             "teams_settings": {"enabled": False, "url": {}},
-            "mist_settings": {"mist_host": "", "secret": "", "approved_admins": []}
+            "mist_settings": {"mist_host": "", "mist_secret": "", "approved_admins": []}
         }
 
         if type(data.get("topics_status") is dict):
@@ -107,7 +107,7 @@ class OrgSettings():
                 return "Error when saving data", 500
         else:
             try:
-                secured_data["mist_settings"]["secret"] = decoded_data_from_db["mist_settings"]["secret"]
+                secured_data["mist_settings"]["mist_secret"] = decoded_data_from_db["mist_settings"]["mist_secret"]
                 encrypted_data = self._encode(secured_data)
                 res = self.db.update(
                     {"org_id": decoded_data_from_db["org_id"]}, {"$set": {"encrypted_data": encrypted_data}})
@@ -128,10 +128,10 @@ class OrgSettings():
             console.error(
                 f"Unable to find the settings in the DB for org {org_id}")
             return "Unable to find the settings in the DB", 500, None
-        elif decoded_data_from_db["mist_settings"].get("secret"):
+        elif decoded_data_from_db["mist_settings"].get("mist_secret"):
             console.debug(
                 f"Settings data retrieved from DB for org {org_id}. Secret already set.")
-            secret = decoded_data_from_db["mist_settings"]["secret"]
+            secret = decoded_data_from_db["mist_settings"]["mist_secret"]
         else:
             console.debug(
                 f"Settings data retrieved from DB for org {org_id}. Secret not set yet.")
@@ -140,7 +140,7 @@ class OrgSettings():
                     secret = secrets.token_urlsafe()
                 else:
                     secret = ""
-                decoded_data_from_db["mist_settings"]["secret"] = secret
+                decoded_data_from_db["mist_settings"]["mist_secret"] = secret
                 encoded_data = self._encode(decoded_data_from_db)
                 res = self.db.update(
                     {"org_id": org_id},
