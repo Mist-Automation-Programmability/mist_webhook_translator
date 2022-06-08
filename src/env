@@ -11,4 +11,7 @@ MONGO_PASSWORD=secretDBpassword
 MONGO_HOST=127.0.0.1
 MONGO_PORT=27017
 MONGO_DB=wh_translator
+# python -c 'import secrets; print(secrets.token_hex(16))'
+MONGO_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
 ABOUT_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxx
+
