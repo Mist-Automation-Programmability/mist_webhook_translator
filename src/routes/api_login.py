@@ -28,11 +28,11 @@ def postApiLogin(request, session):
         return data, code
 
 
-def getApiDisclaimer():
+def getApiDisclaimer(APP_DISCLAIMER, GITHUB_URL, DOCKER_URL):
     data = {
-    "disclaimer": os.environ.get("APP_DISCLAIMER", ""),
-    "github_url": os.environ.get("CONFIG.APP_GITHUB_URL", ""),
-    "docker_url": os.environ.get("CONFIG.APP_DOCKER_URL", "")
+    "disclaimer": APP_DISCLAIMER,
+    "github_url": GITHUB_URL,
+    "docker_url": DOCKER_URL
     }
     return json.dumps(data), 200
 

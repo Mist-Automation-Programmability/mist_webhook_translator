@@ -39,6 +39,10 @@ WH_HOST = os.getenv('WH_HOST')
 WH_HTTPS = getenv_bool('WH_HTTPS')
 WH_PORT = os.getenv('WH_PORT', 51360)
 ABOUT_TOKEN = os.getenv('ABOUT_TOKEN', 'secret_token')
+APP_DISCLAIMER = os.getenv('APP_DISCLAIMER')
+GITHUB_URL = os.getenv('GITHUB_URL')
+DOCKER_URL = os.getenv('DOCKER_URL')
+
 
 if WH_HTTPS:
     WH_COLLECTOR = f"https://{WH_HOST}:{WH_PORT}/webhooks"
@@ -160,7 +164,7 @@ def apiLogin():
 
 @app.route('/api/disclaimer/', methods=["GET"])
 def apiDisclaimer():
-    return api_login.getApiDisclaimer()
+    return api_login.getApiDisclaimer(APP_DISCLAIMER, GITHUB_URL, DOCKER_URL)
 
 
 @app.route('/api/logout', methods=["POST"])
