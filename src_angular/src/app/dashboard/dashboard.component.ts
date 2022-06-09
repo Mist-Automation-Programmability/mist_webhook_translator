@@ -273,9 +273,12 @@ export class DashboardComponent implements OnInit {
       // reformat the topic list
       for (const topic in configured_topics) {
         for (const event in configured_topics[topic]) {
+          const tmp = default_topics.filter(t => t.name == event && t.topic == topic)[0];
+          var sub_topic = "";
+          if (tmp) sub_topic = tmp["sub_topic"]
           const data = custom_topics.push({
             "topic": topic,
-            "sub_topic": default_topics.filter(t => t.name == event && t.topic == topic)[0]["sub_topic"],
+            "sub_topic": sub_topic,
             "name": event,
             "channel": configured_topics[topic][event]
           })
