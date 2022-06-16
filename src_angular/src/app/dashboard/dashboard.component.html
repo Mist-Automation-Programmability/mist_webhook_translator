@@ -1,5 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="flex-end center" class="top-nav">
     <div fxLayout="row" fxLayoutAlign="start">
+        <button mat-icon-button color="primary" aria-label="Configuration" (click)="backToOrgs()" matTooltip="Help">
+            <mat-icon>question_mark</mat-icon>
+        </button>
         <button mat-icon-button color="primary" aria-label="Configuration" (click)="backToOrgs()" matTooltip="Back to Org Selection">
             <mat-icon>arrow_back_ios_new</mat-icon>
         </button>
@@ -174,7 +177,7 @@
             </div>
             <!-- ADD NOTIF -->
             <div fxLayout="row" fxLayoutAlign="end center">
-                <button mat-raised-button color="primary" [matMenuTriggerFor]="topic" [disabled]="topics.length == 4">Add Webhook Topic</button>
+                <button mat-raised-button color="primary" [matMenuTriggerFor]="topic" [disabled]="topics.length == 5">Add Webhook Topic</button>
                 <mat-menu #topic="matMenu">
                     <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['alarms']" (click)="toggleTopic('alarms', true)">
                         <mat-icon>notifications_active</mat-icon>
@@ -184,13 +187,17 @@
                         <mat-icon>list</mat-icon>
                         <span>Audits</span>
                     </button>
+                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-updowns']" (click)="toggleTopic('device-updowns', true)">
+                        <mat-icon>cloud</mat-icon>
+                        <span>Device UpDowns</span>
+                    </button>
                     <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-events']" (click)="toggleTopic('device-events', true)">
                         <mat-icon>checklist</mat-icon>
                         <span>Device Events</span>
                     </button>
-                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-updowns']" (click)="toggleTopic('device-updowns', true)">
-                        <mat-icon>cloud</mat-icon>
-                        <span>Device UpDowns</span>
+                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['mxedge-events']" (click)="toggleTopic('mxedge-events', true)">
+                        <mat-icon>checklist</mat-icon>
+                        <span>Mist Edge Events</span>
                     </button>
                 </mat-menu>
             </div>
@@ -246,7 +253,7 @@
 
                         <!-- name Column -->
                         <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <th mat-header-cell *matHeaderCellDef> Event Type </th>
                             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                         </ng-container>
 

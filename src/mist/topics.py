@@ -1,4 +1,4 @@
-topic_names = ["audits", "alarms", "device-events", "device-updowns"]
+topic_names = ["audits", "alarms", "device-updowns", "device-events", "mxedge-events"]
 
 topics = [
     {"topic": "device-events", "sub_topic": "access point", "name": "AP_CLAIMED", "channel": "warning"},
@@ -203,5 +203,17 @@ topics = [
 
 
     {"topic": "audits", "sub_topic": "", "name": "approved_admins", "channel": "debug"},
-    {"topic": "audits", "sub_topic": "", "name": "other_admins", "channel": "critical"}
+    {"topic": "audits", "sub_topic": "", "name": "other_admins", "channel": "critical"},
+
+
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_CONFIG_CHANGED_BY_USER", "channel": "info"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_SERVICE_STOPPED", "channel": "debug"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_SERVICE_STARTED", "channel": "debug"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_SERVICE_RESTARTED", "channel": "debug"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_SERVICE_FAILED", "channel": "critical"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "TT_TUNNELS_LOST", "channel": "warning"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_PACKAGE_INSTALLED", "channel": "info"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_PACKAGE_UPDATE_BY_USER", "channel": "info"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_RESTARTED", "channel": "info"},
+    {"topic": "mxedge-events", "sub_topic": "", "name": "ME_RESOURCE_USAGE", "channel": "warning"}
 ]
