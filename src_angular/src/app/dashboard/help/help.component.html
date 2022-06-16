@@ -1,23 +1,9 @@
-<div fxLayout="row" fxLayoutAlign="flex-end center" class="nav">
-    <div fxLayout="row" fxLayoutAlign="start">
-        <button mat-icon-button color="primary" aria-label="Example icon button with a heart icon" (click)="logout()" matTooltip="Log Out">
-            <mat-icon>logout</mat-icon>
-        </button>
-    </div>
-</div>
-<div fxLayout="row" fxLayoutAlign="center center" style="height: 20em; max-height: 100%;">
-    <mat-card class="card-outer" fxLayout="column" style="max-width: 90%;">
-        <mat-form-field apparence="outline" style="width: 30em; max-width: 100%">
-            <mat-label>Organization</mat-label>
-            <mat-select [(value)]="org_id">
-                <mat-option *ngFor="let org of orgs" [value]=org.org_id>
-                    {{org.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" (click)="submitOrg()" [disabled]="!org_id">
-                Select
-            </button>
-    </mat-card>
+<div fxLayout="column">
+    <mat-dialog-content style="max-height: 100%; padding: 0;">
+        <img alt="How does it work?" src="/static/images/config.png" style="width: 100%;" />
+        <mat-divider></mat-divider>
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+        <button mat-button mat-dialog-close color="primary">Close</button>
+    </mat-dialog-actions>
 </div>

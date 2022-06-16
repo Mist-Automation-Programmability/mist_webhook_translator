@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="flex-end center" class="top-nav">
     <div fxLayout="row" fxLayoutAlign="start">
-        <button mat-icon-button color="primary" aria-label="Configuration" (click)="backToOrgs()" matTooltip="Help">
+        <button mat-icon-button color="primary" aria-label="Help" (click)="openHelp()" matTooltip="Help">
             <mat-icon>question_mark</mat-icon>
         </button>
         <button mat-icon-button color="primary" aria-label="Configuration" (click)="backToOrgs()" matTooltip="Back to Org Selection">
@@ -12,291 +12,304 @@
     </div>
 </div>
 
-<div fxLayout="row" style="width: 100%;height: calc(100vh - 80px)">
-    <div fxLayout="column">
-        <!-- MIST -->
-
-        <mat-card fxLayout="column" class="container" style="background-color: #f3f3f3; box-shadow: none">
-
-            <mat-card-content>
-                <div class="info">
-                    <div class="info-title">Org Name: </div>
-                    <div class="info-status" style="width: auto; margin-left: 2em;">{{org_name}}</div>
-                </div>
-
-                <div class="info">
-                    <div class="info-title">Webhook URL: </div>
-                    <div class="info-status" style="width: auto; margin-left: 2em;">{{url}}</div>
-                </div>
-
-                <div class="info">
-                    <div class="info-title">Mist Webhook:</div>
-
-                    <div *ngIf="mist_in_progress" class="info-status">
-                        <mat-spinner diameter="15" strokeWidth="2" style="margin-right: 1em;"> </mat-spinner>
-                        Update in progress
-                    </div>
-                    <div *ngIf="mist_configured && !mist_in_progress && mist_enabled" class="info-status">
-                        <mat-icon style="color: green;">check_circle</mat-icon>
-                        Configured
-                    </div>
-                    <div *ngIf="!mist_configured && !mist_in_progress" class="info-status">
-                        <mat-icon style="color: red;">dangerous</mat-icon>
-                        Not Configured
-                    </div>
-                    <div *ngIf="mist_configured && !mist_enabled && !mist_in_progress" class="info-status" style="color: red;">
-                        <mat-icon>dangerous</mat-icon>
-                        Currently disabled
-                    </div>
-                    <div *ngIf="mist_updated && !mist_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
-                        <mat-icon>warning</mat-icon>
-                        Must be updated
-                    </div>
-                </div>
-                <div fxLayout="row" style="padding: 1em 0;"></div>
-
-                <div class="info">
-                    <div class="info-title">Topics:</div>
-                    <div *ngIf="topics_in_progress" class="info-status">
-                        <mat-spinner diameter="15" strokeWidth="2" style="margin-right: 1em;"> </mat-spinner>
-                        Update in progress
-                    </div>
-                    <div *ngIf="topics_configured && !topics_in_progress" class="info-status">
-                        <mat-icon style="color: green;">check_circle</mat-icon>
-                        Configured</div>
-                    <div *ngIf="!topics_configured && !topics_in_progress" class="info-status">
-                        <mat-icon style="color: red;">cancel</mat-icon>
-                        Please configure at least one Webhook topic on the right
-                    </div>
-                    <div *ngIf="topics_updated && !topics_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
-                        <mat-icon>warning</mat-icon>
-                        Not Saved
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="info-title">Notifications:</div>
-                    <div *ngIf="notif_in_progress" class="info-status">
-                        <mat-spinner diameter="15" strokeWidth="2" style="margin-right: 1em;"> </mat-spinner>
-                        Update in progress
-                    </div>
-                    <div *ngIf="(slack_configured || teams_configured) && !notif_in_progress" class="info-status">
-                        <mat-icon style="color: green;">check_circle</mat-icon>
-                        Configured
-                    </div>
-                    <div *ngIf="!slack_configured && ! teams_configured && !notif_in_progress" class="info-status">
-                        <mat-icon style="color: red;">cancel</mat-icon>
-                        Please configure at least one Notification system below
-                    </div>
-                    <div *ngIf="(slack_updated || teams_updated) && !notif_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
-                        <mat-icon>warning</mat-icon>
-                        Not Saved
-                    </div>
-                </div>
-            </mat-card-content>
-            <mat-card-actions style="display: flex;justify-content: flex-end;margin-bottom: 0;">
-                <button mat-raised-button color="primary" (click)="saveOrgSettings()" [disabled]="!slack_updated && !teams_updated && !topics_updated && mist_configured && !mist_updated && mist_enabled">Save Configuration</button>
-                <!-- <button mat-stroked-button color="primary" [disabled]="!mist_updated" (click)="configureOrgWebhook()">Update Mist Webhook</button> -->
-                <!-- <button mat-stroked-button color="primary" (click)="configureOrgWebhook()">Update Mist Webhook</button> -->
-                <button mat-stroked-button style="border-color: red; color: red;" (click)="deleteOrgSettings()">Delete Configuration</button>
-            </mat-card-actions>
-        </mat-card>
-
-        <!-- SLACK -->
-        <mat-card fxLayout="column" class="container" *ngIf="custom_settings.slack_settings.enabled">
-            <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-                <div fxLayout="row" fxLayoutAlign="start center">
-                    <img class="notif icon" alt="Slack" src="/static/images/slack.png" />
-                    <span>Slack Notifications</span>
-                </div>
-                <div>
-                    <button mat-stroked-button style="margin-right: 1em" (click)="openNewTab('https://api.slack.com/messaging/webhooks#getting_started')">Slack Incoming Webhook Help</button>
-                    <button mat-stroked-button color="primary" (click)="toggleNotif('slack', false)">Disable</button>
-                </div>
-            </mat-card-title>
-            <mat-card-content>
-                <div *ngFor="let channel of channels">
-                    <mat-form-field appearance="" style="width: 100%">
-                        <mat-label>
-                            <span fxLayout="row" fxLayoutAlign="start center">
-                                Channel "{{channel}}"
-                                <span *ngIf="channel == 'default'" style="margin-left: 1em;">(Only used for webhook messages not supported by the app)</span>
-                            </span>
-                        </mat-label>
-                        <input matInput placeholder="https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX" [value]="custom_settings.slack_settings.url[channel]" (blur)="updateNotifUrl('slack', channel, $event)">
-                    </mat-form-field>
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <!-- TEAMS -->
-        <mat-card fxLayout="column" class="container" *ngIf="custom_settings.teams_settings.enabled">
-            <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-                <div fxLayout="row" fxLayoutAlign="start center">
-                    <img class="notif icon" alt="Teams" src="/static/images/teams_v2.png" />
-                    <span style="margin-left: .5em">Teams Notifications</span>
-                </div>
-                <div>
-                    <button mat-stroked-button style="margin-right: 1em" (click)="openNewTab('https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook')">Teams Incoming Webhook Help</button>
-                    <button mat-stroked-button color="primary" (click)="toggleNotif('teams', false)">Disable</button>
-                </div>
-            </mat-card-title>
-            <mat-card-content>
-                <div *ngFor="let channel of channels">
-                    <mat-form-field appearance="" style="width: 100%">
-                        <mat-label>
-                            <span fxLayout="row" fxLayoutAlign="start center">
-                                Channel "{{channel}}"
-                                <span *ngIf="channel == 'default'" style="margin-left: 1em;">(Only used for webhook messages not supported by the app)</span>
-                            </span>
-                        </mat-label>
-                        <input matInput placeholder="https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx" [value]="custom_settings.teams_settings.url[channel]" (blur)="updateNotifUrl('teams', channel, $event)">
-                    </mat-form-field>
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <!-- ADD NOTIF -->
-        <div fxLayout="row" fxLayoutAlign="end center" style="padding: 2.5em;">
-            <button mat-raised-button color="primary" [matMenuTriggerFor]="notif" [disabled]="custom_settings.slack_settings.enabled && custom_settings.teams_settings.enabled">Add
-                Notification</button>
-            <mat-menu #notif="matMenu">
-                <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.slack_settings.enabled" (click)="toggleNotif('slack', true)">
-                    <img class="notif icon" alt="Slack" src="/static/images/slack.png" />
-                    <span>Slack</span>
-                </button>
-                <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.teams_settings.enabled" (click)="toggleNotif('teams', true)">
-                    <img class="notif icon" alt="Teams" src="/static/images/teams_v2.png" />
-                    <span>Teams</span>
-                </button>
-            </mat-menu>
+<div fxLayout="column" style="width: 100%;height: calc(100vh - 80px)">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="top-info">
+            IMPORTANT: Only the supported and configured topics will be forwarded to Slack and Teams. Other topics like client-events, client-sessions, location, ... are discarded by the server
         </div>
     </div>
-    <!-- TOPICS -->
-    <mat-card fxLayout="column" class="topic container">
-        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 0;">
-            <div>
-                Webhook Topics Configuration
-            </div>
+    <div fxLayout="row">
+        <div fxLayout="column">
+            <!-- MIST -->
+
+            <mat-card fxLayout="column" class="container" style="background-color: #f3f3f3; box-shadow: none">
+
+                <mat-card-content>
+                    <div class="info">
+                        <div class="info-title">Org Name: </div>
+                        <div class="info-status" style="width: auto; margin-left: 2em;">{{org_name}}</div>
+                    </div>
+
+                    <div class="info">
+                        <div class="info-title">Webhook URL: </div>
+                        <div class="info-status" style="width: auto; margin-left: 2em;">{{url}}</div>
+                    </div>
+
+                    <div class="info">
+                        <div class="info-title">Mist Webhook:</div>
+
+                        <div *ngIf="mist_in_progress" class="info-status">
+                            <mat-spinner diameter="15" strokeWidth="2" style="margin-right: 1em;"> </mat-spinner>
+                            Update in progress
+                        </div>
+                        <div *ngIf="mist_configured && !mist_in_progress && mist_enabled" class="info-status">
+                            <mat-icon style="color: green;">check_circle</mat-icon>
+                            Configured
+                        </div>
+                        <div *ngIf="!mist_configured && !mist_in_progress" class="info-status">
+                            <mat-icon style="color: red;">dangerous</mat-icon>
+                            Not Configured
+                        </div>
+                        <div *ngIf="mist_configured && !mist_enabled && !mist_in_progress" class="info-status" style="color: red;">
+                            <mat-icon>dangerous</mat-icon>
+                            Currently disabled
+                        </div>
+                        <div *ngIf="mist_updated && !mist_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon>warning</mat-icon>
+                            Must be updated
+                        </div>
+                    </div>
+                    <div fxLayout="row" style="padding: 1em 0;"></div>
+
+                    <div class="info">
+                        <div class="info-title">Topics:</div>
+                        <div *ngIf="topics_in_progress" class="info-status">
+                            <mat-spinner diameter="15" strokeWidth="2" style="margin-right: 1em;"> </mat-spinner>
+                            Update in progress
+                        </div>
+                        <div *ngIf="topics_configured && !topics_in_progress" class="info-status">
+                            <mat-icon style="color: green;">check_circle</mat-icon>
+                            Configured
+                        </div>
+                        <div *ngIf="!topics_configured && !topics_in_progress" class="info-status">
+                            <mat-icon style="color: red;">cancel</mat-icon>
+                            Please configure at least one Webhook topic on the right
+                        </div>
+                        <div *ngIf="topics_updated && !topics_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon>warning</mat-icon>
+                            Not Saved
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="info-title">Notifications:</div>
+                        <div *ngIf="notif_in_progress" class="info-status">
+                            <mat-spinner diameter="15" strokeWidth="2" style="margin-right: 1em;"> </mat-spinner>
+                            Update in progress
+                        </div>
+                        <div *ngIf="(slack_configured || teams_configured) && !notif_in_progress" class="info-status">
+                            <mat-icon style="color: green;">check_circle</mat-icon>
+                            Configured
+                        </div>
+                        <div *ngIf="!slack_configured && ! teams_configured && !notif_in_progress" class="info-status">
+                            <mat-icon style="color: red;">cancel</mat-icon>
+                            Please configure at least one Notification system below
+                        </div>
+                        <div *ngIf="(slack_updated || teams_updated) && !notif_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon>warning</mat-icon>
+                            Not Saved
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions style="display: flex;justify-content: flex-end;margin-bottom: 0;">
+                    <button mat-raised-button color="primary" (click)="saveOrgSettings()" [disabled]="!slack_updated && !teams_updated && !topics_updated && mist_configured && !mist_updated && mist_enabled">Save
+                        Configuration</button>
+                    <!-- <button mat-stroked-button color="primary" [disabled]="!mist_updated" (click)="configureOrgWebhook()">Update Mist Webhook</button> -->
+                    <!-- <button mat-stroked-button color="primary" (click)="configureOrgWebhook()">Update Mist Webhook</button> -->
+                    <button mat-stroked-button style="border-color: red; color: red;" (click)="deleteOrgSettings()">Delete Configuration</button>
+                </mat-card-actions>
+            </mat-card>
+
+            <!-- SLACK -->
+            <mat-card fxLayout="column" class="container" *ngIf="custom_settings.slack_settings.enabled">
+                <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <img class="notif icon" alt="Slack" src="/static/images/slack.png" />
+                        <span>Slack Notifications</span>
+                    </div>
+                    <div>
+                        <button mat-stroked-button style="margin-right: 1em" (click)="openNewTab('https://api.slack.com/messaging/webhooks#getting_started')">Slack
+                            Incoming Webhook Help</button>
+                        <button mat-stroked-button color="primary" (click)="toggleNotif('slack', false)">Disable</button>
+                    </div>
+                </mat-card-title>
+                <mat-card-content>
+                    <div *ngFor="let channel of channels">
+                        <mat-form-field appearance="" style="width: 100%">
+                            <mat-label>
+                                <span fxLayout="row" fxLayoutAlign="start center">
+                                    Channel "{{channel}}"
+                                    <span *ngIf="channel == 'default'" style="margin-left: 1em;">(Only used for webhook
+                                        messages not supported by the app)</span>
+                                </span>
+                            </mat-label>
+                            <input matInput placeholder="https://hooks.slack.com/services/XXXXXXXX/XXXXXXXXX/XXXXXXXXXXX" [value]="custom_settings.slack_settings.url[channel]" (blur)="updateNotifUrl('slack', channel, $event)">
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <!-- TEAMS -->
+            <mat-card fxLayout="column" class="container" *ngIf="custom_settings.teams_settings.enabled">
+                <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <img class="notif icon" alt="Teams" src="/static/images/teams_v2.png" />
+                        <span style="margin-left: .5em">Teams Notifications</span>
+                    </div>
+                    <div>
+                        <button mat-stroked-button style="margin-right: 1em" (click)="openNewTab('https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook')">Teams
+                            Incoming Webhook Help</button>
+                        <button mat-stroked-button color="primary" (click)="toggleNotif('teams', false)">Disable</button>
+                    </div>
+                </mat-card-title>
+                <mat-card-content>
+                    <div *ngFor="let channel of channels">
+                        <mat-form-field appearance="" style="width: 100%">
+                            <mat-label>
+                                <span fxLayout="row" fxLayoutAlign="start center">
+                                    Channel "{{channel}}"
+                                    <span *ngIf="channel == 'default'" style="margin-left: 1em;">(Only used for webhook
+                                        messages not supported by the app)</span>
+                                </span>
+                            </mat-label>
+                            <input matInput placeholder="https://outlook.office.com/webhook/xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxx/xxxxxxxxxxx" [value]="custom_settings.teams_settings.url[channel]" (blur)="updateNotifUrl('teams', channel, $event)">
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
             <!-- ADD NOTIF -->
-            <div fxLayout="row" fxLayoutAlign="end center">
-                <button mat-raised-button color="primary" [matMenuTriggerFor]="topic" [disabled]="topics.length == 5">Add Webhook Topic</button>
-                <mat-menu #topic="matMenu">
-                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['alarms']" (click)="toggleTopic('alarms', true)">
-                        <mat-icon>notifications_active</mat-icon>
-                        <span>Alarms</span>
+            <div fxLayout="row" fxLayoutAlign="end center" style="padding: 2.5em;">
+                <button mat-raised-button color="primary" [matMenuTriggerFor]="notif" [disabled]="custom_settings.slack_settings.enabled && custom_settings.teams_settings.enabled">Add
+                    Notification</button>
+                <mat-menu #notif="matMenu">
+                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.slack_settings.enabled" (click)="toggleNotif('slack', true)">
+                        <img class="notif icon" alt="Slack" src="/static/images/slack.png" />
+                        <span>Slack</span>
                     </button>
-                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['audits']" (click)="toggleTopic('audits', true)">
-                        <mat-icon>list</mat-icon>
-                        <span>Audits</span>
-                    </button>
-                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-updowns']" (click)="toggleTopic('device-updowns', true)">
-                        <mat-icon>cloud</mat-icon>
-                        <span>Device UpDowns</span>
-                    </button>
-                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-events']" (click)="toggleTopic('device-events', true)">
-                        <mat-icon>checklist</mat-icon>
-                        <span>Device Events</span>
-                    </button>
-                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['mxedge-events']" (click)="toggleTopic('mxedge-events', true)">
-                        <mat-icon>checklist</mat-icon>
-                        <span>Mist Edge Events</span>
+                    <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.teams_settings.enabled" (click)="toggleNotif('teams', true)">
+                        <img class="notif icon" alt="Teams" src="/static/images/teams_v2.png" />
+                        <span>Teams</span>
                     </button>
                 </mat-menu>
             </div>
-        </mat-card-title>
-        <mat-card-subtitle>
-            <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Webhook Topic</mat-label>
-                <mat-select [(value)]="selected_topic" (selectionChange)="changeTopic()" [disabled]="topics.length == 0">
-                    <mat-option *ngFor="let topic of topics" [value]="topic">
-                        <div fxLayout="row" fxLayoutAlign="start center">
-                            <div>
-                                {{topic}}
+        </div>
+        <!-- TOPICS -->
+        <mat-card fxLayout="column" class="topic container">
+            <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 0;">
+                <div>
+                    Webhook Topics Configuration
+                </div>
+                <!-- ADD NOTIF -->
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-raised-button color="primary" [matMenuTriggerFor]="topic" [disabled]="topics.length == 5">Add Webhook Topic</button>
+                    <mat-menu #topic="matMenu">
+                        <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['alarms']" (click)="toggleTopic('alarms', true)">
+                            <mat-icon>notifications_active</mat-icon>
+                            <span>Alarms</span>
+                        </button>
+                        <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['audits']" (click)="toggleTopic('audits', true)">
+                            <mat-icon>list</mat-icon>
+                            <span>Audits</span>
+                        </button>
+                        <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-updowns']" (click)="toggleTopic('device-updowns', true)">
+                            <mat-icon>cloud</mat-icon>
+                            <span>Device UpDowns</span>
+                        </button>
+                        <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['device-events']" (click)="toggleTopic('device-events', true)">
+                            <mat-icon>checklist</mat-icon>
+                            <span>Device Events</span>
+                        </button>
+                        <button mat-menu-item fxLayout="row" fxLayoutAlign="start center" *ngIf="!custom_settings.topics_status['mxedge-events']" (click)="toggleTopic('mxedge-events', true)">
+                            <mat-icon>checklist</mat-icon>
+                            <span>Mist Edge Events</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </mat-card-title>
+            <mat-card-subtitle>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Webhook Topic</mat-label>
+                    <mat-select [(value)]="selected_topic" (selectionChange)="changeTopic()" [disabled]="topics.length == 0">
+                        <mat-option *ngFor="let topic of topics" [value]="topic">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <div>
+                                    {{topic}}
+                                </div>
                             </div>
-                        </div>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </mat-card-subtitle>
-        <mat-card-content fxLayout="column" fxLayoutAlign="start stretch" style="flex: auto;">
-            <div *ngIf="!selected_topic && topics.length > 0" style="color: gray;" fxLayout="column" fxLayoutAlign="center center">
-                <mat-icon>
-                    north
-                </mat-icon>
-                <div>
-                    Please SELECT a topic above or ADD a new one...
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-subtitle>
+            <mat-card-content fxLayout="column" fxLayoutAlign="start stretch" style="flex: auto;">
+                <div *ngIf="!selected_topic && topics.length > 0" style="color: gray;" fxLayout="column" fxLayoutAlign="center center">
+                    <mat-icon>
+                        north
+                    </mat-icon>
+                    <div>
+                        Please SELECT a topic above or ADD a new one...
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="topics.length == 0" style="color: gray;" fxLayout="column" fxLayoutAlign="center center">
-                <mat-icon>
-                    north
-                </mat-icon>
-                <div>
-                    Please ADD a Webhook Topic...
+                <div *ngIf="topics.length == 0" style="color: gray;" fxLayout="column" fxLayoutAlign="center center">
+                    <mat-icon>
+                        north
+                    </mat-icon>
+                    <div>
+                        Please ADD a Webhook Topic...
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="selected_topic" fxLayout="column">
-                <div fxLayout="row" fxLayoutAlign="space-between center">
-                    <button mat-stroked-button color="primary" (click)="toggleTopic(selected_topic, false)" style="margin-left: 1em;">Disable</button>
-                    <mat-paginator [pageSizeOptions]="[10,25, 50]" showFirstLastButtons aria-label="Select page">
-                    </mat-paginator>
-                </div>
-                <div class="topic-table" style="max-height: 50em; overflow: auto;">
-                    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+                <div *ngIf="selected_topic" fxLayout="column">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <button mat-stroked-button color="primary" (click)="toggleTopic(selected_topic, false)" style="margin-left: 1em;">Disable</button>
+                        <mat-paginator [pageSizeOptions]="[10,25, 50]" showFirstLastButtons aria-label="Select page">
+                        </mat-paginator>
+                    </div>
+                    <div class="topic-table" style="max-height: 50em; overflow: auto;">
+                        <table mat-table [dataSource]="dataSource" style="width: 100%;">
 
-                        <!--- Note that these columns can be defined in any order.
+                            <!--- Note that these columns can be defined in any order.
                       The actual rendered columns are set as a property on the row definition" -->
 
-                        <!-- sub_topic Column -->
-                        <ng-container matColumnDef="sub_topic">
-                            <th mat-header-cell *matHeaderCellDef> Sub Topic </th>
-                            <td mat-cell *matCellDef="let element"> {{element.sub_topic}} </td>
-                        </ng-container>
+                            <!-- sub_topic Column -->
+                            <ng-container matColumnDef="sub_topic">
+                                <th mat-header-cell *matHeaderCellDef> Sub Topic </th>
+                                <td mat-cell *matCellDef="let element"> {{element.sub_topic}} </td>
+                            </ng-container>
 
-                        <!-- name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef> Event Type </th>
-                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                        </ng-container>
+                            <!-- name Column -->
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> Event Type </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
 
-                        <!-- channel Column -->
-                        <ng-container matColumnDef="channel">
-                            <th mat-header-cell *matHeaderCellDef> Channel </th>
-                            <td mat-cell *matCellDef="let element">
-                                <mat-form-field appearance="" style="width: 10em;">
-                                    <mat-select [(value)]="element.channel" (selectionChange)="topicsUpdated()">
-                                        <mat-option value="">-- Disabled --</mat-option>
-                                        <mat-option *ngFor="let channel of channels" [value]="channel">
-                                            <div fxLayout="row" fxLayoutAlign="start center">
-                                                <div>
-                                                    {{channel}}
+                            <!-- channel Column -->
+                            <ng-container matColumnDef="channel">
+                                <th mat-header-cell *matHeaderCellDef> Channel </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field appearance="" style="width: 10em;">
+                                        <mat-select [(value)]="element.channel" (selectionChange)="topicsUpdated()">
+                                            <mat-option value="">-- Disabled --</mat-option>
+                                            <mat-option *ngFor="let channel of channels" [value]="channel">
+                                                <div fxLayout="row" fxLayoutAlign="start center">
+                                                    <div>
+                                                        {{channel}}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </td>
-                        </ng-container>
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
 
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                    </table>
+                        </table>
+                    </div>
+                    <div *ngIf="selected_topic=='audits'" fxLayout="column" style="margin: 3em 1em">
+                        <div>You can define here the list of approved admins (with admin email address) or approved API tokens (with token name):</div>
+                        <mat-form-field>
+                            <mat-label>Approved Admins</mat-label>
+                            <mat-chip-list #chipList aria-label="Approved Admins">
+                                <mat-chip *ngFor="let admin of custom_settings.mist_settings.approved_admins" (removed)="remove(admin)">
+                                    {{admin}}
+                                    <button matChipRemove>
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </mat-chip>
+                                <input placeholder="New Admin..." #fruitInput [formControl]="approvedAdminsCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                            </mat-chip-list>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div *ngIf="selected_topic=='audits'" fxLayout="column" style="margin: 3em 1em">
-                    <div>You can define here the list of approved admins (with admin email address) or approved API tokens (with token name):</div>
-                    <mat-form-field>
-                        <mat-label>Approved Admins</mat-label>
-                        <mat-chip-list #chipList aria-label="Approved Admins">
-                            <mat-chip *ngFor="let admin of custom_settings.mist_settings.approved_admins" (removed)="remove(admin)">
-                                {{admin}}
-                                <button matChipRemove>
-                                    <mat-icon>cancel</mat-icon>
-                                </button>
-                            </mat-chip>
-                            <input placeholder="New Admin..." #fruitInput [formControl]="approvedAdminsCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
-                        </mat-chip-list>
-                    </mat-form-field>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

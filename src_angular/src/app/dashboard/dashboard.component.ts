@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorDialog } from '../common/common-error';
 import { SessionService } from '../services/session.service';
 import { WarningDialog } from '../common/common-warning';
+import { HelpDialog} from "./help/help.component";
 
 export interface TopicElement {
   topic: string,
@@ -86,7 +87,7 @@ export class DashboardComponent implements OnInit {
   notif_in_progress: boolean = true;
   loading_in_progress: boolean = false;
 
-
+  help_opened: boolean = false;
 
   constructor(
     private _http: HttpClient,
@@ -407,6 +408,16 @@ export class DashboardComponent implements OnInit {
       cb(result);
     });
   }
+
+
+  openHelp(): void {
+    this.help_opened = true;
+    const dialogRef = this._dialog.open(HelpDialog);
+    dialogRef.afterClosed().subscribe(() => {
+      this.help_opened = false;
+    })  
+  }
+
 
   notAuthenticated(): void {
     this._router.navigate(["/"]);

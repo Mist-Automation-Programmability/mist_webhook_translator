@@ -23,10 +23,20 @@ mat-expansion-panel {
 }
 
 
+/* INFO */
+
+.top-info {
+    margin: 0 1em;
+    background-color: #0098a561;
+    padding: 0.5em 1em;
+    border-radius: 2px;
+}
+
+
 /* TOPICS */
 
 .topic.container {
-    height: 70em;
+    height: 68em;
     width: 55em;
     padding: 0;
 }

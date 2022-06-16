@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -32,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
@@ -47,6 +48,7 @@ import { DashboardComponent } from '@src/app/dashboard/dashboard.component';
 import { ErrorDialog } from '@src/app/common/common-error';
 import { WarningDialog } from '@src/app/common/common-warning';
 import { OrgComponent } from '@src/app/org/org.component';
+import { HelpDialog } from '@src/app/dashboard/help/help.component';
 import { TypeofPipe } from '@src/app/common/pipe-typeof';
 
 
@@ -54,7 +56,7 @@ import { TypeofPipe } from '@src/app/common/pipe-typeof';
   declarations: [
     AppComponent,
     LoginComponent, TwoFactorDialog,
-    DashboardComponent,
+    DashboardComponent, HelpDialog,
     ErrorDialog, WarningDialog,
     OrgComponent,
     StartsWithPipe,
@@ -87,6 +89,7 @@ import { TypeofPipe } from '@src/app/common/pipe-typeof';
     MatCheckboxModule,
     MatProgressBarModule,
     MatSortModule,
+    MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
     MatPaginatorModule,
@@ -98,13 +101,13 @@ import { TypeofPipe } from '@src/app/common/pipe-typeof';
   ],
   providers: [
     {
-    provide: MatRadioModule,
-    useValue: { color: 'accent' },
-  },{
-    provide: APP_BASE_HREF, 
-    useValue: ''
-  }
-],
+      provide: MatRadioModule,
+      useValue: { color: 'accent' },
+    }, {
+      provide: APP_BASE_HREF,
+      useValue: ''
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
