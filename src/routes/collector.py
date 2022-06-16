@@ -1,6 +1,3 @@
-from curses import can_change_color
-import json
-import bson.json_util as json_util
 from mwtt.src import mwtt
 from mwtt import Console
 from datetime import datetime
