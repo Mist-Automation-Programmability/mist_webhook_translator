@@ -1,0 +1,717 @@
+[{
+        "key": "ME_CONFIG_CHANGED_BY_USER",
+        "display": "ME Config changed by user",
+        "description": "Config change on ME was triggered as a result of change made by user",
+        "example": {
+            "type": "ME_CONFIG_CHANGED_BY_USER",
+            "service": "mxagent",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_CONFIGURED",
+        "display": "ME Configured",
+        "description": "ME received and applied a new config",
+        "example": {
+            "type": "ME_CONFIGURED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_CONNECTED",
+        "display": "ME Connected",
+        "description": "ME (re-)established to cloud",
+        "example": {
+            "type": "ME_CONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90"
+        }
+    },
+    {
+        "key": "ME_DISCONNECTED",
+        "display": "ME Disconnected",
+        "description": "ME lost connection to cloud",
+        "example": {
+            "type": "ME_DISCONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90"
+        }
+    },
+    {
+        "key": "ME_RESTART_BY_USER",
+        "display": "ME Restarted by user",
+        "description": "ME was powercycled by user",
+        "example": {
+            "type": "ME_RESTART_BY_USER",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_RESTARTED",
+        "display": "ME was restarted",
+        "description": "ME was was restarted",
+        "example": {
+            "type": "ME_RESTARTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_PACKAGE_UPDATE_BY_USER",
+        "display": "ME package update by user",
+        "description": "User update ME package",
+        "example": {
+            "type": "ME_PACKAGE_UPDATE_BY_USER",
+            "package": "tunterm",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_PACKAGE_INSTALLED",
+        "display": "ME package installed",
+        "description": "ME package was installed",
+        "example": {
+            "type": "ME_PACKAGE_INSTALLED",
+            "package": "tunterm",
+            "to_version": "0.1.1907+deb9",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_PACKAGE_INSTALL_FAILED",
+        "display": "Failed to install package",
+        "description": "Failed to install ME package",
+        "example": {
+            "type": "ME_PACKAGE_INSTALL_FAILED",
+            "package": "tunterm",
+            "to_version": "0.1.1907+deb9",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_PACKAGE_UNINSTALLED",
+        "display": "ME package uninstalled",
+        "description": "ME package was uninstalled",
+        "example": {
+            "type": "ME_PACKAGE_UNINSTALLED",
+            "package": "tunterm",
+            "from_version": "0.1.1907+deb9",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_PACKAGE_UNINSTALL_FAILED",
+        "display": "Failed to uninstall package",
+        "description": "Failed to uninstall ME package",
+        "example": {
+            "type": "ME_PACKAGE_UNINSTALL_FAILED",
+            "package": "tunterm",
+            "from_version": "0.1.1907+deb9",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_PACKAGE_UPDATED",
+        "display": "ME package updated",
+        "description": "ME package was updated",
+        "example": {
+            "type": "ME_PACKAGE_UPDATED",
+            "package": "tunterm",
+            "from_version": "0.1.1906+deb9",
+            "to_version": "0.1.1907+deb9",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_PACKAGE_UPDATE_FAILED",
+        "display": "Failed to update package",
+        "description": "Failed to update ME package",
+        "example": {
+            "type": "ME_PACKAGE_UPDATE_FAILED",
+            "package": "tunterm",
+            "from_version": "0.1.1906+deb9",
+            "to_version": "0.1.1907+deb9",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_SERVICE_STARTED",
+        "display": "ME service started",
+        "description": "ME service started",
+        "example": {
+            "type": "ME_SERVICE_STARTED",
+            "service": "tunterm",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_SERVICE_STOPPED",
+        "display": "ME service stopped",
+        "description": "ME service stopped",
+        "example": {
+            "type": "ME_SERVICE_STOPPED",
+            "service": "tunterm",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_SERVICE_RESTARTED",
+        "display": "ME service restarted",
+        "description": "ME service restarted",
+        "example": {
+            "type": "ME_SERVICE_RESTARTED",
+            "service": "tunterm",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_SERVICE_CRASHED",
+        "display": "ME service crashed",
+        "description": "ME service crashed",
+        "example": {
+            "type": "ME_SERVICE_CRASHED",
+            "service": "tunterm",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90"
+        }
+    },
+    {
+        "key": "ME_SERVICE_FAILED",
+        "display": "ME service failed",
+        "description": "ME service failed",
+        "example": {
+            "type": "ME_SERVICE_FAILED",
+            "service": "tunterm",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90"
+        }
+    },
+    {
+        "key": "TT_PORTS_BOUNCE_BY_USER",
+        "display": "TunTerm ports bounce requested by user",
+        "description": "User requested bounce ports on TunTerm",
+        "example": {
+            "type": "TT_PORTS_BOUNCE_BY_USER",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5",
+            "bounced_ports": [
+                "0",
+                "2"
+            ]
+        }
+    },
+    {
+        "key": "TT_PORTS_BOUNCED",
+        "display": "TunTerm ports bounced successfully",
+        "description": "Successfully bounced ports on TunTerm",
+        "example": {
+            "type": "TT_PORTS_BOUNCED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5",
+            "bounced_ports": [
+                "0",
+                "2"
+            ]
+        }
+    },
+    {
+        "key": "TT_PORTS_BOUNCE_FAILED",
+        "display": "TunTerm ports bounce failed",
+        "description": "Failed to bounce ports on TunTerm",
+        "example": {
+            "type": "TT_PORTS_BOUNCE_FAILED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5",
+            "bounced_ports": [
+                "0",
+                "2"
+            ]
+        }
+    },
+    {
+        "key": "TT_AP_DISCONNECT_BY_USER",
+        "display": "TunTerm AP disconnect requested by user",
+        "description": "User requested disconnect AP from TunTerm",
+        "example": {
+            "type": "TT_AP_DISCONNECT_BY_USER",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5",
+            "disconnected_aps": [
+                "5c-5b-35-3e-4e-b1"
+            ]
+        }
+    },
+    {
+        "key": "TT_AP_DISCONNECTED",
+        "display": "TunTerm AP successfully disconnected",
+        "description": "Successfully disconnected AP from TunTerm",
+        "example": {
+            "type": "TT_AP_DISCONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5",
+            "disconnected_aps": [
+                "5c-5b-35-3e-4e-b1"
+            ]
+        }
+    },
+    {
+        "key": "TT_AP_DISCONNECT_FAILED",
+        "display": "TunTerm AP failed to disconnect",
+        "description": "Failed to disconnect AP from TunTerm",
+        "example": {
+            "type": "TT_AP_DISCONNECT_FAILED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5",
+            "disconnected_aps": [
+                "5c-5b-35-3e-4e-b1"
+            ]
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME memory usage high",
+        "description": "ME memory usage high",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "high",
+                "resource": "memory"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME memory usage warning",
+        "description": "ME memory usage warning",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "warning",
+                "resource": "memory"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME memory usage normal",
+        "description": "ME memory usage normal",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "normal",
+                "resource": "memory"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME cpu usage high",
+        "description": "ME cpu usage high",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "high",
+                "resource": "cpu"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME cpu usage warning",
+        "description": "ME cpu usage warning",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "warning",
+                "resource": "cpu"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME cpu usage normal",
+        "description": "ME cpu usage normal",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "normal",
+                "resource": "cpu"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME disk usage high",
+        "description": "ME disk usage high",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "high",
+                "resource": "disk"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME disk usage warning",
+        "description": "ME disk usage warning",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "warning",
+                "resource": "disk"
+            }
+        }
+    },
+    {
+        "key": "ME_RESOURCE_USAGE",
+        "display": "ME disk usage normal",
+        "description": "ME disk usage normal",
+        "example": {
+            "type": "ME_RESOURCE_USAGE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "sys_info.usage": {
+                "severity": "normal",
+                "resource": "disk"
+            }
+        }
+    },
+    {
+        "key": "ME_FAN_PLUGGED",
+        "display": "ME fan plugged",
+        "description": "fan module is plugged into Mist-Edge",
+        "example": {
+            "type": "ME_FAN_PLUGGED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "component": "Fan1",
+            "severity": "normal"
+        }
+    },
+    {
+        "key": "ME_FAN_UNPLUGGED",
+        "display": "ME fan unplugged",
+        "description": "fan module is unplugged from Mist-Edge",
+        "example": {
+            "type": "ME_FAN_UNPLUGGED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "component": "Fan1",
+            "severity": "critical"
+        }
+    },
+    {
+        "key": "ME_PSU_PLUGGED",
+        "display": "ME PSU plugged",
+        "description": "power supply unit is plugged into Mist-Edge",
+        "example": {
+            "type": "ME_PSU_PLUGGED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "component": "PS1",
+            "severity": "normal"
+        }
+    },
+    {
+        "key": "ME_PSU_UNPLUGGED",
+        "display": "ME PSU unplugged",
+        "description": "power supply unit is unplugged from Mist-Edge",
+        "example": {
+            "type": "ME_PSU_UNPLUGGED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "component": "PS1",
+            "severity": "critical"
+        }
+    },
+    {
+        "key": "ME_POWERINPUT_CONNECTED",
+        "display": "ME power input connected",
+        "description": "power input is connected to Mist-Edge",
+        "example": {
+            "type": "ME_POWERINPUT_CONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "component": "PS1",
+            "severity": "normal"
+        }
+    },
+    {
+        "key": "ME_POWERINPUT_DISCONNECTED",
+        "display": "ME power input disconnected",
+        "description": "power input is disconnected from Mist-Edge",
+        "example": {
+            "type": "ME_POWERINPUT_DISCONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "component": "PS1",
+            "severity": "critical"
+        }
+    },
+    {
+        "key": "TT_TUNNELS_LOST",
+        "display": "TunTerm tunnels lost",
+        "description": "TunTerm tunnels lost",
+        "example": {
+            "type": "TT_TUNNELS_LOST",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90"
+        }
+    },
+    {
+        "key": "TT_PORT_BLOCKED",
+        "display": "TunTerm port in blocked state",
+        "description": "TunTerm port in blocked state",
+        "example": {
+            "type": "TT_PORT_BLOCKED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "port": "port0"
+        }
+    },
+    {
+        "key": "TT_PORT_RECOVERY",
+        "display": "TunTerm port recovered from blocked state",
+        "description": "TunTerm port recovered from blocked state",
+        "example": {
+            "type": "TT_PORT_RECOVERY",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "port": "port0"
+        }
+    },
+    {
+        "key": "TT_PORT_LINK_DOWN",
+        "display": "TunTerm port link down",
+        "description": "TunTerm port link down",
+        "example": {
+            "type": "TT_PORT_LINK_DOWN",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "port": "port0"
+        }
+    },
+    {
+        "key": "TT_PORT_LINK_RECOVERY",
+        "display": "TunTerm port link restored",
+        "description": "TunTerm port link restored",
+        "example": {
+            "type": "TT_PORT_LINK_RECOVERY",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "port": "port0"
+        }
+    },
+    {
+        "key": "TT_PORT_DROPPED_FROM_LACP",
+        "display": "TunTerm port dropped from LACP",
+        "description": "TunTerm port dropped from LACP",
+        "example": {
+            "type": "TT_PORT_DROPPED_FROM_LACP",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "lag": "lacp0",
+            "port": "port0"
+        }
+    },
+    {
+        "key": "TT_PORT_JOINED_LACP",
+        "display": "TunTerm port joined LACP",
+        "description": "TunTerm port joined LACP",
+        "example": {
+            "type": "TT_PORT_JOINED_LACP",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mxcluster_id": "ed4665ed-c9ad-4835-8ca5-dda642765ad3",
+            "mxedge_id": "387804a7-3474-85ce-15a2-f9a9684c9c90",
+            "lag": "lacp0",
+            "port": "port0"
+        }
+    }
+]

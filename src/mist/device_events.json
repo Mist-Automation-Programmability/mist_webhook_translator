@@ -1,0 +1,1695 @@
+[{
+        "key": "AP_ASSIGNED",
+        "display": "AP Assigned",
+        "description": "AP was assigned to a site",
+        "example": {
+            "type": "AP_ASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_CERT_REGENERATED",
+        "display": "AP Cert Regenerated",
+        "description": "A new cert/keypair was generated for the device",
+        "example": {
+            "type": "AP_CERT_REGENERATED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "AP_CLAIMED",
+        "display": "AP Claimed",
+        "description": "AP was claimed by an org",
+        "example": {
+            "type": "AP_CLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_CONFIG_CHANGED_BY_RRM",
+        "display": "AP Config changed by RRM",
+        "description": "Config change on AP was triggered as a result of RRM optimization",
+        "example": {
+            "type": "AP_CONFIGURED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "AP_CONFIG_CHANGED_BY_USER",
+        "display": "AP Config changed by user",
+        "description": "Config change on AP was triggered as a result of change made by user",
+        "example": {
+            "type": "AP_CONFIG_CHANGED_BY_USER",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_CONFIG_FAILED",
+        "display": "AP Config failed",
+        "description": "Config change on AP was reverted to last good config as lost cloud connection",
+        "example": {
+            "timestamp": 1576178404,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "mac": "5c5b35000001",
+            "device_type": "ap",
+            "type": "AP_CONFIG_FAILED"
+        }
+    },
+    {
+        "key": "AP_CONFIGURED",
+        "display": "AP Configured",
+        "description": "AP received a new config",
+        "example": {
+            "type": "AP_CONFIGURED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "AP_RECONFIGURED",
+        "display": "AP Reconfigured",
+        "description": "AP received the same config as last time",
+        "example": {
+            "type": "AP_RECONFIGURED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "AP_CONNECTED",
+        "display": "AP Connected",
+        "description": "AP (re-)established to cloud",
+        "example": {
+            "type": "AP_CONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "AP_DISCONNECTED",
+        "display": "AP Disconnected",
+        "description": "AP lost connection to cloud",
+        "example": {
+            "type": "AP_DISCONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "AP_RESTART_BY_USER",
+        "display": "AP Restarted by user",
+        "description": "AP was powercycled by user",
+        "example": {
+            "type": "AP_RESTART_BY_USER",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_RESTARTED",
+        "display": "AP Restarted",
+        "description": "AP Restarted",
+        "example": {
+            "type": "AP_RESTARTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "reason": "upgrade",
+            "fixed_version": "0.5.1135",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_UNASSIGNED",
+        "display": "AP Unassigned",
+        "description": "AP was unassigned from the site",
+        "example": {
+            "type": "AP_UNASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_UNCLAIMED",
+        "display": "AP Unclaimed",
+        "description": "AP was unclaimed from the org",
+        "example": {
+            "type": "AP_UNCLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_UPGRADE_BY_SCHEDULE",
+        "display": "Scheduled AP Upgrade",
+        "description": "AP firmware upgraded as a result of scheduled policy",
+        "example": {
+            "type": "AP_UPGRADE_BY_SCHEDULE",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "AP_UPGRADE_BY_USER",
+        "display": "AP upgraded by user",
+        "description": "User upgraded the AP firmware",
+        "example": {
+            "type": "AP_UPGRADE_BY_USER",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_UPGRADED",
+        "display": "AP Upgraded",
+        "description": "AP firmware was upgraded",
+        "example": {
+            "type": "AP_UPGRADED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_UPGRADE_FAILED",
+        "display": "Failed to upgrade AP",
+        "description": "Failed to upgrade AP firmware",
+        "example": {
+            "type": "AP_UPGRADE_FAILED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "AP_RRM_ACTION",
+        "display": "RRM Action",
+        "description": "RRM changes channel/power/bandwidth",
+        "example": {
+            "type": "AP_RRM_ACTION",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "band": "5",
+            "channel": 36,
+            "bandwidth": 40,
+            "power": 17,
+            "pre_channel": 40,
+            "pre_bandwidth": 40,
+            "pre_power": 15,
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5",
+            "reason": "radar-detected"
+        }
+    },
+    {
+        "key": "AP_BEACON_STUCK",
+        "display": "Radio Beacon Stuck",
+        "example": {
+            "type": "AP_BEACON_STUCK",
+            "timestamp": 1552233041,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "band": "5",
+            "start_time": 1552008073,
+            "end_time": 1552232053,
+            "occurrence": 747
+        }
+    },
+    {
+        "key": "AP_RADAR_DETECTED",
+        "display": "AP Radar Detected",
+        "example": {
+            "type": "AP_RADAR_DETECTED",
+            "timestamp": 1552233041,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "band": "5",
+            "channel": 36,
+            "bandwidth": 40,
+            "pre_channel": 125,
+            "pre_bandwidth": 40,
+            "reason": "radar-detected"
+        }
+    },
+    {
+        "key": "AP_GET_SUPPORT_FILES",
+        "display": "AP Get Support Files",
+        "example": {
+            "type": "AP_GET_SUPPORT_FILES",
+            "timestamp": 1552233041,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001",
+            "device_type": "ap"
+        }
+    },
+    {
+        "key": "SW_ASSIGNED",
+        "display": "Switch Assigned",
+        "description": "Switch was assigned to a site",
+        "example": {
+            "type": "SW_ASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001",
+            "text": "Switch 5c5b35000001 assigned",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "SW_UNASSIGNED",
+        "display": "Switch Unassigned",
+        "description": "Switch was unassigned from the site",
+        "example": {
+            "type": "SW_UNASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001",
+            "text": "Switch 5c5b35000001 unassigned",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "SW_CLAIMED",
+        "display": "Switch Claimed",
+        "description": "Switch was claimed by an org",
+        "example": {
+            "type": "SW_CLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "mac": "5c5b35000001",
+            "text": "Switch 5c5b35000001 claimed",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "SW_UNCLAIMED",
+        "display": "Switch Unclaimed",
+        "description": "Switch was unclaimed from the org",
+        "example": {
+            "type": "SW_UNCLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "mac": "5c5b35000001",
+            "text": "Switch 5c5b35000001 unclaimed",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "SW_CONNECTED",
+        "display": "Switch Connected",
+        "description": "Switch (re-)established to cloud",
+        "example": {
+            "type": "SW_CONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001"
+        }
+    },
+    {
+        "key": "SW_DISCONNECTED",
+        "display": "Switch Disconnected",
+        "description": "Switch lost connection to cloud",
+        "example": {
+            "type": "SW_DISCONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001"
+        }
+    },
+    {
+        "key": "SW_PORT_UP",
+        "display": "Switch Port Up",
+        "example": {
+            "type": "SW_PORT_UP",
+            "timestamp": 1575935387,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "mac": "0c8126c7054d",
+            "version": "18.1R3.3",
+            "text": "SNMP_TRAP_LINK_UP: ifIndex 515, ifAdminStatus up(1), ifOperStatus up(1), ifName ge-0/0/2",
+            "model": "EX2300-C-12P",
+            "port_id": "ge-0/0/2"
+        }
+    },
+    {
+        "key": "SW_PORT_DOWN",
+        "display": "Switch Port Down",
+        "example": {
+            "type": "SW_PORT_DOWN",
+            "timestamp": 1575935387,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "mac": "0c8126c7054d",
+            "version": "18.1R3.3",
+            "text": "SNMP_TRAP_LINK_DOWN: ifIndex 515, ifAdminStatus up(1), ifOperStatus down(2), ifName ge-0/0/2",
+            "model": "EX2300-C-12P",
+            "port_id": "ge-0/0/2"
+        }
+    },
+    {
+        "key": "SW_CONFIGURED",
+        "display": "Switch Commit Completed",
+        "example": {
+            "type": "SW_CONFIGURED",
+            "timestamp": 1575934126,
+            "site_id": "27b9fa9e-365e-4d2c-a160-9be781114b9e",
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "mac": "0c8126c71c8b",
+            "version": "19.3R1.8",
+            "text": "UI_COMMIT_COMPLETED:  : commit complete , backup config at /var/log/mist-A0l3zt.xml.gz",
+            "model": "EX2300-C-12P"
+        }
+    },
+    {
+        "key": "SW_RECONFIGURED",
+        "display": "Switch Reconfigured",
+        "description": "Switch received the same config as last time",
+        "example": {
+            "type": "SW_RECONFIGURED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001"
+        }
+    },
+    {
+        "key": "SW_CONFIG_LOCK_FAILED",
+        "display": "Switch Config Lock Failed",
+        "description": "Switch config lock failed",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "SW_CONFIG_LOCK_FAILED",
+            "text": "error lock-configuration: Error invoking '<lock-configuration/>': Netconf-Disconnected during <lock-configuration/> after 0ms, tx=21B , reply: <nil>",
+            "model": "EX4300-48MP",
+            "version": "20.2R3.9",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "SW_RESTARTED",
+        "display": "Switch Restarted",
+        "example": {
+            "type": "SW_RESTARTED",
+            "reason": "restart_by_user",
+            "audit_id": "aa4c1559-90dd-492f-9b17-7d39fcc029be",
+            "timestamp": 1612430856,
+            "org_id": "f2d448d7-6f26-411f-a2a1-041794fbdee5",
+            "site_id": "89e69409-9f92-46e5-9d1e-195e7288fad7",
+            "model": "EX2300-C-12P",
+            "device_type": "switch",
+            "text": "SNMPD_TRAP_COLD_START: trap_generate_cold: SNMP trap: cold start",
+            "version": "20.4R1.12",
+            "mac": "408f9d04245f"
+        }
+    },
+    {
+        "key": "SW_RESTART_BY_USER",
+        "display": "Switch Restarted by User",
+        "example": {
+            "type": "SW_RESTART_BY_USER",
+            "audit_id": "da49d3e6-ba4f-46f6-a096-44fa0b403787",
+            "timestamp": 1612430856,
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "device_type": "switch",
+            "mac": "0c8126c71c8b"
+        }
+    },
+    {
+        "key": "SW_CONFIG_FAILED",
+        "display": "Switch Config failed",
+        "description": "Config change on Switch failed to load or apply",
+        "example": {
+            "timestamp": 1576178404,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "0c8126c71c8b",
+            "text": "interface-range 'user' is not defined",
+            "type": "SW_CONFIG_FAILED"
+        }
+    },
+    {
+        "key": "SW_CONFIG_CHANGED_BY_USER",
+        "display": "Switch Config Changed by User",
+        "example": {
+            "type": "SW_CONFIG_CHANGED_BY_USER",
+            "timestamp": 1575924864,
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "0c8126c71c8b",
+            "audit_id": "2924a9bc-5a1b-4523-bb32-933ab8668ce5"
+        }
+    },
+    {
+        "key": "SW_RECONFIGURED",
+        "display": "Switch Reconfigured",
+        "description": "Switch received the same config as last time",
+        "example": {
+            "type": "SW_RECONFIGURED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "0c8126c71c8b"
+        }
+    },
+    {
+        "key": "SW_PORT_STORM_CONTROL",
+        "display": "Storm Control in Effect on Switch port",
+        "example": {
+            "type": "SW_PORT_STORM_CONTROL",
+            "timestamp": 1575922629,
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "version": "18.2R3.4",
+            "text": "L2ALD_ST_CTL_IN_EFFECT: ge-0/0/1.0: storm control in effect on the port",
+            "model": "EX2300-C-12P",
+            "port_id": "ge-0/0/1"
+        }
+    },
+    {
+        "key": "SW_VC_MASTER_CHANGED",
+        "display": "Master Member Changed",
+        "example": {
+            "type": "SW_VC_MASTER_CHANGED",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "version": "18.2R3.4",
+            "text": "CHASSISD_VCHASSIS_MEMBER_UPDATE_NOTICE: Membership update: Member 1->1, Mode Backup->Master, 1M 2B, Master Changed, Members Changed",
+            "vc-master-id": 1,
+            "vc-backup-id": 2
+        }
+    },
+    {
+        "key": "SW_VC_BACKUP_ELECTED",
+        "display": "Backup Member Elected",
+        "example": {
+            "type": "SW_VC_BACKUP_ELECTED",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "version": "18.2R3.4",
+            "text": "CHASSISD_VCHASSIS_MEMBER_UPDATE_NOTICE: Membership update: Member 1->1, Mode Master->Master, 1M 0B, Master Unchanged, Members Changed",
+            "vc-backup-id": 0
+        }
+    },
+    {
+        "key": "SW_VC_MEMBER_ADDED",
+        "display": "VC Member Added",
+        "example": {
+            "type": "SW_VC_MEMBER_ADDED",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "version": "18.2R3.4",
+            "text": "CHASSISD_VCHASSIS_MEMBER_OP_NOTICE: Member change: vc add of member 1"
+        }
+    },
+    {
+        "key": "SW_VC_MEMBER_DELETED",
+        "display": "VC Member Deleted",
+        "example": {
+            "type": "SW_VC_MEMBER_DELETED",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "version": "18.2R3.4",
+            "text": "CHASSISD_VCHASSIS_MEMBER_OP_NOTICE: Member change: vc delete of member 1"
+        }
+    },
+    {
+        "key": "SW_ZTP_FINISHED",
+        "display": "ZTP Finished",
+        "example": {
+            "type": "SW_ZTP_FINISHED",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "version": "18.2R3.4"
+        }
+    },
+    {
+        "key": "SW_ALARM",
+        "display": "Switch Alarm",
+        "example": {
+            "type": "SW_ALARM",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "alarm_class": "Major",
+            "text": "Host 1 me0 : Ethernet Link Down",
+            "version": "18.2R3.4"
+        }
+    },
+    {
+        "key": "SW_ALARM_CHASSIS_PARTITION",
+        "display": "Switch Chassis Partition Usage Alarm",
+        "example": {
+            "type": "SW_ALARM_CHASSIS_PARTITION",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "alarm_class": "Minor",
+            "text": "RE 0 /var partition usage is high",
+            "version": "18.2R3.4"
+        }
+    },
+    {
+        "key": "SW_ALARM_CHASSIS_POE",
+        "display": "Switch Chassis POE Alarm",
+        "example": {
+            "type": "SW_ALARM_CHASSIS_POE",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "alarm_class": "Minor",
+            "text": "PoE voltage injection in Interface ge-0/0/22",
+            "version": "18.2R3.4"
+        }
+    },
+    {
+        "key": "SW_ALARM_CHASSIS_PSU",
+        "display": "Switch Chassis PSU Alarm",
+        "example": {
+            "type": "SW_ALARM_CHASSIS_PSU",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "alarm_class": "Minor",
+            "text": "FPC 1 PSU Sensor too Warm",
+            "version": "18.2R3.4"
+        }
+    },
+    {
+        "key": "SW_ALARM_POE_CONTROLLER_UPGRADE_AVAILABLE",
+        "display": "Switch Poe Controller Upgrade Available Alarm",
+        "example": {
+            "type": "SW_ALARM_POE_CONTROLLER_UPGRADE_AVAILABLE",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "alarm_class": "Major",
+            "text": "POE firmware upgrade available"
+        }
+    },
+    {
+        "key": "SW_DYNAMIC_PORT_ASSIGNED",
+        "display": "Switch Port Assigned",
+        "example": {
+            "type": "SW_DYNAMIC_PORT_ASSIGNED",
+            "timestamp": 1575935387,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "mac": "0c8126c7054d",
+            "version": "18.1R3.3",
+            "text": "Interface ge-0/0/9 is assigned to port profile: default",
+            "model": "EX2300-C-12P",
+            "port_id": "ge-0/0/9"
+        }
+    },
+    {
+        "key": "SW_HANDSHAKE_ERROR",
+        "display": "Switch Handshake Error",
+        "example": {
+            "timestamp": 1613427890,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "00000000-0000-0000-0000-000000000000",
+            "type": "SW_HANDSHAKE_ERROR",
+            "device_type": "unknown",
+            "text": "ERROR: Unable to create ssh client: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none password], no supported methods remain",
+            "mac": "20d80b062d00"
+        }
+    },
+    {
+        "key": "SW_REJECTED",
+        "display": "Switch SSH Reject Error",
+        "example": {
+            "timestamp": 1613427890,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "00000000-0000-0000-0000-000000000000",
+            "type": "SW_REJECTED",
+            "device_type": "unknown",
+            "text": "ERROR: Unable to create ssh client: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none password], no supported methods remain",
+            "mac": "20d80b062d00"
+        }
+    },
+    {
+        "key": "SW_PORT_BPDU_BLOCKED",
+        "display": "Switch Port BPDU Blocked",
+        "example": {
+            "timestamp": 1613427890,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "00000000-0000-0000-0000-000000000000",
+            "type": "SW_PORT_BPDU_BLOCKED",
+            "device_type": "switch",
+            "text": "L2CPD_RECEIVE_BPDU_BLOCK_ENABLED: BPDU_PROTECT: Interface ge-0/0/6 is DOWN: BPDU error detected",
+            "mac": "20d80b062d00"
+        }
+    },
+    {
+        "key": "SW_OSPF_NEIGHBOR_UP",
+        "display": "Switch OSPF Neighbor Up",
+        "example": {
+            "timestamp": 1613427890,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "00000000-0000-0000-0000-000000000000",
+            "type": "SW_OSPF_NEIGHBOR_UP",
+            "device_type": "switch",
+            "text": "RPD_OSPF_NBRUP: OSPF neighbor 255.255.255.10 (realm ospf-v2 xe-1/2/2.0 area 0.0.0.0) state changed from Init to ExStart due to 2WayRcvd (event reason: neighbor detected this router)",
+            "mac": "20d80b062d00"
+        }
+    },
+    {
+        "key": "SW_OSPF_NEIGHBOR_DOWN",
+        "display": "Switch OSPF Neighbor Down",
+        "example": {
+            "timestamp": 1613427890,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "00000000-0000-0000-0000-000000000000",
+            "type": "SW_OSPF_NEIGHBOR_DOWN",
+            "device_type": "switch",
+            "text": "RPD_OSPF_NBRDOWN: OSPF neighbor 255.255.255.10 (realm ospf-v2 xe-1/2/2.0 area 0.0.0.0) state changed from Full to Init due to 1WayRcvd (event reason: neighbor is in one-way mode)",
+            "mac": "20d80b062d00"
+        }
+    },
+    {
+        "key": "SW_UPGRADE_BY_USER",
+        "display": "Switch Upgrade Initiated by User",
+        "description": "Switch upgrade initiated by user",
+        "example": {
+            "audit_id": "6175746f-0000-0000-3157-000000000000",
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "SW_UPGRADE_BY_USER",
+            "text": "to version 19.3R1.8",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "SW_UPGRADED",
+        "display": "Upgrade Complete",
+        "description": "Switch upgrade completed",
+        "example": {
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "type": "SW_UPGRADED",
+            "text": "from version 19.1 to 19.3",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "SW_UPGRADE_PENDING",
+        "display": "Upgrade Pending",
+        "description": "Switch upgrade pending restart",
+        "example": {
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "type": "SW_UPGRADE_PENDING",
+            "text": "from version 19.1 to 19.3",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "SW_UPGRADE_FAILED",
+        "display": "Upgrade Failed",
+        "description": "Switch upgrade failed",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "SW_UPGRADE_FAILED",
+            "text": "OC_FWUPDATE_NOTNEEDED",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "SW_SYSTEM_SERVICE_RESTART",
+        "display": "Switch Service Restarted",
+        "description": "Switch service restarted",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "SW_SYSTEM_SERVICE_RESTART",
+            "text": "Unlock config DB due to it has been locked too long",
+            "model": "EX4300-48MP",
+            "version": "20.2R3.9",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "SW_STP_TOPO_CHANGED",
+        "display": "Switch Topology Changed",
+        "description": "Switch topology changed",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "SW_STP_TOPO_CHANGED",
+            "text": "TopoChgCnt 55, RootID 4096.d4:04:ff:9c:f1:a0, RootCost 2000, RootPort ae0",
+            "model": "EX4300-48MP",
+            "version": "20.2R3.9",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "SW_BGP_NEIGHBOR_STATE_CHANGED",
+        "display": "Switch BGP neighbour change",
+        "description": "Switch BGP neighbour has changed",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_BGP_NEIGHBOR_STATE_CHANGED",
+            "model": "EX4600-40F",
+            "device_type": "switch",
+            "text": "RPD_BGP_NEIGHBOR_STATE_CHANGED: BGP peer 10.182.104.73 (External AS 65503) changed state from OpenConfirm to Established (event RecvKeepAlive) (instance master)",
+            "version": "20.2R1.6",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "SW_MASTER_ON_RECOVERY",
+        "display": "Switch Master On Recovery",
+        "description": "Switch master is on recovery partition",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_MASTER_ON_RECOVERY",
+            "model": "EX2300-C-12P",
+            "device_type": "switch",
+            "text": "Device is running on recovery partition",
+            "version": "20.2R3.9",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "SW_MEMBER_ON_RECOVERY",
+        "display": "Switch Member On Recovery",
+        "description": "Switch member(s) is on recovery partition",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_MEMBER_ON_RECOVERY",
+            "model": "EX2300-C-12P",
+            "device_type": "switch",
+            "text": "Device member(s) are running on recovery partition. [fpc0]",
+            "version": "20.2R3.9",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "SW_RECOVERY_SNAPSHOT_REQUESTED",
+        "display": "Switch Recovery Snapshot Requested",
+        "description": "Switch recovery snapshot requested",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_RECOVERY_SNAPSHOT_REQUESTED",
+            "model": "EX2300-C-12P",
+            "device_type": "switch",
+            "version": "20.2R3.9",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "SW_RECOVERY_SNAPSHOT_SUCCEEDED",
+        "display": "Switch Recovery Snapshot Succeeded",
+        "description": "Switch recovery snapshot succeeded",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_RECOVERY_SNAPSHOT_SUCCEEDED",
+            "model": "EX2300-C-12P",
+            "device_type": "switch",
+            "text": "Recovery snapshot created successfully",
+            "version": "20.2R3.9",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "SW_RECOVERY_SNAPSHOT_FAILED",
+        "display": "Switch Recovery Snapshot Failed",
+        "description": "Switch recovery snapshot failed",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_RECOVERY_SNAPSHOT_FAILED",
+            "model": "EX2300-C-12P",
+            "device_type": "switch",
+            "text": "OAM volume is busy or unavailable on re: fpc0",
+            "version": "20.2R3.9",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "SW_RECOVERY_SNAPSHOT_NOTNEEDED",
+        "display": "Switch Recovery Snapshot Not Needed",
+        "description": "Switch recovery snapshot not needed",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_RECOVERY_SNAPSHOT_NOTNEEDED",
+            "model": "EX4600-40F",
+            "device_type": "switch",
+            "text": "recovery snapshot not needed",
+            "version": "20.2R3.9",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "SW_RECOVERY_SNAPSHOT_UNSUPPORTED",
+        "display": "Switch Recovery Snapshot Not Needed",
+        "description": "Switch recovery snapshot not needed",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "SW_RECOVERY_SNAPSHOT_UNSUPPORTED",
+            "model": "EX4600-40F",
+            "device_type": "switch",
+            "text": "recovery snapshot unsupported",
+            "version": "20.2R1.6",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "GW_ASSIGNED",
+        "display": "WAN Edge Assigned",
+        "description": "WAN Edge was assigned to a site",
+        "example": {
+            "type": "GW_ASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001",
+            "text": "WAN Edge 5c5b35000001 assigned",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "GW_UNASSIGNED",
+        "display": "WAN Edge Unassigned",
+        "description": "WAN Edge was unassigned from the site",
+        "example": {
+            "type": "GW_UNASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001",
+            "text": "WAN Edge 5c5b35000001 unassigned",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "GW_CLAIMED",
+        "display": "WAN Edge Claimed",
+        "description": "WAN Edge was claimed by an org",
+        "example": {
+            "type": "GW_CLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "mac": "5c5b35000001",
+            "text": "WAN Edge 5c5b35000001 claimed",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "GW_UNCLAIMED",
+        "display": "WAN Edge Unclaimed",
+        "description": "WAN Edge was unclaimed from the org",
+        "example": {
+            "type": "GW_UNCLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "mac": "5c5b35000001",
+            "text": "WAN Edge 5c5b35000001 unclaimed",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "GW_CONNECTED",
+        "display": "WAN Edge Connected",
+        "description": "WAN Edge (re-)established to cloud",
+        "example": {
+            "type": "GW_CONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "GW_DISCONNECTED",
+        "display": "WAN Edge Disconnected",
+        "description": "WAN Edge lost connection to cloud",
+        "example": {
+            "type": "GW_DISCONNECTED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "ap": "5c5b35000001"
+        }
+    },
+    {
+        "key": "GW_PORT_UP",
+        "display": "WAN Edge Port Up",
+        "example": {
+            "type": "GW_PORT_UP",
+            "timestamp": 1575935387,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "mac": "0c8126c7054d",
+            "version": "18.1R3.3",
+            "text": "SNMP_TRAP_LINK_UP: ifIndex 515, ifAdminStatus up(1), ifOperStatus up(1), ifName ge-0/0/2",
+            "model": "EX2300-C-12P",
+            "port_id": "ge-0/0/2"
+        }
+    },
+    {
+        "key": "GW_PORT_DOWN",
+        "display": "WAN Edge Port Down",
+        "example": {
+            "type": "GW_PORT_DOWN",
+            "timestamp": 1575935387,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "mac": "0c8126c7054d",
+            "version": "18.1R3.3",
+            "text": "SNMP_TRAP_LINK_DOWN: ifIndex 515, ifAdminStatus up(1), ifOperStatus down(2), ifName ge-0/0/2",
+            "model": "EX2300-C-12P",
+            "port_id": "ge-0/0/2"
+        }
+    },
+    {
+        "key": "GW_CONFIGURED",
+        "display": "WAN Edge Commit Completed",
+        "example": {
+            "type": "GW_CONFIGURED",
+            "timestamp": 1575934126,
+            "site_id": "27b9fa9e-365e-4d2c-a160-9be781114b9e",
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "mac": "0c8126c71c8b",
+            "version": "19.3R1.8",
+            "text": "UI_COMMIT_COMPLETED:  : commit complete , backup config at /var/log/mist-A0l3zt.xml.gz",
+            "model": "EX2300-C-12P"
+        }
+    },
+    {
+        "key": "GW_RECONFIGURED",
+        "display": "WAN Edge Reconfigured",
+        "description": "WAN Edge received the same config as last time",
+        "example": {
+            "type": "GW_RECONFIGURED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001"
+        }
+    },
+    {
+        "key": "GW_CONFIG_LOCK_FAILED",
+        "display": "WAN Edge Config Lock Failed",
+        "description": "WAN Edge config lock failed",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_CONFIG_LOCK_FAILED",
+            "text": "error lock-configuration: Error invoking '<lock-configuration/>': Netconf-Disconnected during <lock-configuration/> after 0ms, tx=21B , reply: <nil>",
+            "model": "SRX320-POE",
+            "version": "20.2R1-S2.1",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "GW_RESTARTED",
+        "display": "WAN Edge Restarted",
+        "example": {
+            "type": "GW_RESTARTED",
+            "reason": "unknown",
+            "audit_id": "aa4c1559-90dd-492f-9b17-7d39fcc029be",
+            "timestamp": 1612430856,
+            "org_id": "f2d448d7-6f26-411f-a2a1-041794fbdee5",
+            "site_id": "89e69409-9f92-46e5-9d1e-195e7288fad7",
+            "model": "SSR",
+            "device_type": "switch",
+            "mac": "408f9d04245f"
+        }
+    },
+    {
+        "key": "GW_RESTART_BY_USER",
+        "display": "WAN Edge Restarted by User",
+        "example": {
+            "type": "GW_RESTART_BY_USER",
+            "audit_id": "da49d3e6-ba4f-46f6-a096-44fa0b403787",
+            "timestamp": 1612430856,
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "device_type": "gateway",
+            "mac": "0c8126c71c8b"
+        }
+    },
+    {
+        "key": "GW_CONFIG_FAILED",
+        "display": "WAN Edge Config failed",
+        "description": "Config change on WAN Edge failed to load or apply",
+        "example": {
+            "timestamp": 1576178404,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001",
+            "text": "interface-range 'user' is not defined",
+            "type": "GW_CONFIG_FAILED"
+        }
+    },
+    {
+        "key": "GW_CONFIG_CHANGED_BY_USER",
+        "display": "WAN Edge Config Changed by User",
+        "example": {
+            "type": "GW_CONFIG_CHANGED_BY_USER",
+            "timestamp": 1575924864,
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2970",
+            "audit_id": "2924a9bc-5a1b-4523-bb32-933ab8668ce5"
+        }
+    },
+    {
+        "key": "GW_ZTP_FINISHED",
+        "display": "ZTP Finished",
+        "example": {
+            "type": "GW_ZTP_FINISHED",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "version": "18.2R3.4"
+        }
+    },
+    {
+        "key": "GW_ALARM",
+        "display": "WAN Edge Alarm",
+        "example": {
+            "type": "GW_ALARM",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "alarm_class": "Major",
+            "text": "Host 1 me0 : Ethernet Link Down",
+            "version": "18.2R3.4"
+        }
+    },
+    {
+        "key": "GW_ALARM_POE_CONTROLLER_UPGRADE_AVAILABLE",
+        "display": "WAN Edge Poe Controller Upgrade Available Alarm",
+        "example": {
+            "type": "GW_ALARM_POE_CONTROLLER_UPGRADE_AVAILABLE",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "mac": "1c9c8cba2e7f",
+            "alarm_class": "Major",
+            "text": "POE firmware upgrade available"
+        }
+    },
+    {
+        "key": "GW_VPN_PATH_DOWN",
+        "display": "VPN path down",
+        "description": "VPN path went down",
+        "example": {
+            "timestamp": 1598371008,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "GW_VPN_PATH_DOWN",
+            "model": "SRX300",
+            "device_type": "gateway",
+            "vpn_name": "InternalVPN",
+            "peer_mac": "f4cc552aba81",
+            "peer_site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "text": "KMD_VPN_DOWN_ALARM_USER: VPN InternalVPN from 192.168.4.1 is down. Local-ip: 192.168.4.10, wan edge name: InternalGW, vpn name: InternalVPN, tunnel-id: 131073, local tunnel-if: st0.0, remote tunnel-ip: 172.16.1.1, Local IKE-ID: 192.168.4.10, Remote IKE-ID: 192.168.4.1, AAA username: Not-Applicable, VR id: 0, Traffic-selector: , Traffic-selector local ID: ipv4_subnet(any:0,[0..7]=0.0.0.0/0), Traffic-selector remote ID: ipv4_subnet(any:0,[0..7]=0.0.0.0/0), SA Type: Static, Reason: Initial-Contact received from peer. Stale IKE/IPSec SAs cleared",
+            "version": "20.2R1.6",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "GW_VPN_PATH_UP",
+        "display": "VPN path up",
+        "description": "VPN path went up",
+        "example": {
+            "timestamp": 1598371009,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "GW_VPN_PATH_UP",
+            "model": "SRX300",
+            "device_type": "gateway",
+            "vpn_name": "InternalVPN",
+            "peer_mac": "f4cc552aba81",
+            "peer_site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "text": "KMD_VPN_UP_ALARM_USER: VPN InternalVPN from 192.168.4.1 is up. Local-ip: 192.168.4.10, wan edge name: InternalGW, vpn name: InternalVPN, tunnel-id: 131073, local tunnel-if: st0.0, remote tunnel-ip: 172.16.1.1, Local IKE-ID: 192.168.4.10, Remote IKE-ID: 192.168.4.1, AAA username: Not-Applicable, VR id: 0, Traffic-selector: , Traffic-selector local ID: ipv4_subnet(any:0,[0..7]=0.0.0.0/0), Traffic-selector remote ID: ipv4_subnet(any:0,[0..7]=0.0.0.0/0), SA Type: Static",
+            "version": "20.2R1.6",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "GW_VPN_PEER_DOWN",
+        "display": "VPN peer down",
+        "description": "VPN peer went down",
+        "example": {
+            "timestamp": 1598371008,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "GW_VPN_PEER_DOWN",
+            "model": "SRX300",
+            "device_type": "gateway",
+            "text": "TODO",
+            "version": "20.2R1.6",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "GW_VPN_PEER_UP",
+        "display": "VPN peer up",
+        "description": "VPN peer went up",
+        "example": {
+            "timestamp": 1598371009,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "GW_VPN_PEER_UP",
+            "model": "SRX300",
+            "device_type": "gateway",
+            "text": "TODO",
+            "version": "20.2R1.6",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "GW_OSPF_NEIGHBOR_DOWN",
+        "display": "OSPF neighbour Down",
+        "description": "OSPF neighbour is Down",
+        "example": {
+            "timestamp": 1598566712,
+            "org_id": "1bec7a89-189d-47bd-adaf-68c0afc85220",
+            "site_id": "7cbcd6f9-67e8-421b-ab13-12a3b810c198",
+            "type": "GW_OSPF_NEIGHBOR_DOWN",
+            "model": "SRX300",
+            "device_type": "gateway",
+            "text": "RPD_OSPF_NBRDOWN: OSPF neighbor 172.2.1.2 (realm ospf-v2 st0.0 area 0.0.0.0) state changed from Full to Down due to InActiveTimer (event reason: neighbor was inactive and declared dead)",
+            "version": "19.3R2.9",
+            "mac": "307c5e489e40"
+        }
+    },
+    {
+        "key": "GW_OSPF_NEIGHBOR_UP",
+        "display": "OSPF neighbour Up",
+        "description": "OSPF neighbour is Up",
+        "example": {
+            "timestamp": 1598567227,
+            "org_id": "1bec7a89-189d-47bd-adaf-68c0afc85220",
+            "site_id": "7cbcd6f9-67e8-421b-ab13-12a3b810c198",
+            "type": "GW_OSPF_NEIGHBOR_UP",
+            "model": "SRX300",
+            "device_type": "gateway",
+            "text": "RPD_OSPF_NBRUP: OSPF neighbor 172.2.1.2 (realm ospf-v2 st0.0 area 0.0.0.0) state changed from Init to ExStart due to 2WayRcvd (event reason: neighbor detected this router)",
+            "version": "19.3R2.9",
+            "mac": "307c5e489e40"
+        }
+    },
+    {
+        "key": "GW_BGP_NEIGHBOR_STATE_CHANGED",
+        "display": "WAN Edge BGP neighbour change",
+        "description": "WAN Edge BGP neighbour has changed",
+        "example": {
+            "timestamp": 1599046353,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "2102aa05-b1ae-4d2d-88dc-c1bf9d834b9e",
+            "type": "GW_BGP_NEIGHBOR_STATE_CHANGED",
+            "model": "SRX300",
+            "device_type": "gateway",
+            "text": "RPD_BGP_NEIGHBOR_STATE_CHANGED: BGP peer 192.168.4.1 (Internal AS 65000) changed state from OpenConfirm to Established (event RecvKeepAlive) (instance master)",
+            "version": "20.2R1.6",
+            "mac": "f4cc552aba80"
+        }
+    },
+    {
+        "key": "GW_REJECTED",
+        "display": "WAN Edge SSH Reject Error",
+        "example": {
+            "timestamp": 1613427890,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "00000000-0000-0000-0000-000000000000",
+            "type": "GW_REJECTED",
+            "device_type": "unknown",
+            "text": "ERROR: Unable to create ssh client: ssh: handshake failed: ssh: unable to authenticate, attempted methods [none password], no supported methods remain",
+            "mac": "20d80b062d00"
+        }
+    },
+    {
+        "key": "GW_RG_STATE_CHANGED",
+        "display": "WAN Edge Redundancy Group State Changed",
+        "example": {
+            "timestamp": 1613427890,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "00000000-0000-0000-0000-000000000000",
+            "type": "GW_RG_STATE_CHANGED",
+            "device_type": "gateway",
+            "text": "JSRPD_RG_STATE_CHANGE: Redundancy-group 1 transitioned from 'secondary-hold' to 'secondary' state due to Ready to become secondary",
+            "mac": "20d80b062d00"
+        }
+    },
+    {
+        "key": "GW_UPGRADE_BY_USER",
+        "display": "WAN Edge Upgrade Initiated by User",
+        "description": "WAN Edge upgrade initiated by user",
+        "example": {
+            "audit_id": "6175746f-0000-0000-3157-000000000000",
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_UPGRADE_BY_USER",
+            "text": "to version 19.3R1.8",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "GW_UPGRADED",
+        "display": "Upgrade Complete",
+        "description": "WAN Edge upgrade completed",
+        "example": {
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "type": "GW_UPGRADED",
+            "text": "from version 19.1 to 19.3",
+            "mac": "c8fe6af636a8"
+        }
+    },
+    {
+        "key": "GW_UPGRADE_PENDING",
+        "display": "Upgrade Pending",
+        "description": "WAN Edge upgrade pending restart",
+        "example": {
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "type": "GW_UPGRADE_PENDING",
+            "text": "from version 19.1 to 19.3",
+            "mac": "c8fe6af636a8"
+        }
+    },
+    {
+        "key": "GW_UPGRADE_FAILED",
+        "display": "Upgrade Failed",
+        "description": "WAN Edge upgrade failed",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_UPGRADE_FAILED",
+            "text": "OC_FWUPDATE_NOTNEEDED",
+            "mac": "0c8126c6ff6c"
+        }
+    },
+    {
+        "key": "GW_SYSTEM_SERVICE_RESTART",
+        "display": "WAN Edge Service Restarted",
+        "description": "WAN Edge service restarted",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_SYSTEM_SERVICE_RESTART",
+            "text": "Unlock config DB due to it has been locked too long",
+            "model": "EX4300-48MP",
+            "version": "20.2R3.9",
+            "mac": "1c9c8cba2e7f"
+        }
+    },
+    {
+        "key": "GW_CONDUCTOR_DISCONNECTED",
+        "display": "Disconnected from Conductor",
+        "description": "WAN Edge is disconnected from conductor",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_CONDUCTOR_DISCONNECTED",
+            "mac": "0c8126c6ff6c",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_CONDUCTOR_CONNECTED",
+        "display": "Connected to Conductor",
+        "description": "WAN Edge connection to conductor is restored",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_CONDUCTOR_CONNECTED",
+            "mac": "0c8126c6ff6c",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_ARP_RESOLVED",
+        "display": "WAN Edge ARP Resolved",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_ARP_RESOLVED",
+            "mac": "0c8126c6ff6c",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_ARP_UNRESOLVED",
+        "display": "WAN Edge ARP Unresolved",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_ARP_UNRESOLVED",
+            "mac": "0c8126c6ff6c",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_DHCP_RESOLVED",
+        "display": "WAN Edge DHCP Resolved",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_DHCP_RESOLVED",
+            "mac": "0c8126c6ff6c",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_DHCP_UNRESOLVED",
+        "display": "WAN Edge DHCP Unresolved",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_DHCP_UNRESOLVED",
+            "mac": "0c8126c6ff6c",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_CERT_REGENERATED",
+        "display": "WAN Edge Cert Regenerated",
+        "description": "A new cert/keypair was generated for the device",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_CERT_REGENERATED",
+            "mac": "0c8126c6ff6c",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_HA_CONTROL_LINK_UP",
+        "display": "WAN Edge Cluster Control Link Up",
+        "description": "WAN Edge cluster control link between nodes is up",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_HA_CONTROL_LINK_UP",
+            "mac": "0c8126c6ff6c",
+            "device_type": "gateway",
+            "text": "JSRPD_HA_CONTROL_LINK_UP: HA control link monitor status is marked up",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_HA_CONTROL_LINK_DOWN",
+        "display": "WAN Edge Cluster Control Link Down",
+        "description": "WAN Edge cluster control link between nodes is down",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_HA_CONTROL_LINK_DOWN",
+            "mac": "0c8126c6ff6c",
+            "device_type": "gateway",
+            "text": "down on interface ha-fabric",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "GW_HA_HEALTH_WEIGHT_LOW",
+        "display": "WAN Edge RG Health Weight Below Threshold",
+        "description": "WAN Edge cluster RG's health weight is below threshold",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_HA_HEALTH_WEIGHT_LOW",
+            "mac": "0c8126c6ff6c",
+            "device_type": "gateway",
+            "text": "JSRPD_HA_HEALTH_WEIGHT_LOW: Detected cluster1-Node0-RG1's health weight(0) low, send out SNMP trap",
+            "model": "SRX345"
+        }
+    },
+    {
+        "key": "GW_HA_HEALTH_WEIGHT_RECOVERY",
+        "display": "WAN Edge RG Health Weight Recovered",
+        "description": "WAN Edge cluster RG's health weight is recovered",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_HA_HEALTH_WEIGHT_RECOVERY",
+            "mac": "0c8126c6ff6c",
+            "device_type": "gateway",
+            "text": "JSRPD_HA_HEALTH_WEIGHT_RECOVERY: Detected cluster1-Node0-RG1's health weight(255) fully recovery, send out SNMP trap",
+            "model": "SSR"
+        }
+    },
+    {
+        "key": "ME_CLAIMED",
+        "display": "MxEdge claimed",
+        "description": "MxEdge was claimed on the org",
+        "example": {
+            "type": "ME_CLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "mac": "5c5b35000001",
+            "device_type": "mxedge",
+            "text": "MxEdge 5c5b35000001 claimed",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_UNCLAIMED",
+        "display": "MxEdge Unclaimed",
+        "description": "MxEdge was unclaimed from the org",
+        "example": {
+            "type": "ME_UNCLAIMED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "mac": "5c5b35000001",
+            "device_type": "mxedge",
+            "text": "MxEdge d420b0f000d5 unclaimed",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_ASSIGNED",
+        "display": "MxEdge Assigned",
+        "description": "MxEdge was assigned to a site",
+        "example": {
+            "type": "ME_ASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001",
+            "device_type": "mxedge",
+            "text": "MxEdge 5c5b35000001 assigned",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "ME_UNASSIGNED",
+        "display": "MxEdge Unassigned",
+        "description": "MxEdge was unassigned from the site",
+        "example": {
+            "type": "ME_UNASSIGNED",
+            "timestamp": 1552408871,
+            "org_id": "2818e386-8dec-2562-9ede-5b8a0fbbdc71",
+            "site_id": "4ac1dcf4-9d8b-7211-65c4-057819f0862b",
+            "mac": "5c5b35000001",
+            "device_type": "mxedge",
+            "text": "MxEdge d420b0f000d5 unassigned",
+            "audit_id": "e9a88814-fa81-5bdc-34b0-84e8735420e5"
+        }
+    },
+    {
+        "key": "GW_PORT_RG_ST_CHANGED",
+        "display": "WAN Edge Port RG State Changed ",
+        "description": "WAN Edge port redundancy group state was changed",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_PORT_RG_ST_CHANGED",
+            "mac": "0c8126c6ff6c",
+            "device_type": "gateway",
+            "text": "WAN Edge port RG state was changed to active/standby",
+            "model": "SSR",
+            "node": "node0",
+            "port_id": "dpdk2",
+            "timestamp": 1613427890
+        }
+    },
+    {
+        "key": "GW_UPGRADE_BY_MIST",
+        "display": "WAN Edge Upgrade by Mist",
+        "description": "WAN Edge upgrade by mist cloud",
+        "example": {
+            "org_id": "c080ce4d-4e35-4373-bdc4-08df15d257f5",
+            "site_id": "1df889ad-9111-4c0e-a00b-8a008b83eb68",
+            "type": "GW_UPGRADE_BY_MIST",
+            "mac": "0c8126c6ff6c",
+            "text": "to version 19.3R1.8"
+        }
+    },
+    {
+        "key": "AP_RADIUS_ACCOUNTING_SERVER_CHANGE",
+        "display": "RADIUS Accounting Server Changed",
+        "description": "RADIUS accounting server was changed",
+        "example": {
+            "org_id": "442f2ff3-b121-40ff-9443-d753ab96463c",
+            "site_id": "2e28d07a-ac92-435c-bad8-3cddba3d9b17",
+            "wlan_id": "7d88910f-bfd6-47b6-883a-db8f91bae74c",
+            "type": "AP_RADIUS_ACCOUNTING_SERVER_CHANGE",
+            "old_server": "7.7.7.7:8888",
+            "new_server": "1.2.3.5:1235",
+            "ssid": "RADIUS_TEST",
+            "ap": "d420b0f1030c",
+            "timestamp": 1651515384
+        }
+    },
+    {
+        "key": "AP_RADIUS_AUTHENTICATION_SERVER_CHANGE",
+        "display": "RADIUS Authentication Server Changed",
+        "description": "RADIUS authentication server was changed",
+        "example": {
+            "org_id": "442f2ff3-b121-40ff-9443-d753ab96463c",
+            "site_id": "2e28d07a-ac92-435c-bad8-3cddba3d9b17",
+            "wlan_id": "7d88910f-bfd6-47b6-883a-db8f91bae74c",
+            "type": "AP_RADIUS_AUTHENTICATION_SERVER_CHANGE",
+            "old_server": "7.7.7.7:8888",
+            "new_server": "1.2.3.5:1235",
+            "ssid": "RADIUS_TEST",
+            "ap": "d420b0f1030c",
+            "timestamp": 1651515384
+        }
+    },
+    {
+        "key": "AP_RADSEC_FAILURE",
+        "display": "RADSec Failure",
+        "description": "Radsec problems",
+        "example": {
+            "wlan_id": "b19ce109-1f86-4d9b-bdff-19a08d94655d",
+            "type": "AP_RADSEC_FAILURE",
+            "device_type": "ap",
+            "version": 1,
+            "apfw": "0.12.26260",
+            "mac": "d420b0f1030c",
+            "ap": "d420b0f1030c",
+            "timestamp": 1654148714.073,
+            "org_id": "442f2ff3-b121-40ff-9443-d753ab96463c",
+            "site_id": "2e28d07a-ac92-435c-bad8-3cddba3d9b17",
+            "model": "AP45-US",
+            "text": "Radsec client cert format error",
+            "type_code": 38
+        }
+    },
+    {
+        "key": "AP_RADSEC_SERVER_CHANGE",
+        "display": "RADSec Server Changed",
+        "description": "Radsec server changed ",
+        "example": {
+            "wlan_id": "06dac5f2-a8b9-4e56-872e-cd1c1d55267c",
+            "type": "AP_RADSEC_SERVER_CHANGE",
+            "device_type": "ap",
+            "version": 1,
+            "apfw": "apfw-0.12.26260-lollys-ca00",
+            "ap": "d420b0f103e8",
+            "mac": "d420b0f103e8",
+            "timestamp": 1654148714.073,
+            "org_id": "f2695c32-0e83-4936-b1b2-96fc88051213",
+            "site_id": "85d94e1f-3629-46b9-85f8-a760499005cf",
+            "model": "AP45-US",
+            "text": "Using Radsec server \"1.1.1.222:2083\"",
+            "type_code": 52
+        }
+    },
+    {
+        "key": "AP_RADSEC_RECOVERY",
+        "display": "RADSec Recovery",
+        "description": "Radsec problem getting fixed ",
+        "example": {
+            "wlan_id": "983c8169-25fe-455c-a62a-5cac1224607e",
+            "type": "AP_RADSEC_RECOVERY",
+            "device_type": "ap",
+            "version": 1,
+            "apfw": "apfw-0.6.19227-frey-ab55",
+            "ap": "5c5b355005be",
+            "mac": "5c5b355005be",
+            "timestamp": 1654148714.073,
+            "org_id": "625aba64-fe72-4b14-8985-cbf31ec3d78a",
+            "site_id": "ec9d1e85-af24-43f9-8d65-d620580e8631",
+            "model": "AP43-US",
+            "text": "TLS established successfully with radsec server \"a268dc897b17c4c08af1eba3118580c3-8c2ed33f47d43bad.elb.us-west-2.amazonaws.com:2083\" (10.2.17.224:57276->52.27.123.97:2083)",
+            "type_code": 59
+        }
+    }
+]

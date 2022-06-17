@@ -1,0 +1,2178 @@
+[{
+        "key": "device_down",
+        "display": "Device offline",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "timestamp": 1629753888,
+            "last_seen": 1629753888,
+            "aps": [
+                "d420b02000fa"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "hostnames": [
+                "Vendor_AP2"
+            ],
+            "id": "f70c308f-7007-4866-9ecd-0d01842979ea",
+            "type": "device_down",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "aps"
+        ]
+    },
+    {
+        "key": "device_restarted",
+        "display": "Device restarted",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "reasons": [
+                "power_cycle"
+            ],
+            "timestamp": 1629754030,
+            "last_seen": 1629754094,
+            "aps": [
+                "5c5b350e1d1f",
+                "5c5b353ed0bb"
+            ],
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "count": 2,
+            "hostnames": [
+                "AP1",
+                "AP3"
+            ],
+            "id": "94d015f6-5f8f-44a0-a75e-02e70969803a",
+            "type": "device_restarted",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "reasons"
+        ]
+    },
+    {
+        "key": "loop_detected_by_ap",
+        "display": "Loop detected (by AP)",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "timestamp": 1629918779,
+            "last_seen": 1629918773,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "hostnames": [
+                "TR-FIPS"
+            ],
+            "count": 2,
+            "id": "d188d20f-bfdb-49f6-95a5-82ba50366a7e",
+            "type": "loop_detected_by_ap",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "aps"
+        ]
+    },
+    {
+        "key": "switch_down",
+        "display": "Switch offline",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "timestamp": 1629918779,
+            "last_seen": 1629918773,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "count": 2,
+            "hostnames": [
+                "switch_vc"
+            ],
+            "id": "badb2358-53c3-413d-adba-c45436a3196f",
+            "type": "switch_down",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches"
+        ]
+    },
+    {
+        "key": "switch_restarted",
+        "display": "Switch restarted",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "reasons": [
+                "power_cycle"
+            ],
+            "timestamp": 1629911554,
+            "last_seen": 1629911554,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "count": 1,
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "hostnames": [
+                "switch_vc"
+            ],
+            "id": "cac51761-cf91-41e7-80ad-a508061e666e",
+            "type": "switch_restarted",
+            "detail": "SNMPD_TRAP_COLD_START: trap_generate_cold: SNMP trap: cold start",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "gateway_down",
+        "display": "WAN Edge offline",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "gateways": [
+                "94f7adf72ea0"
+            ],
+            "timestamp": 1629919661,
+            "last_seen": 1629919661,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "46700c97-aa48-4058-aeba-ad57e2e766c1",
+            "count": 1,
+            "hostnames": [
+                "Champak_Srx"
+            ],
+            "id": "d9ab6dfe-7fe3-4155-9c8a-66cdcf0092aa",
+            "type": "gateway_down",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "gateways"
+        ]
+    },
+    {
+        "key": "device_reconnected",
+        "display": "Device reconnected",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "timestamp": 1629754258,
+            "last_seen": 1629754258,
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "hostnames": [
+                "WAP3157"
+            ],
+            "id": "7ba476db-e804-4c1b-a322-b94e43b58570",
+            "type": "device_reconnected",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "aps"
+        ]
+    },
+    {
+        "key": "infra_dhcp_failure",
+        "display": "DHCP Failure (beta)",
+        "group": "infrastructure",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629754258,
+            "last_seen": 1629754258,
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "id": "7ba476db-e804-4c1b-a322-b94e43b58570",
+            "type": "infra_dhcp_failure",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "wcids",
+            "wlan_ids",
+            "hostnames",
+            "ssids",
+            "vlans",
+            "aps",
+            "servers"
+        ]
+    },
+    {
+        "key": "infra_dhcp_success",
+        "display": "DHCP Recovered (beta)",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "timestamp": 1629754258,
+            "last_seen": 1629754258,
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "id": "7ba476db-e804-4c1b-a322-b94e43b58570",
+            "type": "infra_dhcp_success",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "servers",
+            "vlans"
+        ]
+    },
+    {
+        "key": "infra_dns_failure",
+        "display": "DNS Failure (beta)",
+        "group": "infrastructure",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629754258,
+            "last_seen": 1629754258,
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "id": "7ba476db-e804-4c1b-a322-b94e43b58570",
+            "type": "infra_dns_failure",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "wcids",
+            "wlan_ids",
+            "hostnames",
+            "ssids",
+            "vlans",
+            "aps",
+            "servers"
+        ]
+    },
+    {
+        "key": "infra_dns_success",
+        "display": "DNS Recovered (beta)",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "timestamp": 1629754258,
+            "last_seen": 1629754258,
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "id": "7ba476db-e804-4c1b-a322-b94e43b58570",
+            "type": "infra_dns_success",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "servers",
+            "vlans"
+        ]
+    },
+    {
+        "key": "infra_arp_failure",
+        "display": "ARP Failure (beta)",
+        "group": "infrastructure",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629754258,
+            "last_seen": 1629754258,
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "id": "7ba476db-e804-4c1b-a322-b94e43b58570",
+            "type": "infra_arp_failure",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "wcids",
+            "wlan_ids",
+            "hostnames",
+            "ssids",
+            "vlans",
+            "aps",
+            "servers"
+        ]
+    },
+    {
+        "key": "infra_arp_success",
+        "display": "ARP Recovered (beta)",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "timestamp": 1629754258,
+            "last_seen": 1629754258,
+            "aps": [
+                "5c5b355114cc"
+            ],
+            "org_id": "09dac91f-6e73-4100-89f7-698e0fafbb1b",
+            "site_id": "dcfb31a1-d615-4361-8c95-b9dde05aa704",
+            "count": 1,
+            "id": "7ba476db-e804-4c1b-a322-b94e43b58570",
+            "type": "infra_arp_success",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "servers",
+            "vlans"
+        ]
+    },
+    {
+        "key": "switch_reconnected",
+        "display": "Switch reconnected",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "timestamp": 1629911711,
+            "last_seen": 1629911711,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "count": 1,
+            "hostnames": [
+                "switch_vc"
+            ],
+            "id": "06c42798-cf77-4817-ba5e-02c9c05404dd",
+            "type": "switch_reconnected",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches"
+        ]
+    },
+    {
+        "key": "gateway_reconnected",
+        "display": "WAN Edge reconnected",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "gateways": [
+                "0c812667c568"
+            ],
+            "timestamp": 1629913390,
+            "last_seen": 1629913390,
+            "org_id": "bb2fb165-0931-49c7-a1b8-9b5814326b7d",
+            "site_id": "908a97c0-b728-493a-b4d4-36660e1bbdfc",
+            "count": 1,
+            "hostnames": [
+                "srx320-hub"
+            ],
+            "id": "c0fef1e2-18c6-40e2-835d-148e557e58e1",
+            "type": "gateway_reconnected",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "gateways"
+        ]
+    },
+    {
+        "key": "secpolicy_violation",
+        "display": "Security Policy Violation",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "id": "8d2ae972-4339-4db4-bad7-a9440c72dd90",
+            "org_id": "688605f-916a-47a1-8c68-f19618300a08",
+            "site_id": "ec3b5624-73f1-4ed3-b3fd-5ba3ee40368a",
+            "type": "secpolicy_violation",
+            "group": "security",
+            "severity": "warn",
+            "timestamp": 1633084683,
+            "last_seen": 1633084683,
+            "secpolicy_violated": true,
+            "aps": [
+                "5c5b350f3208"
+            ],
+            "hostnames": [
+                "5c5b353e2698"
+            ],
+            "wlan_ids": [
+                "1bf047be-9819-445c-a531-d6637a3736b3"
+            ],
+            "count": 1
+        },
+        "fields": [
+            "hostnames",
+            "aps"
+        ]
+    },
+    {
+        "key": "vpn_peer_down",
+        "display": "VPN Peer Down",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "gateways": [
+                "0200010bd3cf"
+            ],
+            "timestamp": 1629755232,
+            "last_seen": 1629755840,
+            "org_id": "cb768f63-1f32-455c-acf7-d98a7e579dd0",
+            "count": 609,
+            "site_id": "3bf704d8-a0a6-416b-9623-5bcc2ed042bb",
+            "id": "bdbee805-4d69-466f-93a1-74ad09c4e53e",
+            "reasons": [
+                "peer CSQA_Hub01 down"
+            ],
+            "hostnames": [
+                "all-my-circuits"
+            ],
+            "type": "vpn_peer_down",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "gateways",
+            "reasons"
+        ]
+    },
+    {
+        "key": "bssid_spoofing",
+        "display": "BSSID Spoofing detected",
+        "group": "security",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "timestamp": 1626694986,
+            "last_seen": 1626694986,
+            "org_id": "0c160b7f-1027-4cd1-923b-744534c4b070",
+            "site_id": "5ca47c9b-b637-4935-958e-10d7e39a697c",
+            "count": 1,
+            "id": "1ec37c5b-0e6b-4032-96a8-1f41b9d53386",
+            "type": "bssid_spoofing",
+            "group": "security",
+            "aps": [
+                "5c5b35ce1111"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "bssids": [
+                "5c5b35c61111"
+            ],
+            "ssids": [
+                "@brguest"
+            ]
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids",
+            "ssids"
+        ]
+    },
+    {
+        "key": "honeypot_ssid",
+        "display": "Honeypot SSID detected",
+        "group": "security",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "last_seen": 1629755289,
+            "aps": [
+                "5c5b350e02b7"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "count": 4,
+            "type": "honeypot_ssid",
+            "ssids": [
+                "New WLAN"
+            ],
+            "timestamp": 1629755289,
+            "bssids": [
+                "5c5b352016b2",
+                "5c5b35001685",
+                "5c5b352016c2",
+                "5c5b35001695"
+            ],
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "id": "ec653cbc-73e5-4712-a54c-29aa26deb54a",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids",
+            "ssids"
+        ]
+    },
+    {
+        "key": "adhoc_network",
+        "display": "Adhoc Network detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "ssids": [
+                "adhoc"
+            ],
+            "timestamp": 1631205266,
+            "last_seen": 1631205266,
+            "aps": [
+                "5c5b35507ed6"
+            ],
+            "hostnames": [
+                "AP43_AWS_Staging",
+                "AP41_AWS_Staging"
+            ],
+            "org_id": "26c435c0-910e-4298-a58d-643783b61eec",
+            "site_id": "4819f8ce-434f-44c4-8ffc-89a9c6cc1cad",
+            "count": 1,
+            "id": "07f001dc-175f-4c6d-99a7-8e2ce7a57131",
+            "type": "adhoc_network",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "client_mac2",
+            "ssids",
+            "client_mac1",
+            "aps"
+        ]
+    },
+    {
+        "key": "rogue_ap",
+        "display": "Rogue AP detected",
+        "group": "security",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "last_seen": 1629862968,
+            "aps": [
+                "5c5b35500442"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "count": 2,
+            "type": "rogue_ap",
+            "ssids": [
+                "DIRECT-roku-371-0064B1",
+                "DIRECT-wa-BRAVIA"
+            ],
+            "timestamp": 1629862968,
+            "bssids": [
+                "ca3a6bef7457",
+                "d2143d426fd4"
+            ],
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "f688779c-e335-4f88-8d7c-9c5e9964528b",
+            "id": "59be9221-1e26-4466-baa3-6afbce1b7bcb",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids",
+            "ssids"
+        ]
+    },
+    {
+        "key": "rogue_client",
+        "display": "Client Connection to rogue AP detected",
+        "group": "security",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "last_seen": 1629139377,
+            "aps": [
+                "5c5b350edd65"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "count": 2,
+            "type": "rogue_client",
+            "timestamp": 1629139377,
+            "bssids": [
+                "1491827decc6",
+                "5c5b35094de0"
+            ],
+            "org_id": "41f579e0-5a00-4164-92f3-662b53ae8c66",
+            "wcids": [
+                "84942dde-81dc-90be-3627-b785e7b31915"
+            ],
+            "site_id": "c475d117-b152-445d-8117-2248046f58f7",
+            "id": "96a1b7f2-dcf7-49ed-91e5-7cd55c0a2b6d",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "wcids",
+            "bssids"
+        ]
+    },
+    {
+        "key": "watched_station",
+        "display": "Active Watched Station detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "timestamp": 1631666109,
+            "last_seen": 1631666291,
+            "aps": [
+                "5c5b350e75c7"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "org_id": "bb1a8bf6-4064-4bbd-83dc-8053a663cf66",
+            "wcids": [
+                "fb9418b5-4d8f-578c-2ca3-52652bd6e963"
+            ],
+            "count": 4,
+            "site_id": "efe0473b-ad62-4c41-adfe-8b15d1ad18bb",
+            "id": "80ba651f-a1c2-45a8-8b5a-9ae9b8929aae",
+            "type": "watched_station",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "wcids"
+        ]
+    },
+    {
+        "key": "eap_handshake_flood",
+        "display": "EAP Handshake Flood detected",
+        "group": "security",
+        "severity": "info",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "client_macs",
+            "ssids",
+            "bssids",
+            "aps"
+        ]
+    },
+    {
+        "key": "air_magnet_scan",
+        "display": "Air Magnet Scan detected",
+        "group": "security",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "timestamp": 1631194699,
+            "last_seen": 1631194821,
+            "aps": [
+                "5c5b352e22ec"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "org_id": "26c435c0-910e-4298-a58d-643783b61eec",
+            "site_id": "4819f8ce-434f-44c4-8ffc-89a9c6cc1cad",
+            "count": 3,
+            "client_macs": [
+                "9809cfa7eef8"
+            ],
+            "id": "bf4301fd-c0fa-4ff1-b500-96740ab0c42c",
+            "type": "air_magnet_scan",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "client_macs"
+        ]
+    },
+    {
+        "key": "excessive_eapol_start",
+        "display": "Excessive EAPOL-Start detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "ssids": [
+                "WIDS_Test"
+            ],
+            "timestamp": 1628283423,
+            "last_seen": 1628283423,
+            "aps": [
+                "5c5b35500451"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "org_id": "5e230eaf-93ff-4180-af6f-c1adc5dded52",
+            "site_id": "b9e4defa-453e-4ca8-a8c1-8c9d337ed2ef",
+            "count": 1,
+            "client_macs": [
+                "9809cfa7eef8"
+            ],
+            "id": "e9c121dd-6d4f-4fdf-a383-9dd9790cac93",
+            "type": "excessive_eapol_start",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "client_macs",
+            "ssids"
+        ]
+    },
+    {
+        "key": "eapol_logoff_attack",
+        "display": "EAPOL-Logoff Attack detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "last_seen": 1628102718,
+            "aps": [
+                "5c5b35500451"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "count": 1,
+            "type": "eapol_logoff_attack",
+            "ssids": [
+                "Personal_WLAN"
+            ],
+            "timestamp": 1628102718,
+            "bssids": [
+                "5c5b35545e93"
+            ],
+            "org_id": "5e230eaf-93ff-4180-af6f-c1adc5dded52",
+            "site_id": "b9e4defa-453e-4ca8-a8c1-8c9d337ed2ef",
+            "client_macs": [
+                "9809cfa7eef8"
+            ],
+            "id": "f3853f77-8a50-45fe-b472-9e511d0cac3a",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "client_macs",
+            "ssids",
+            "bssids",
+            "aps"
+        ]
+    },
+    {
+        "key": "eap_dictionary_attack",
+        "display": "EAP Dictionary Attack detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "client_macs",
+            "ssids",
+            "bssids",
+            "aps"
+        ]
+    },
+    {
+        "key": "disassociation_flood",
+        "display": "Disassociation Attack detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "aps": [
+                "5c5b35500451"
+            ],
+            "bssids": [
+                "5c5b35545e93"
+            ],
+            "client_macs": [
+                "9809cfa7eef8"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "count": 1,
+            "group": "security",
+            "id": "2a2e9de5-279b-4f49-8e05-c30ab82de810",
+            "last_seen": 1628102718,
+            "org_id": "5e230eaf-93ff-4180-af6f-c1adc5dded52",
+            "site_id": "b9e4defa-453e-4ca8-a8c1-8c9d337ed2ef",
+            "severity": "warn",
+            "site_name": "Countess",
+            "ssids": [
+                "sauce"
+            ],
+            "timestamp": 1641498035,
+            "type": "disassociation_flood"
+        },
+        "fields": [
+            "hostnames",
+            "client_macs",
+            "ssids",
+            "bssids",
+            "aps"
+        ]
+    },
+    {
+        "key": "beacon_flood",
+        "display": "Fake AP Flooding detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "timestamp": 1628208162,
+            "last_seen": 1628208162,
+            "aps": [
+                "5c5b352e22ec"
+            ],
+            "hostnames": [
+                "AP45_AWS_Staging"
+            ],
+            "org_id": "26c435c0-910e-4298-a58d-643783b61eec",
+            "site_id": "4819f8ce-434f-44c4-8ffc-89a9c6cc1cad",
+            "count": 1,
+            "id": "1e768717-00f9-419d-b2c1-e9c229d352d5",
+            "type": "beacon_flood",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps"
+        ]
+    },
+    {
+        "key": "essid_jack",
+        "display": "ESSID Jack detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "aps"
+        ]
+    },
+    {
+        "key": "krack_attack",
+        "display": "Replay Injection detected - KRACK Attack",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "client_macs",
+            "ssids",
+            "bssids",
+            "aps"
+        ]
+    },
+    {
+        "key": "vendor_ie_missing",
+        "display": "Vendor IE Missing",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "last_seen": 1628222361,
+            "aps": [
+                "5c5b352e4cb3"
+            ],
+            "count": 2,
+            "type": "vendor_ie_missing",
+            "ssids": [
+                "",
+                "we.piranha.xf3"
+            ],
+            "bssids": [
+                "c0a00d58e833",
+                "725bf0c36c69"
+            ],
+            "timestamp": 1628222318,
+            "org_id": "5e230eaf-93ff-4180-af6f-c1adc5dded52",
+            "site_id": "b9e4defa-453e-4ca8-a8c1-8c9d337ed2ef",
+            "id": "e1ee1619-b9c5-4697-832a-28de216dd576",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids",
+            "ssids"
+        ]
+    },
+    {
+        "key": "tkip_icv_attack",
+        "display": "TKIP ICV Attack",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "client_macs",
+            "ssids",
+            "bssids",
+            "aps"
+        ]
+    },
+    {
+        "key": "repeated_auth_failures",
+        "display": "Repeated Client Authentication Failures",
+        "group": "security",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "last_seen": 1633069735,
+            "aps": [
+                "5c5b350e0262"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "count": 1,
+            "type": "repeated_auth_failures",
+            "ssids": [
+                "TORAN_TEST"
+            ],
+            "timestamp": 1633069735,
+            "bssids": "5c5b35001ad8",
+            "org_id": "1688605f-916a-47a1-8c68-f19618300a08",
+            "site_id": "ec3b5624-73f1-4ed3-b3fd-5ba3ee40368a",
+            "client_macs": [
+                "52b2f369d7cd"
+            ],
+            "id": "59033c55-55a8-483a-a60f-d02b27a4f70d",
+            "group": "security"
+        },
+        "fields": [
+            "ssids",
+            "aps",
+            "client_macs",
+            "bssids"
+        ]
+    },
+    {
+        "key": "eap_failure_injection",
+        "display": "EAP Failure Injection detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids"
+        ]
+    },
+    {
+        "key": "eap_spoofed_success",
+        "display": "EAP Spoofed Success detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids"
+        ]
+    },
+    {
+        "key": "out_of_sequence",
+        "display": "Out of Sequence detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids",
+            "ssids"
+        ]
+    },
+    {
+        "key": "zero_ssid_association",
+        "display": "Zero SSID Association Request detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids",
+            "ssids"
+        ]
+    },
+    {
+        "key": "monkey_jack",
+        "display": "Monkey Jack detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "aps",
+            "bssids"
+        ]
+    },
+    {
+        "key": "excessive_client",
+        "display": "Excessive Clients detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "timestamp": 1628262281,
+            "last_seen": 1628262281,
+            "aps": [
+                "5c5b35500451"
+            ],
+            "org_id": "5e230eaf-93ff-4180-af6f-c1adc5dded52",
+            "site_id": "b9e4defa-453e-4ca8-a8c1-8c9d337ed2ef",
+            "count": 1,
+            "id": "364748ac-e83c-49a1-97db-6032ed2e7a05",
+            "type": "excessive_client",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps"
+        ]
+    },
+    {
+        "key": "missing_vlan",
+        "display": "Missing VLAN",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "switch",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629760130,
+            "last_seen": 1629760130,
+            "status": "resolved",
+            "license_requirement": "VNA",
+            "org_id": "ce0e406b-e5c4-4f2a-b585-356871af7ef6",
+            "org_name": "Jackson EMC",
+            "site_id": "815161b2-cabe-4fd7-942d-bc164c7d25cf",
+            "site_name": "Oakwood",
+            "count": 1,
+            "id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "action_id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "suggestion": "config_vlan",
+            "category": "switch",
+            "details": {
+                "action": "config_vlan",
+                "category": "switch",
+                "status": "open",
+                "symptom": "missing_vlan"
+            },
+            "impacted_entities": [{
+                "entity_type": "switch",
+                "entity_mac": "182ad3558f0d",
+                "entity_name": "OAKShopIDF2.jacksonemc.com",
+                "port_id": "ge-0/0/10",
+                "missing_vlan_id": "109"
+            }],
+            "type": "MISSING_VLAN",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "bad_cable",
+        "display": "Bad cable",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "switch",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629760130,
+            "last_seen": 1629760130,
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "[MIST CSQA] QA Org [Staging]",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "jing",
+            "status": "open",
+            "suggestion": "test_replace_cable",
+            "count": 1,
+            "id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "alert_id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "category": "switch",
+            "impacted_entities": [{
+                "entity_mac": "544b8c18fa66",
+                "entity_name": "sw_2300_48mp",
+                "entity_type": "switch",
+                "port_id": "ge-0/0/1"
+            }],
+            "details": {
+                "action": "test_replace_cable",
+                "category": "switch",
+                "status": "open",
+                "symptom": "bad_cable"
+            },
+            "type": "bad_cable",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "port_flap",
+        "display": "Port flap",
+        "group": "marvis",
+        "severity": "warn",
+        "marvis_suggestion_category": "switch",
+        "example": {
+            "severity": "warn",
+            "timestamp": 1631853846,
+            "last_seen": 1631853846,
+            "org_id": "1688605f-916a-47a1-8c68-f19618300a08",
+            "org_name": "[MIST CSQA] Mist Office",
+            "site_id": "ec3b5624-73f1-4ed3-b3fd-5ba3ee40368a",
+            "site_name": "Wired Assurance",
+            "count": 1,
+            "category": "switch",
+            "id": "8f3ad435-5e0d-4178-a4e9-a7bf887b916b",
+            "alert_id": "8f3ad435-5e0d-4178-a4e9-a7bf887b916b",
+            "status": "open",
+            "details": {
+                "action": "check_port",
+                "category": "switch",
+                "status": "open",
+                "symptom": "port_flap"
+            },
+            "impacted_entities": [{
+                "entity_mac": "f07cc7667014",
+                "entity_name": "unknown",
+                "entity_type": "switch",
+                "port_id": "ge-1/0/28"
+            }],
+            "type": "port_flap",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "gw_bad_cable",
+        "display": "Bad cable",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "gateway",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629760130,
+            "last_seen": 1629760130,
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "[MIST CSQA] Mist Office",
+            "site_id": "ec3b5624-73f1-4ed3-b3fd-5ba3ee40368a",
+            "site_name": "Wired Assurance",
+            "count": 1,
+            "category": "switch",
+            "id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "alert_id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "details": {
+                "action": "test_replace_cable",
+                "category": "gateway",
+                "status": "open",
+                "symptom": "bad_cable"
+            },
+            "impacted_entities": [{
+                "entity_mac": "544b8c18fa66",
+                "entity_name": "sw_2300_48mp",
+                "entity_type": "gateway",
+                "port_id": "ge-0/0/1"
+            }],
+            "status": "open",
+            "suggestion": "test_replace_cable",
+            "type": "gw_bad_cable",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "authentication_failure",
+        "display": "Authentication failure",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "connectivity",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1631854164,
+            "last_seen": 1631854164,
+            "category": "connectivity",
+            "org_id": "1688605f-916a-47a1-8c68-f19618300a08",
+            "org_name": "unknown org",
+            "site_id": "ec3b5624-73f1-4ed3-b3fd-5ba3ee40368a",
+            "site_name": "jing",
+            "details": {
+                "action": "check_radius_offline",
+                "category": "connectivity",
+                "status": "open",
+                "symptom": "auth_failure"
+            },
+            "impacted_entities": [{
+                "entity_id": "84281ac7-4321-4db9-a893-bb520b976717",
+                "entity_name": "unknown wlan",
+                "entity_type": "wlan"
+            }],
+            "count": 1,
+            "id": "bb1aa333-b2c8-4afa-8a43-103f94919be6",
+            "alert_id": "bb1aa333-b2c8-4afa-8a43-103f94919be6",
+            "root_cause": "wlan_site",
+            "status": "open",
+            "suggestion": "check_auth_failure",
+            "type": "authentication_failure",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "dhcp_failure",
+        "display": "DHCP failure",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "connectivity",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629741600,
+            "last_seen": 1629741600,
+            "category": "connectivity",
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "unknown org",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "jing",
+            "count": 1,
+            "id": "05ecabab-5d4c-499f-9142-00c5fa73b6cc",
+            "alert_id": "05ecabab-5d4c-499f-9142-00c5fa73b6cc",
+            "details": {
+                "action": "check_dhcp",
+                "category": "connectivity",
+                "status": "reoccured",
+                "symptom": "dhcp_failure"
+            },
+            "impacted_entities": [{
+                    "entity_ip": "172.16.0.27",
+                    "entity_type": "dhcp server"
+                },
+                {
+                    "entity_ip": "172.16.0.26",
+                    "entity_type": "dhcp server"
+                }
+            ],
+            "root_cause": "dhcpserver_site",
+            "status": "reoccured",
+            "suggestion": "check_dhcp_failure",
+            "type": "psk_failure",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "arp_failure",
+        "display": "ARP failure",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "connectivity",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1631854164,
+            "last_seen": 1631854164,
+            "category": "connectivity",
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "unknown org",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "jing",
+            "count": 1,
+            "id": "bb1aa333-b2c8-4afa-8a43-103f94919be6",
+            "alert_id": "bb1aa333-b2c8-4afa-8a43-103f94919be6",
+            "details": {
+                "action": "check_arp",
+                "category": "connectivity",
+                "status": "open",
+                "symptom": "arp_failure"
+            },
+            "impacted_entities": [{
+                "entity_mac": "ac23160da124",
+                "entity_name": "ac:23:16:0d:a1:24",
+                "entity_type": "ap"
+            }],
+            "root_cause": "ap",
+            "status": "open",
+            "suggestion": "check_arp_failure",
+            "type": "arp_failure",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "dns_failure",
+        "display": "DNS failure",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "connectivity",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1631854255,
+            "last_seen": 1631854255,
+            "category": "connectivity",
+            "org_id": "1688605f-916a-47a1-8c68-f19618300a08",
+            "org_name": "unknown org",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "jing",
+            "count": 1,
+            "id": "bb1aa333-b2c8-4afa-8a43-103f94919be6",
+            "alert_id": "bb1aa333-b2c8-4afa-8a43-103f94919be6",
+            "details": {
+                "action": "check_dns",
+                "category": "connectivity",
+                "status": "open",
+                "symptom": "dns_failure"
+            },
+            "group": "marvis",
+            "impacted_entities": [{
+                "entity_ip": "8.8.4.4",
+                "entity_type": "dns server"
+            }],
+            "root_cause": "dnsserver_site",
+            "status": "open",
+            "suggestion": "check_dns_failure",
+            "type": "dns_failure"
+        },
+        "fields": []
+    },
+    {
+        "key": "negotiation_mismatch",
+        "display": "Negotiation mismatch",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "switch",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629396230,
+            "last_seen": 1629396230,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "org_name": "[MIST CSQA] QA Org [Staging]",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "site_name": "jing",
+            "category": "switch",
+            "count": 1,
+            "id": "15c43e5d-9524-40d0-a566-bb3a80ce44f5",
+            "action_id": "15c43e5d-9524-40d0-a566-bb3a80ce44f5",
+            "details": {
+                "action": "check_interface_config",
+                "category": "switch",
+                "status": "open",
+                "symptom": "negotiation_mismatch"
+            },
+            "impacted_entities": [{
+                    "entity_mac": "24fc4e840b7a",
+                    "entity_name": "sw_f_24p",
+                    "entity_type": "switch",
+                    "port_id": "ge-0/0/10"
+                },
+                {
+                    "entity_mac": "24fc4e840b7a",
+                    "entity_name": "sw_f_24p",
+                    "entity_type": "switch",
+                    "port_id": "ge-0/0/0"
+                }
+            ],
+            "status": "open",
+            "suggestion": "check_interface_config",
+            "type": "negotiation_mismatch",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "gw_negotiation_mismatch",
+        "display": "Negotiation mismatch",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "gateway",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629396230,
+            "last_seen": 1629396230,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "org_name": "[MIST CSQA] QA Org [Staging]",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "site_name": "jing",
+            "category": "switch",
+            "count": 1,
+            "id": "15c43e5d-9524-40d0-a566-bb3a80ce44f5",
+            "alert_id": "15c43e5d-9524-40d0-a566-bb3a80ce44f5",
+            "details": {
+                "action": "check_interface_config",
+                "category": "gateway",
+                "status": "open",
+                "symptom": "negotiation_mismatch"
+            },
+            "impacted_entities": [{
+                    "entity_mac": "24fc4e840b7a",
+                    "entity_name": "sw_f_24p",
+                    "entity_type": "gateway",
+                    "port_id": "ge-0/0/10"
+                },
+                {
+                    "entity_mac": "24fc4e840b7a",
+                    "entity_name": "sw_f_24p",
+                    "entity_type": "gateway",
+                    "port_id": "ge-0/0/0"
+                }
+            ],
+            "status": "open",
+            "suggestion": "check_interface_config",
+            "type": "gw_negotiation_mismatch",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "ap_offline",
+        "display": "Offline",
+        "group": "marvis",
+        "marvis_suggestion_category": "ap",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629821184,
+            "last_seen": 1629821184,
+            "license_requirement": "VNA",
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "GPS-Staging",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "Mist",
+            "count": 1,
+            "id": "8ae9914e-6108-46fd-999d-8f8a2344d6cb",
+            "action_id": "8ae9914e-6108-46fd-999d-8f8a2344d6cb",
+            "type": "AP_OFFLINE",
+            "suggestion": "check_disconnected_ap",
+            "details": {
+                "action": "check_disconnected_ap",
+                "category": "ap",
+                "status": "open",
+                "symptom": "ap_disconnect"
+            },
+            "impacted_entity_count": 1,
+            "impacted_entities": [{
+                "entity_type": "ap",
+                "entity_mac": "5c5b350eb27b",
+                "entity_name": "GPS-AP21",
+                "connected_switch_mac": "3c7b350fb27b",
+                "connected_switch_name": "my_switch",
+                "port_id": "ge-1"
+            }],
+            "category": "ap",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "non_compliant",
+        "display": "Non-compliant",
+        "group": "marvis",
+        "marvis_suggestion_category": "ap",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629755015,
+            "last_seen": 1629755015,
+            "status": "open",
+            "license_requirement": "VNA",
+            "id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "action_id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "org_id": "38a18d4d-1623-4985-86d0-1bb06e5e2a48",
+            "org_name": "UPS OPS",
+            "site_id": "1d52a52b-c311-464a-aa70-2babc3375894",
+            "site_name": "USOKTUL",
+            "details": {
+                "action": "firmware_upgrade",
+                "category": "ap",
+                "status": "open",
+                "symptom": "non_compliant"
+            },
+            "impacted_entities": [{
+                    "entity_type": "ap",
+                    "entity_mac": "a8537d002062",
+                    "entity_name": "USOKTULAPCRMCAGSS38",
+                    "connected_switch_mac": "b88303330f80",
+                    "connected_switch_name": "OKTUL-48-I2-E2",
+                    "entity_version": "0.10.24200",
+                    "port_id": "40",
+                    "recommended_version": "0.6.19032"
+                },
+                {
+                    "entity_type": "ap",
+                    "entity_mac": "a8537d001ff4",
+                    "entity_name": "USOKTULAPCRMCCOMS49",
+                    "connected_switch_mac": "9020c2e98900",
+                    "connected_switch_name": "OKTUL-48-I1-E4",
+                    "entity_version": "0.10.24200",
+                    "port_id": "24",
+                    "recommended_version": "0.6.19032"
+                }
+            ],
+            "suggestion": "firmware_upgrade",
+            "category": "ap",
+            "count": 1,
+            "type": "NON_COMPLIANT",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "ap_bad_cable",
+        "display": "Bad cable",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "ap",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629755015,
+            "last_seen": 1629755015,
+            "license_requirement": "VNA",
+            "status": "open",
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "AmazonOTN19-Prod",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "DLIH",
+            "count": 1,
+            "id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "action_id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "suggestion": "test_replace_cable",
+            "category": "layer_1",
+            "details": {
+                "action": "test_replace_cable",
+                "category": "layer_1",
+                "status": "open",
+                "symptom": "bad_cable"
+            },
+            "impacted_entities": [{
+                "entity_type": "ap",
+                "entity_mac": "d420b080a721",
+                "entity_name": "my_ap",
+                "connected_switch_mac": "b520b080a721",
+                "connected_switch_name": "dlih-fc-acc-sw-01-00-02.amazon.com",
+                "port_id": "517"
+            }],
+            "type": "ap_bad_cable",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "ssid_injection",
+        "display": "SSID Injection detected",
+        "group": "security",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "ssids": [
+                "Rive%dell"
+            ],
+            "timestamp": 1628121407,
+            "last_seen": 1628121407,
+            "aps": [
+                "d420b00146cc"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "org_id": "9c3e516c-397d-11e6-ae35-0242ac110008",
+            "site_id": "27ea2f07-6fe6-4eab-be1b-b8e3ce083d67",
+            "count": 1,
+            "id": "2c8ecff0-d3d9-4910-9612-33c7ef7f3356",
+            "type": "ssid_injection",
+            "group": "security"
+        },
+        "fields": [
+            "hostnames",
+            "aps",
+            "ssids"
+        ]
+    },
+    {
+        "key": "health_check_failed",
+        "display": "AP health check failed",
+        "group": "marvis",
+        "marvis_suggestion_category": "ap",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629821184,
+            "last_seen": 1629821184,
+            "license_requirement": "VNA",
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "GPS-Staging",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "Mist",
+            "count": 1,
+            "id": "8ae9914e-6108-46fd-999d-8f8a2344d6cb",
+            "action_id": "8ae9914e-6108-46fd-999d-8f8a2344d6cb",
+            "type": "HEALTH_CHECK",
+            "suggestion": "firmware_upgrade",
+            "details": {
+                "action": "firmware_upgrade",
+                "category": "ap",
+                "status": "open",
+                "symptom": "health_check"
+            },
+            "impacted_entity_count": 1,
+            "impacted_entities": [{
+                "entity_type": "ap",
+                "entity_mac": "5c5b350eb27b",
+                "entity_name": "GPS-AP21"
+            }],
+            "category": "ap",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "vc_master_changed",
+        "display": "Virtual Chassis - New device elected for Active Role",
+        "group": "infrastructure",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "reasons": [
+                "CHASSISD_VCHASSIS_MEMBER_UPDATE_NOTICE: Membership update: Member 1->1, Mode Backup->Master, 1M -1B, Master Detected, Members Changed"
+            ],
+            "timestamp": 1629911533,
+            "last_seen": 1629911533,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 1,
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "id": "149c5c99-d3ab-46db-bc4f-4431377d1b20",
+            "type": "vc_master_changed",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "vc_backup_failed",
+        "display": "Virtual Chassis - Backup Member Elected",
+        "group": "infrastructure",
+        "severity": "critical",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "vc_member_added",
+        "display": "Virtual Chassis Member Added",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {
+            "severity": "info",
+            "reasons": [
+                "CHASSISD_VCHASSIS_MEMBER_OP_NOTICE: Member change: vc add of member 2"
+            ],
+            "timestamp": 1628697343,
+            "last_seen": 1628697389,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 2,
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "id": "f718c381-05eb-4399-8c01-a3e0b3e6b50b",
+            "type": "vc_member_added",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "vc_member_deleted",
+        "display": "Virtual Chassis Member Deleted",
+        "group": "infrastructure",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "reasons": [
+                "CHASSISD_VCHASSIS_MEMBER_OP_NOTICE: Member change: vc delete of member 2"
+            ],
+            "timestamp": 1628697377,
+            "last_seen": 1628697424,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 2,
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "id": "4b019796-46b9-4c70-b943-0665676669f8",
+            "type": "vc_member_deleted",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_alarm_chassis_poe",
+        "display": "Switch PoE Alarm",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "reasons": [
+                "PoE voltage injection in Interface ge-1/0/6"
+            ],
+            "last_seen": 1630475624,
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 1,
+            "type": "sw_alarm_chassis_poe",
+            "timestamp": 1630475624,
+            "unacked_time": 1631011042.68707,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "id": "0bb3e001-2f98-4c51-aecd-d45d870a7c58",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_alarm_chassis_pem",
+        "display": "Switch PEM Alarm",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "reasons": [
+                "FPC 1 PEM 1 is not powered"
+            ],
+            "timestamp": 1628186625,
+            "last_seen": 1628186625,
+            "org_id": "41f579e0-5a00-4164-92f3-662b53ae8c66",
+            "switches": [
+                "4c6d58fb8640"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 1,
+            "site_id": "c475d117-b152-445d-8117-2248046f58f7",
+            "id": "0537c687-6f85-4ba3-8be6-0f3302e7e74a",
+            "type": "sw_alarm_chassis_pem",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_alarm_chassis_psu",
+        "display": "Switch Power Supply Alarm",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "reasons": [
+                "FPC 0 PSU Sensor too Warm"
+            ],
+            "timestamp": 1628869549,
+            "last_seen": 1628869549,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "switches": [
+                "e8a2453e5a77"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 1,
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "id": "6ee3267b-122c-4b07-85ad-94174ec3974e",
+            "type": "sw_alarm_chassis_psu",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_alarm_chassis_partition",
+        "display": "Switch Storage Partition Alarm",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "reasons": [
+                "RE 0 /var partition usage is high",
+                "FPC 1 /var partition usage is high"
+            ],
+            "timestamp": 1629909702,
+            "last_seen": 1629909338,
+            "org_id": "a751df9c-897b-4065-9f34-d784c083dd0d",
+            "switches": [
+                "f4bfa806c96c"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 2,
+            "site_id": "819b44b2-42ef-459d-8e59-29c5577b2330",
+            "id": "767451b1-e172-42ef-b370-7219ae1a8623",
+            "type": "sw_alarm_chassis_partition",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_dhcp_pool_exhausted",
+        "display": "Switch DHCP Pool Exhausted",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "reasons": [
+                "DHCP Pool vlan_215 is exhausted"
+            ],
+            "timestamp": 1630682731,
+            "last_seen": 1630682731,
+            "org_id": "9a1cd5a1-fab8-4cae-a852-97f2f292af93",
+            "switches": [
+                "182ad34a63b2"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 1,
+            "site_id": "ba99c1aa-39ac-4664-b6cb-68e0e8627ce4",
+            "id": "8e3caa90-9478-4972-aa8a-110c5c3139be",
+            "type": "sw_dhcp_pool_exhausted",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "gw_dhcp_pool_exhausted",
+        "display": "WAN Edge DHCP Pool Exhausted",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "gateways": [
+                "020001bcb18d"
+            ],
+            "reasons": [
+                "@@@@@@DHCP"
+            ],
+            "hostnames": [
+                "AP_NAME"
+            ],
+            "timestamp": 1628904286,
+            "last_seen": 1628904286,
+            "org_id": "0c160b7f-1027-4cd1-923b-744534c4b070",
+            "count": 1,
+            "site_id": "ed999514-a0a5-4218-ab75-468113645c86",
+            "id": "ad7fc567-2894-42fd-9131-662ab43680c4",
+            "type": "gw_dhcp_pool_exhausted",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "gateways",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_bgp_neighbor_state_changed",
+        "display": "BGP Neighbor State Changed",
+        "group": "infrastructure",
+        "severity": "info",
+        "example": {},
+        "fields": [
+            "hostnames",
+            "switches",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_bad_optics",
+        "display": "Switch Bad Optics",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "reasons": [
+                "xe-0/2/0: RX power of optical interface is low (-10.58 dBm)",
+                "xe-0/2/0: RX power of optical interface is low (-10.95 dBm)"
+            ],
+            "last_seen": 1632422441,
+            "switches": [
+                "8403280eacde"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 2,
+            "type": "sw_bad_optics",
+            "timestamp": 1632421901,
+            "port_ids": [
+                "xe-0/2/0"
+            ],
+            "org_id": "7321309e-a3d4-44fd-96e8-ee4f6a94d20e",
+            "site_id": "71caad65-d0c2-48f0-81cd-dec0c71efe18",
+            "id": "cb39a587-312e-4993-ab28-6eb6f70aa27e",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "port_ids",
+            "reasons"
+        ]
+    },
+    {
+        "key": "sw_bpdu_error",
+        "display": "Switch BPDU Error",
+        "group": "infrastructure",
+        "severity": "warn",
+        "example": {
+            "severity": "warn",
+            "reasons": [
+                "L2CPD_RECEIVE_BPDU_BLOCK_ENABLED: BPDU_PROTECT: Interface ge-0/0/8 is DOWN: BPDU error detected"
+            ],
+            "timestamp": 1632336187,
+            "last_seen": 1632336187,
+            "port_ids": [
+                "ge-0/0/8"
+            ],
+            "org_id": "769e964c-127d-49ad-b3ed-5665d274a3da",
+            "switches": [
+                "fc9643bf6873"
+            ],
+            "hostnames": [
+                "SW_NAME"
+            ],
+            "count": 1,
+            "site_id": "3306cd0a-8352-43bc-97f0-801ceb80d5d9",
+            "id": "0d111c63-6afe-46dd-bb39-07bf39c0fbaf",
+            "type": "sw_bpdu_error",
+            "group": "infrastructure"
+        },
+        "fields": [
+            "hostnames",
+            "switches",
+            "port_ids",
+            "reasons"
+        ]
+    },
+    {
+        "key": "bad_wan_uplink",
+        "display": "Bad WAN Uplink",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "gateway",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629760130,
+            "last_seen": 1629760130,
+            "category": "gateway",
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "[MIST CSQA] QA Org [Staging]",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "vk-we-spoke",
+            "count": 1,
+            "id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "alert_id": "faf2de33-41cc-4f05-b52c-be2f1f0d1368",
+            "details": {
+                "action": "check_wan_link",
+                "category": "gateway",
+                "status": "open",
+                "symptom": "bad_wan_link"
+            },
+            "impacted_entities": [{
+                "entity_mac": "02000187f553",
+                "entity_name": "spoke_we_vk",
+                "entity_type": "gateway",
+                "entity_version": "6.0.0-14",
+                "port_id": "ge-0-0-2",
+                "recommended_version": ""
+            }],
+            "root_cause": "isp_dhcp_failure",
+            "impacted_entity_count": 1,
+            "status": "open",
+            "suggestion": "CHECK_WAN_LINK",
+            "type": "bad_wan_uplink",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "switch_stp_loop",
+        "display": "Switch STP Loop",
+        "group": "marvis",
+        "severity": "critical",
+        "marvis_suggestion_category": "switch",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629396230,
+            "last_seen": 1629396230,
+            "org_id": "b4e16c72-d50e-4c03-a952-a3217e231e2c",
+            "site_id": "57b2f891-09c1-4dcc-8ff1-2f9fb3ff7d39",
+            "count": 1,
+            "id": "15c43e5d-9524-40d0-a566-bb3a80ce44f5",
+            "type": "switch_stp_loop",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "insufficient_coverage",
+        "display": "AP insufficient coverage",
+        "group": "marvis",
+        "marvis_suggestion_category": "ap",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "category": "ap",
+            "timestamp": 1629755015,
+            "last_seen": 1629755015,
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "unknown org",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "Mist-office",
+            "status": "open",
+            "suggestion": "check_coverage",
+            "count": 1,
+            "id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "alert_id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "details": {
+                "action": "check_coverage",
+                "category": "ap",
+                "status": "open",
+                "symptom": "insufficient_coverage"
+            },
+            "impacted_entities": [{
+                "entity_mac": "ac2316fc00c3",
+                "entity_type": "ap"
+            }],
+            "type": "insufficient_coverage",
+            "group": "marvis"
+        },
+        "fields": []
+    },
+    {
+        "key": "insufficient_capacity",
+        "display": "AP insufficient capacity",
+        "group": "marvis",
+        "marvis_suggestion_category": "ap",
+        "severity": "critical",
+        "example": {
+            "severity": "critical",
+            "timestamp": 1629755015,
+            "last_seen": 1629755015,
+            "category": "ap",
+            "org_id": "9747a50a-23f8-4ca5-83c4-102e807874de",
+            "org_name": "unknown org",
+            "site_id": "8d2e354a-8340-4432-ac1b-e3c3bab680ab",
+            "site_name": "Mist-office",
+            "status": "open",
+            "suggestion": "check_capacity",
+            "count": 1,
+            "id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "alert_id": "5168b980-640b-43d8-85b8-ecee9eb17647",
+            "details": {
+                "action": "check_capacity",
+                "category": "ap",
+                "status": "open",
+                "symptom": "insufficient_capacity"
+            },
+            "impacted_entities": [{
+                "band": 24,
+                "entity_mac": "ac2316fc00c3",
+                "entity_type": "ap"
+            }],
+            "type": "insufficient_capacity",
+            "group": "marvis"
+        },
+        "fields": []
+    }
+]
