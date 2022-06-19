@@ -118,7 +118,7 @@ mat-expansion-panel {
     display: flex;
     place-content: center flex-start;
     align-items: center;
-    width: 9em;
+    min-width: 9em;
 }
 
 .info-status mat-icon {

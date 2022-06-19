@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorDialog } from '../common/common-error';
 import { SessionService } from '../services/session.service';
 import { WarningDialog } from '../common/common-warning';
-import { HelpDialog} from "./help/help.component";
+import { HelpDialog } from "./help/help.component";
 
 export interface TopicElement {
   topic: string,
@@ -199,32 +199,89 @@ export class DashboardComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////
   /////           ORG SETTINGS
   //////////////////////////////////////////////////////////////////////////////
-  saveOrgSettings(): void {
-    this.notif_in_progress = true;
-    this.topics_in_progress = true;
-    this.mist_in_progress = true;
-    this._http.post('/api/orgs/settings/' + this.org_id, this.custom_settings).subscribe({
-      next: data => {
-        this.topics_updated = false;
-        this.slack_updated = false;
-        this.teams_updated = false;
-        this.notif_in_progress = false;
-        this.topics_in_progress = false;
-        this.configureOrgWebhook();
-      },
-      error: error => {
-        this.notif_in_progress = false;
-        this.topics_in_progress = false;
-        this.parseError(error)
-      }
-    })
+  generateMissingChannelMessage(notif_name: string, missing_channels: string[]): string {
+    console.log(missing_channels)
+    var message = ""
+    if (missing_channels.length == 1) {
+      message = 'The ' + notif_name + ' channel "' + missing_channels[0] + '" is not configured.\r\n'
+    } else if (missing_channels.length > 1) {
+      message = 'The ' + notif_name + ' channels "' + missing_channels.slice(0, missing_channels.length - 1).join('", "') + '" and "' + missing_channels.slice(-1) + '" are not configured.\r\n'
+    }
+    console.log(message)
+    return message
   }
 
+  confirmOrgSettings(cb): void {
+    var missing_channels = {
+      teams: [],
+      slack: []
+    }
+    var missing_count = 0;
+    if (this.custom_settings.slack_settings.enabled) {
+      for (var channel in this.custom_settings.slack_settings.url) {
+        if (channel != "default" && this.custom_settings.slack_settings.url[channel] == "") {
+          missing_channels.slack.push(channel);
+          missing_count += 1;
+        }
+      }
+    }
+    if (this.custom_settings.teams_settings.enabled) {
+      for (var channel in this.custom_settings.teams_settings.url) {
+        if (channel != "default" && this.custom_settings.teams_settings.url[channel] == "") {
+          missing_channels.teams.push(channel);
+          missing_count += 1;
+        }
+      }
+    }
+
+    if (missing_count == 0) cb();
+    else {
+      var message = []
+      message.push(this.generateMissingChannelMessage("Teams", missing_channels.teams));
+      message.push(this.generateMissingChannelMessage("Slack", missing_channels.slack));
+      if (missing_count == 1) message.push("You will not receive the webhook messsages sent to this channel")
+      else message.push("You will not receive the webhook messsages sent to these channels")
+      this.openWarning(message, res => {
+        console.log(res)
+        if (res) cb()       
+      })
+    }
+  }
+
+  saveOrgSettings(): void {
+    this.confirmOrgSettings(()=>{
+      this.notif_in_progress = true;
+      this.topics_in_progress = true;
+      this.mist_in_progress = true;
+      this._http.post('/api/orgs/settings/' + this.org_id, this.custom_settings).subscribe({
+        next: data => {
+          this.topics_updated = false;
+          this.slack_updated = false;
+          this.teams_updated = false;
+          this.notif_in_progress = false;
+          this.topics_in_progress = false;
+          this.configureOrgWebhook();
+        },
+        error: error => {
+          this.notif_in_progress = false;
+          this.topics_in_progress = false;
+          this.parseError(error)
+        }
+      })
+    }
+    )
+  }
+
+
+
   deleteOrgSettings(): void {
-    this._http.delete("/api/orgs/settings/" + this.org_id).subscribe({
-      next: data => this._router.navigate(["/select"]),
-      error: error => this.parseError(error)
-    })
+    this.openWarning(["This action will delete all these settings. Are you sure?"], res => {
+      if (res)
+        this._http.delete("/api/orgs/settings/" + this.org_id).subscribe({
+          next: data => this._router.navigate(["/select"]),
+          error: error => this.parseError(error)
+        })
+    }, "red")
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -365,7 +422,7 @@ export class DashboardComponent implements OnInit {
     if (index >= 0) {
       this.custom_settings.mist_settings.approved_admins.splice(index, 1);
     }
-    
+
     this.topics_updated = true;
   }
   //////////////////////////////////////////////////////////////////////////////
@@ -400,9 +457,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openWarning(message: string, cb): void {
+  openWarning(message: string[], cb, color: string = "#005c95"): void {
     const dialogRef = this._dialog.open(WarningDialog, {
-      data: message
+      data: { message: message, color: color }
     });
     dialogRef.afterClosed().subscribe(result => {
       cb(result);
@@ -415,7 +472,7 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this._dialog.open(HelpDialog);
     dialogRef.afterClosed().subscribe(() => {
       this.help_opened = false;
-    })  
+    })
   }
 
 

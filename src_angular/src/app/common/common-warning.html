@@ -1,8 +1,10 @@
 <h1 mat-dialog-title>Just one last question...</h1>
-<div mat-dialog-content>
-    <div> {{data}} </div>
-
-    <div mat-dialog-actions style="justify-content: space-around;" fxLayout="row">
-        <button mat-raised-button (click)="cancel()">No, it's Ok</button>
-        <button mat-button color="accent" (click)="ok()">Yes, Please do</button>
+<mat-dialog-content style="margin-bottom: 3em;" fxLayout="column">
+    <div *ngFor="let message of data.message">
+        {{message}}
     </div>
+</mat-dialog-content>
+<mat-dialog-actions style="justify-content: space-around;" fxLayout="row">
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+    <button mat-stroked-button [ngStyle]="{'color': data.color, 'border-color': data.color}" (click)="ok()">Continue</button>
+</mat-dialog-actions>
