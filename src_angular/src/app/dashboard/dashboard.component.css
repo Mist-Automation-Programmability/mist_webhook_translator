@@ -12,7 +12,7 @@ mat-expansion-panel {
 }
 
 
-/* CONTAINERS COMMONE */
+/* CONTAINERS COMMON */
 
 .container {
     background-color: white;
@@ -24,6 +24,19 @@ mat-expansion-panel {
 
 
 /* INFO */
+
+.status {
+    box-shadow: none;
+    position: absolute;
+    top: 0;
+    margin-top: -2em;
+    padding-top: 2em;
+    left: calc((100vw - 50em) / 2);
+    width: 50em;
+    height: 8.5em;
+    z-index: 2;
+    padding-bottom: .2em;
+}
 
 .top-info {
     margin: 0 1em;
@@ -77,12 +90,19 @@ mat-expansion-panel {
 /* Main Info */
 
 .info {
-    height: 2.5em;
     flex-direction: row;
     box-sizing: border-box;
     display: flex;
     place-content: center flex-start;
     align-items: center;
+}
+
+.org-name {
+    display: block !important;
+    width: 18em !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden !important;
 }
 
 .info-title {
@@ -98,6 +118,7 @@ mat-expansion-panel {
     display: flex;
     place-content: center flex-start;
     align-items: center;
+    width: 9em;
 }
 
 .info-status mat-icon {
