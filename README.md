@@ -29,7 +29,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Features
 * Provides Web UI for configuration (Mist webhook topics, Slack/Teams incoming webhooks)
-<img src="https://github.com/tmunzer/mist_webhook_translator/raw/main/._readme/img/config.jpg" width="50%">
+<img src="https://github.com/tmunzer/mist_webhook_translator/raw/main/._readme/img/config.png" width="50%">
 * Automatically create and delete Webhook configuration in Mist Org (based on the required settings)
 * Automatically set the Mist Webhook Secret and check the `X-Signature-v2` header in the message
 * Listen for Webhook messages comming from Mist Cloud
