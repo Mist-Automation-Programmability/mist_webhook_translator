@@ -30,10 +30,10 @@ mat-expansion-panel {
     position: absolute;
     top: 0;
     margin-top: -2em;
-    padding-top: 2em;
+    padding-top: 2.5em;
     left: calc((100vw - 50em) / 2);
     width: 50em;
-    height: 8.5em;
+    height: 9em;
     z-index: 2;
     padding-bottom: .2em;
 }
