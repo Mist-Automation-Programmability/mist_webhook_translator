@@ -252,12 +252,12 @@
             <!-- SLACK -->
             <mat-card fxLayout="column" class="container" style="background-color: #f3f3f3; box-shadow: none;" *ngIf="!custom_settings.teams_settings.enabled && !custom_settings.slack_settings.enabled">
                 <mat-card-content fxLayout="column" fxLayoutAlign="center center" style="color: gray;">
-                    <div>
-                        Please ADD a notification above...
-                    </div>
                     <mat-icon>
                         north
                     </mat-icon>
+                    <div>
+                        Please ADD a notification above...
+                    </div>
                 </mat-card-content>
             </mat-card>
             <mat-card fxLayout="column" class="container" *ngIf="custom_settings.slack_settings.enabled">
