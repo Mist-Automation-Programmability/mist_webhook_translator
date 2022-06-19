@@ -41,8 +41,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ### Supported Webhook Topics
 * alarms
 * audits
-* device-events
 * device-updowns
+* device-events
+* mxedge-events
 
 # Installation
 This Reference Application can be used as a standalone Application, or it can be deployed as a Docker Image (recommanded).
