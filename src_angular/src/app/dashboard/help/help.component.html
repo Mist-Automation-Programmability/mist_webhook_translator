@@ -1,7 +1,55 @@
 <div fxLayout="column">
-    <mat-dialog-content style="max-height: 100%; padding: 0;">
-        <img alt="How does it work?" src="/static/images/config.png" style="width: 100%;" />
-        <mat-divider></mat-divider>
+    <mat-dialog-content style="max-height: 85vh;">
+        <!-- <img alt="How does it work?" src="/static/images/config.png" style="width: 100%;" />
+        <mat-divider></mat-divider> -->
+        <div>
+            <h2>INFO</h2>
+            <div>This application is build to receive Webhook messages from Mist and forward them to Slack/Teams. To do so, it requires some configuration.</div>
+            <div>It will automatically configuring the Mist Webhooks in your organization based on the topics you enable.</div>
+            <mat-divider style="margin: 2em 0 .5em;"></mat-divider>
+            <h3>Webhook Topics</h3>
+            <div>
+                This section allows you to configure which webhook topics you want to forward to Slack/Teams and how the system is processing the webhooks.
+            </div>
+            <div>
+                To add a new topic, click the "Add Webhook Topic" button and select the topic you want. From there, you will be able to assign a "channel" to each event type:
+                <ul>
+                    <li>"disabled": the event will be discarded by the server, and will not be forwarded to Slack/Teams</li>
+                    <li>all the others: the event will be processed by the server, and will be forwarded to Slack/Teams</li>
+                </ul>
+                <div style="margin-top: 1em">
+                    <b>Note about "audit" topic</b>
+                </div>
+                <div>
+                    The "audit" topic allows you to list a number of "approved" administrators and API Tokens. This will allow you to differentiate actions done by "approved" administrators/API Tokens and actions done by others. For example, you can "disable" the "approved_admins"
+                    and send the "other_admins" notifications in the "warning" channel to get warned when non approved admins are doing changes in the organization.
+                </div>
+                <div>
+                    To add new "approved" administrators/API Tokens, just add their email address or the API Token key in the "Approved Admins" field.
+                </div>
+
+            </div>
+
+
+            <mat-divider style="margin: 2em 0 .5em;"></mat-divider>
+            <h3>Notification </h3>
+            <div>
+                This section allows you to configure how the system is forwarding the messages to your Slack/Teams account. To do so, it is using "Incoming Webhooks" for both of them, which means the system send a HTTPS POST message to a specific URL, each URL being
+                tied to a Slack/Teams channel.
+            </div>
+            <div>
+                To configure Slack/Teams, click the "Add Notification" button and configure the incoming webhook URLs:
+                <ul>
+                    <li>it is required to configure one URL for each channel you want to received ("debug", "info", "warning", "critical"). The "default" channel is mainly used to send events that are not yet listed by this application.</li>
+                    <li>all of them are optional, but if you are not configuring them, you will not receive the messages assigned to the corresponding channel</li>
+                </ul>
+                You can find help to get your Teams/Slack incoming webhook URLs here:
+                <ul>
+                    <li><a href="https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook" target="_blank" style="flex-direction: row;box-sizing: border-box;display: flex;text-decoration: none;color: #0098a5;align-items: center;"><span>Teams incoming Webhook</span> <mat-icon style="margin-left: .5em;height: 15px;font-size: 15px;">launch</mat-icon></a></li>
+                    <li><a href="https://api.slack.com/messaging/webhooks#getting_started" target="_blank" style="flex-direction: row;box-sizing: border-box;display: flex;text-decoration: none;color: #0098a5;align-items: center;">Slack incoming Webhook <mat-icon style="margin-left: .5em;height: 15px;font-size: 15px;">launch</mat-icon></a></li>
+                </ul>
+            </div>
+        </div>
     </mat-dialog-content>
     <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
         <button mat-button mat-dialog-close color="primary">Close</button>
