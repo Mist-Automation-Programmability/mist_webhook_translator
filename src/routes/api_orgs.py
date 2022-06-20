@@ -17,7 +17,7 @@ def apiOrgsGet(session):
             if privilege.get("msp_name"):
                 name += f" ({privilege['msp_name']})"
             data.append({"name": name, "org_id": privilege["org_id"]})
-    data = sorted(data, key=lambda o: o["name"])
+    data = sorted(data, key=lambda o: o.get("name", "").lower())
     return json.dumps(data), 200
 
 
