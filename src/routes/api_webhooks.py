@@ -15,10 +15,10 @@ def _find_webhook(session, org_id, WH_COLLECTOR):
     )
     if not status_code == 200:
         return "Unable to check Webhook configuration in Mist", status_code
-    else:
+    elif webhooks:
         url = f"{WH_COLLECTOR}/{org_id}"
         for webhook in webhooks:
-            if webhook["url"] == url:
+            if webhook.get("url") == url:
                 return json.dumps(webhook), 200
     return "", 200
 

@@ -7,7 +7,7 @@ console = Console("mist_webhook")
 def _extractAuth(cookies):
     headers = {}
     for cookie in cookies:
-        if cookie.name == "csrftoken" and cookie.domain.endswith(".mist.com"):
+        if cookie.name.startswith("csrftoken") and cookie.domain.endswith(".mist.com"):
             headers["X-CSRFToken"] = cookie.value
     return headers
 
