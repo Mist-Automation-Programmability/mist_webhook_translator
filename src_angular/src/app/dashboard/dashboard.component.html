@@ -15,7 +15,7 @@
 <!-- MIST -->
 <mat-card fxLayout="column" class="status container">
     <mat-card-content fxLayout="row">
-        <div style="width: 40%;">
+        <div style="width: 35%;">
             <div class="info" fxLayout="column" fxLayoutAlign="start start">
                 <div class="info-title">Org Name: </div>
                 <div class="info-status org-name">{{org_name}}</div>
@@ -25,7 +25,7 @@
                     <div class="info-title">Webhook URL: </div>
                     <div class="info-status" style="width: auto; margin-left: 2em;">{{url}}</div>
                 </div> -->
-        <div fxLayout="column" style="width: 60%">
+        <div fxLayout="column" style="width: 65%">
             <div class="info">
                 <div class="info-title">Mist Webhook:</div>
 
@@ -63,7 +63,7 @@
                 </div>
                 <div *ngIf="!topics_configured && !topics_in_progress" class="info-status">
                     <mat-icon style="color: red;">cancel</mat-icon>
-                    Please configure at least one Webhook topic on the right
+                    Please configure at least one Webhook Topic
                 </div>
                 <div *ngIf="topics_updated && !topics_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>warning</mat-icon>
@@ -82,7 +82,7 @@
                 </div>
                 <div *ngIf="!slack_configured && ! teams_configured && !notif_in_progress" class="info-status">
                     <mat-icon style="color: red;">cancel</mat-icon>
-                    Please configure at least one Notification system below
+                    Please configure at least one Notification
                 </div>
                 <div *ngIf="(slack_updated || teams_updated) && !notif_in_progress" class="info-warning" fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>warning</mat-icon>
