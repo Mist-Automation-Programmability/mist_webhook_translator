@@ -10,6 +10,7 @@ from flask import Flask, session, request, render_template
 import functools
 import os
 import base64
+import ast
 from dotenv import load_dotenv
 
 
@@ -42,6 +43,8 @@ ABOUT_TOKEN = os.getenv('ABOUT_TOKEN', 'secret_token')
 APP_DISCLAIMER = os.getenv('APP_DISCLAIMER')
 GITHUB_URL = os.getenv('GITHUB_URL')
 DOCKER_URL = os.getenv('DOCKER_URL')
+MIST_HOSTS = os.getenv('MIST_HOSTS')
+
 
 
 if WH_HTTPS:
@@ -54,6 +57,13 @@ else:
 
 
 console = Console("main")
+
+if MIST_HOSTS:
+    try:
+        MIST_HOSTS = ast.literal_eval(MIST_HOSTS)
+    except:
+        console.warning("Unable to load MIST_HOSTS variable. Using default values")
+        MIST_HOSTS = {"Global 01 - manage.mist.com": "api.mist.com", "Global 02 - manage.gc1.mist.com": "api.gc1.mist.com", "Europe 01 - manage.eu.mist.com": "api.eu.mist.com"}
 #######################################
 #  FUNCTIONS
 
@@ -161,8 +171,14 @@ def apiLogin():
     return api_login.postApiLogin(request, session)
 
 
+@app.route('/api/login/hosts/', methods=["GET"])
+def apiLoginHosts():
+    return api_login.getApiLoginHosts(MIST_HOSTS)
+
+
 @app.route('/api/disclaimer/', methods=["GET"])
 def apiDisclaimer():
+    print(APP_DISCLAIMER, GITHUB_URL, DOCKER_URL)
     return api_login.getApiDisclaimer(APP_DISCLAIMER, GITHUB_URL, DOCKER_URL)
 
 

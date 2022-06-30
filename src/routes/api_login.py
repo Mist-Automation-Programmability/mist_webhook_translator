@@ -15,10 +15,12 @@ def postApiLogin(request, session):
     elif not "host" in data:
         return json.dumps({"error": "host is missing"}), 400
     else:
+        print(data)
         host=data["host"]
         username = data["username"]
         password = data["password"]
-        two_factor_code = data.get("two_factor_code", "")
+        two_factor_code = data.get("two_factor_code")
+        print(host, username, password, two_factor_code)
         data, code, cookies= login.login(host, username, password, two_factor_code)
         if code == 200 and "privileges" in data:
             session["host"] = host
@@ -39,3 +41,10 @@ def getApiDisclaimer(APP_DISCLAIMER, GITHUB_URL, DOCKER_URL):
 def postApiLogout(session):
     session.clear()
     return "", 200
+
+def getApiLoginHosts(MIST_HOSTS):
+    data = []
+    for key in MIST_HOSTS:
+        data.append({"value": MIST_HOSTS[key], "viewValue": key})
+    data = sorted(data, key=lambda x: x["viewValue"])
+    return json.dumps(data), 200
