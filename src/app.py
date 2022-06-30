@@ -63,7 +63,7 @@ if MIST_HOSTS:
         MIST_HOSTS = ast.literal_eval(MIST_HOSTS)
     except:
         console.warning("Unable to load MIST_HOSTS variable. Using default values")
-        MIST_HOSTS = {"Global 01 - manage.mist.com": "api.mist.com", "Global 02 - manage.gc1.mist.com": "api.gc1.mist.com", "Europe 01 - manage.eu.mist.com": "api.eu.mist.com"}
+        MIST_HOSTS = {"Global 01 - manage.mist.com": "api.mist.com", "Global 02 - manage.gc1.mist.com": "api.gc1.mist.com", "Global 03 - manage.ac2.mist.com": "api.ac2.mist.com","Global 04 - manage.gc2.mist.com": "api.gc2.mist.com", "Europe 01 - manage.eu.mist.com": "api.eu.mist.com"}
 #######################################
 #  FUNCTIONS
 
