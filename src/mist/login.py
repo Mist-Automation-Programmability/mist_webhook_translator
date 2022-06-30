@@ -1,9 +1,6 @@
 import requests
-from mwtt import req
-import json
 
 def login(host, username, password, two_factor_code):
-    print(two_factor_code)
     url = f"https://{host}/api/v1/login"
     data = {
         "email": username,

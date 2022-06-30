@@ -85,6 +85,4 @@ def apiOrgsSettingsPost(request, session, org_id, ORG_SETTINGS):
         return json.dumps({"error": data}), 400
 
     a,b= ORG_SETTINGS.save(session["host"], org_id, data)
-    print(a)
-    print(b)
     return a, b

@@ -105,7 +105,6 @@ def clean_session_db():
     for session in session_db["translator"].find({}):
         expired = session["expiration"].replace(
             tzinfo=timezone.utc).timestamp() < datetime.today().timestamp()
-        print(expired)
         if expired:
             session_db.translator.delete_one({"_id": session["_id"]})
 
