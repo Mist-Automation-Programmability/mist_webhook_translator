@@ -1,22 +1,69 @@
-version: '3'
-services:    
-    nginx:
-        image: "jwilder/nginx-proxy"
-        container_name: "mist-nginx"
-        ports:
-            - "443:443"
-        volumes:
-            - <your_folder>/docker/nginx:/etc/nginx/certs:ro         
-            - /var/run/docker.sock:/tmp/docker.sock:ro 
-            - /etc/nginx/vhost.d
-        restart: always
+####################################################################################################################
+####################################################################################################################
+#
+# To use docker-compose, please create a .env file in  the same folder as the docker-compose.yaml file.
+# Example for the .env file are can be found in  /src/env
+#
+#       /!\   If you want to have persistant database over reboots, please change the line 48   /!\
+#
+#
+# If you want to enable HTTPS:
+#  - uncomment the lines 33 and 41
+#  - replacte /path/to/certs/ with an absolute path pointing to the folder where the certificate and key are located
+# The contents of /path/to/certs/ should contain the certificates and private keys for any virtual hosts in use. The 
+# certificate and keys should be named after the virtual host with a .crt and .key extension. For example, a 
+# container with VIRTUAL_HOST=foo.bar.com should have a foo.bar.com.crt and foo.bar.com.key file in the certs directory. 
+#
+####################################################################################################################
+####################################################################################################################
 
-    mwtt: 
-        image: "tmunzer/mwtt"
-        container_name: "mist-mwtt"
-        depends_on: 
-            - nginx
-        environment:
-            - VIRTUAL_HOST=<your_app_hostname>
+
+version: '3'
+
+networks:
+  back-tier:
+  
+services:    
+
+    mist-mwm-nginx:
+        image: "jwilder/nginx-proxy"
+        container_name: "mist-mwm-nginx"
         volumes:
-            - <your_folder>/docker/mwtt/config.py:/app/config.py:ro       
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            #- /path/to/certs/:/etc/nginx/certs
+        restart: always
+        networks:
+        - back-tier
+        depends_on: 
+        - mist-mwm-app
+        ports:
+            - 80:80
+            #- 443:443
+
+    mist-mwm-mongodb:
+        image: "mongo"
+        container_name: "mist-mwm-mongodb"
+        restart: always
+        volumes:
+            - /tmp/docker/mongo:/data/db
+        networks:
+        - back-tier
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: "${MONGO_USER}"
+            MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASSWORD}"
+
+    mist-mwm-app: 
+        image: "tmunzer/mist_webhook_translator"
+        container_name: "mist-mwm-app"
+        depends_on: 
+        - mist-mwm-mongodb
+        links:
+        - mist-mwm-mongodb
+        networks:
+        - back-tier
+        environment:
+            VIRTUAL_HOST: ${WH_HOST}
+        volumes:
+        - ./.env:/app/.env:ro 
+        ports:
+        - 51361:51361
