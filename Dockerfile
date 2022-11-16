@@ -1,4 +1,4 @@
-FROM python:3.12-rc-slim-buster
+FROM python:3.12-rc-slim
 
 LABEL maintainer="tmunzer@juniper.net"
 LABEL one.stag.wht.version="2.0.0"
