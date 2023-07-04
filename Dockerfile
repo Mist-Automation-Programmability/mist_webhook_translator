@@ -1,4 +1,4 @@
-FROM python:3.12.0b1-slim
+FROM python:3.12.0b3-slim
 
 LABEL maintainer="tmunzer@juniper.net"
 LABEL one.stag.wht.version="2.0.0"
