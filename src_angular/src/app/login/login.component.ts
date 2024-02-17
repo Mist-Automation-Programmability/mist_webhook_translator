@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { SessionService } from '../services/session.service'
 import { TwoFactorDialog } from './login-2FA';
 
@@ -25,7 +25,7 @@ export interface HostElement {
 export class LoginComponent implements OnInit {
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private _http: HttpClient,
     private _router: Router,
     private _sessionService: SessionService,

@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { C, COMMA, ENTER, SEMICOLON } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   separatorKeysCodes: number[] = [ENTER, COMMA, SEMICOLON];
-  approvedAdminsCtrl = new FormControl();
+  approvedAdminsCtrl = new UntypedFormControl();
 
   displayedColumns: string[] = ['sub_topic', 'name', 'channel'];
   dataSource = new MatTableDataSource<TopicElement>();
