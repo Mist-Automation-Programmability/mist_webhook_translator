@@ -1,9 +1,9 @@
 <div class="login-card-outer">
 
-    <div class="login-form-outer" fxLayout="column">
+    <div class="login-form-outer flex column">
         <div class="login-form-inner">
 
-            <div [formGroup]="frmStepLogin" fxLayout="column" class="login-form-inputs mat-elevation-z1">
+            <div [formGroup]="frmStepLogin" class="login-form-inputs mat-elevation-z1 flex column">
                 <h1>Log In with your Mist Account</h1>
                 <mat-form-field appearance="outline">
                     <mat-label>Mist Cloud</mat-label>
@@ -31,8 +31,8 @@
                 </button>
             </div>
 
-            <div class="loading" fxLayout="row" *ngIf="loading || hosts_loading">
-                <div fxLayout="column">
+            <div class="loading flex row" *ngIf="loading || hosts_loading">
+                <div class="flex column">
                     <mat-spinner strokeWidth=3></mat-spinner>
                 </div>
             </div>

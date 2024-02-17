@@ -4,7 +4,6 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { APP_BASE_HREF } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 
 
@@ -67,7 +66,6 @@ import { TypeofPipe } from '@src/app/common/pipe-typeof';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     HttpClientModule,
     HttpClientJsonpModule,
     MatButtonModule,

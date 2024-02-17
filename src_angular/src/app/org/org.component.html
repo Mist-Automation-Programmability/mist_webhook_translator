@@ -1,12 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="flex-end center" class="nav">
-    <div fxLayout="row" fxLayoutAlign="start">
+<div class="flex row flex-end-center nav">
+    <div class="flex row start">
         <button mat-icon-button color="primary" aria-label="Example icon button with a heart icon" (click)="logout()" matTooltip="Log Out">
             <mat-icon>logout</mat-icon>
         </button>
     </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="center center" style="height: 20em; max-height: 100%;">
-    <mat-card class="card-outer" fxLayout="column" style="max-width: 90%;">
+<div class="flex row center-center" style="height: 20em; max-height: 100%;">
+    <mat-card class="card-outer flex column" style="max-width: 90%;">
         <mat-form-field apparence="outline" style="width: 30em; max-width: 100%">
             <mat-label>Organization</mat-label>
             <mat-select [(value)]="org_id">

@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>Just one last question...</h1>
-<mat-dialog-content style="margin-bottom: 3em;" fxLayout="column">
+<mat-dialog-content style="margin-bottom: 3em;" class="flex column">
     <div *ngFor="let message of data.message">
         {{message}}
     </div>
 </mat-dialog-content>
-<mat-dialog-actions style="justify-content: space-around;" fxLayout="row">
+<mat-dialog-actions style="justify-content: space-around;" class="flex row">
     <button mat-raised-button (click)="cancel()">Cancel</button>
     <button mat-stroked-button [ngStyle]="{'color': data.color, 'border-color': data.color}" (click)="ok()">Continue</button>
 </mat-dialog-actions>

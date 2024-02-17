@@ -1,11 +1,11 @@
 {
     "/api/": {
-        "target": "http://127.0.0.1:51360",
+        "target": "http://127.0.0.1:51361",
         "secure": false,
         "changeOrigin": true
     },
     "/static/": {
-        "target": "http://127.0.0.1:51360",
+        "target": "http://127.0.0.1:51361",
         "secure": false,
         "changeOrigin": true
     }

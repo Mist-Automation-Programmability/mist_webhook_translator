@@ -12,12 +12,76 @@ body {
 }
 
 
+.flex {
+    display: flex !important;
+}
+
+.flex.fxflex {
+    flex: 1 1 0%;
+}
+
+.flex.row {
+    flex-direction: row;
+}
+
+.flex.row.wrap {
+    flex-flow: row wrap;
+}
+
+.flex.column {
+    flex-direction: column;
+}
+
+.flex.start-center {
+    place-content: start;
+    align-items: center;
+}
+
+.flex.start-stretch {
+    place-content: start;
+    align-items: stretch;
+}
+
+.flex.center-center {
+    place-content: center;
+    align-items: center;
+}
+
+.flex.center-stretch {
+    place-content: center;
+    align-items: stretch;
+}
+
+.flex.space-between-center {
+    place-content: space-between;
+    align-items: center;
+}
+
+.flex.space-between-end {
+    place-content: space-between;
+    align-items: end;
+}
+
+.flex.space-between-stretch {
+    place-content: space-between;
+    align-items: stretch;
+}
+
+.flex.end-center {
+    justify-content: flex-end;align-items: center; align-content: center;
+}
+
+.flex.stretch {
+    /* flex row*/
+    align-items: stretch;
+}
+
 /**
 * Generated theme by Material Theme Generator
 * https://materialtheme.arcsine.dev
 */
 
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Fonts
@@ -161,7 +225,7 @@ unselected-chip: $dark-bg-lighter-20,
 disabled-list-option: $dark-bg-lighter-10,
 );
 // Compute font config
-@include mat-core($fontConfig);
+@include mat-core();
 // Theme Config
 body {
     --primary-color: #005c95;
