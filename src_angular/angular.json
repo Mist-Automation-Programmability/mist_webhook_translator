@@ -64,10 +64,10 @@
                     "options": {},
                     "configurations": {
                         "production": {
-                            "browserTarget": "mso:build:production"
+                          "buildTarget": "mso:build:production"
                         },
                         "development": {
-                            "browserTarget": "mso:build:development"
+                          "buildTarget": "mso:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "mso:build"
+                      "buildTarget": "mso:build"
                     }
                 },
                 "test": {
