@@ -15,7 +15,6 @@
     align-items: center;
     justify-content: center;
 }
-
 .login-form-outer {
     width: 100%;
 }
@@ -43,8 +42,8 @@
     align-self: center;
 }
 
-.mat-form-field {
-    margin: 0 .2em;
+input.mat-mdc-input-element{
+    margin-top: .5em;
 }
 
 mat-card {
