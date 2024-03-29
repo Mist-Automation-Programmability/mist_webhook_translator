@@ -1,8 +1,6 @@
-import os
 import json
 from mist import login
 from routes.common import extract_json
-
 
 def postApiLogin(request, session):
     json_data, data = extract_json(request)
@@ -15,18 +13,16 @@ def postApiLogin(request, session):
     elif not "host" in data:
         return json.dumps({"error": "host is missing"}), 400
     else:
-        print(data)
         host=data["host"]
         username = data["username"]
         password = data["password"]
         two_factor_code = data.get("two_factor_code")
-        print(host, username, password, two_factor_code)
         data, code, cookies= login.login(host, username, password, two_factor_code)
         if code == 200 and "privileges" in data:
             session["host"] = host
             session['email'] = data["email"]
             session['privileges'] = data["privileges"]
-            session['cookies'] = cookies
+            session['cookies'] = cookies.get_dict()
         return data, code
 
 

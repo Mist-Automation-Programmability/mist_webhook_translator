@@ -1,17 +1,16 @@
-from mwtt import Console
-from mwtt.src import mwtt as Mwtt
-from routes import api_login, api_orgs, api_webhooks, collector
-from models.org_settings import OrgSettings
-from pymongo import MongoClient
-import html
-from datetime import datetime, timedelta, timezone
-from flask_session import Session
-from flask import Flask, session, request, render_template
 import functools
 import os
 import base64
 import ast
+import html
+from datetime import datetime, timedelta, timezone
+from flask_pymongo import MongoClient
+from flask_session import Session
+from flask import Flask, session, request, render_template
 from dotenv import load_dotenv
+from mwtt import Console
+from routes import api_login, api_orgs, api_webhooks, collector
+from models.org_settings import OrgSettings
 
 
 def getenv_bool(variable):
@@ -62,11 +61,13 @@ console = Console("main")
 # MIST HOSTS
 def default_mist_hosts():
     console.warning("Unable to load MIST_HOSTS variable. Using default values")
-    return {"Global 01 - manage.mist.com": "api.mist.com", "Global 02 - manage.gc1.mist.com": "api.gc1.mist.com", "Global 03 - manage.ac2.mist.com": "api.ac2.mist.com","Global 04 - manage.gc2.mist.com": "api.gc2.mist.com", "Europe 01 - manage.eu.mist.com": "api.eu.mist.com"}
+    return '{"Global 01 - manage.mist.com": "api.mist.com", "Global 02 - manage.gc1.mist.com": "api.gc1.mist.com", "Global 03 - manage.ac2.mist.com": "api.ac2.mist.com","Global 04 - manage.gc2.mist.com": "api.gc2.mist.com", "EMEA 01 - manage.eu.mist.com": "api.eu.mist.com", "EMEA 02 - manage.gc3.mist.com": "api.gc3.mist.com", "APAC 01 - manage.ac5.mist.com": "api.ac5.mist.com"}'
 
 if MIST_HOSTS:
-    try: MIST_HOSTS = ast.literal_eval(MIST_HOSTS)
-    except: MIST_HOSTS = default_mist_hosts()
+    try:
+        MIST_HOSTS = ast.literal_eval(MIST_HOSTS)
+    except:
+        MIST_HOSTS = default_mist_hosts()
 else: MIST_HOSTS = default_mist_hosts()
 
 #######################################
@@ -98,8 +99,8 @@ display_conf()
 app = Flask(__name__)
 #######
 # MONGO
-mongodb_client = MongoClient(
-    f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}/?authSource=admin")
+mongodb_uri = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}/?authSource=admin"
+mongodb_client = MongoClient(mongodb_uri)
 db = mongodb_client[MONGO_DB]
 
 app.secret_key = FLASK_SECRET
@@ -153,9 +154,9 @@ def status(token):
         return "", 404
 
 
-@app.route('/webhook', methods=["POST"])
-def postJsonHandler():
-    return Mwtt.new_event("", request)
+# @app.route('/webhook', methods=["POST"])
+# def postJsonHandler():
+#     return Mwtt.new_event("", request)
 
 
 @app.route('/', methods=["GET"])

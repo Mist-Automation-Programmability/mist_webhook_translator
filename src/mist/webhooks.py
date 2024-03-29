@@ -16,7 +16,7 @@ def getWebhooks(host, org_id, cookies):
     url = f"https://{host}/api/v1/orgs/{org_id}/webhooks"
     res = requests.get(
         url,
-        cookies=cookies.get_dict()
+        cookies=cookies
     )
     if res.status_code == 200:
         console.info(f"Got HTTP{res.status_code} for GET to {url}")
