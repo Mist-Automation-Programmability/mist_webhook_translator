@@ -375,9 +375,9 @@ export class DashboardComponent implements OnInit {
   }
 
   changeTopic(): void {
+    console.log(this.selected_topic)
     this.dataSource = new MatTableDataSource<TopicElement>(this.custom_settings.topics.filter(t => t.topic == this.selected_topic));
     setTimeout(() => this.dataSource.paginator = this.paginator);
-    console.log(this.dataSource.paginator)
   }
 
   toggleTopic(topic: string, new_status: boolean): void {

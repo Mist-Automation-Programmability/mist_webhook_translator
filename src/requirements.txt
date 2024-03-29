@@ -1,6 +1,6 @@
 python-dotenv
-flask
+Flask
+Flask-PyMongo
 requests
-pymongo==3.11.3
 flask_session
 cryptography

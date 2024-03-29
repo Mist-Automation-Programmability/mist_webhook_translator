@@ -93,8 +93,8 @@
     </mat-card-content>
 </mat-card>
 
-<div class="flex column" style="width: 100%;height: calc(100vh - 80px); margin-top: 2em;">
-    <div class="flex row">
+<div class="flex column" style="width: 100%;height: calc(100vh - 95px); margin-top: 2em;">
+    <div class="flex row" style="height: 100%;">
         <!-- TOPICS -->
         <mat-card class="flex column topic container">
             <mat-card-title class="flex row space-between-center" style="margin-bottom: 0;">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div *ngIf="selected_topic" class="flex column">
-                    <div class="flex row space-between-center">
+                    <div class="flex row space-between-start">
                         <button mat-stroked-button color="primary" (click)="toggleTopic(selected_topic, false)" style="margin-left: 1em;">Disable</button>
                         <mat-paginator [pageSizeOptions]="[10,25, 50]" showFirstLastButtons aria-label="Select page">
                         </mat-paginator>
@@ -187,7 +187,7 @@
                             <ng-container matColumnDef="channel">
                                 <th mat-header-cell *matHeaderCellDef> Channel </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <mat-form-field appearance="" style="width: 10em;">
+                                    <mat-form-field appearance="outline" style="width: 10em;margin-top: .2em; margin-bottom: -1.2em;">
                                         <mat-select [(value)]="element.channel" (selectionChange)="topicsUpdated()">
                                             <mat-option value="">-- Disabled --</mat-option>
                                             <mat-option *ngFor="let channel of channels" [value]="channel">
@@ -211,15 +211,15 @@
                         <div>You can define here the list of approved admins (with admin email address) or approved API tokens (with token name):</div>
                         <mat-form-field>
                             <mat-label>Approved Admins</mat-label>
-                            <mat-chip-list #chipList aria-label="Approved Admins">
-                                <mat-chip *ngFor="let admin of custom_settings.mist_settings.approved_admins" (removed)="remove(admin)">
+                            <mat-chip-grid #chipList aria-label="Approved Admins">
+                                <mat-chip-row *ngFor="let admin of custom_settings.mist_settings.approved_admins" (removed)="remove(admin)">
                                     {{admin}}
                                     <button matChipRemove>
                                         <mat-icon>cancel</mat-icon>
                                     </button>
-                                </mat-chip>
+                                </mat-chip-row>
                                 <input placeholder="New Admin..." #fruitInput [formControl]="approvedAdminsCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
-                            </mat-chip-list>
+                            </mat-chip-grid>
                         </mat-form-field>
                     </div>
                 </div>
@@ -228,7 +228,7 @@
         <div class="flex column">
 
             <mat-card class="flex column container" style="background-color: #f3f3f3; box-shadow: none">
-                <mat-card-actions style="display: flex;justify-content: space-between;margin: 0;padding: 0;">
+                <mat-card-actions style="display: flex;justify-content: space-between;margin: 0 1em;padding: 0;">
                     <button mat-stroked-button style="border-color: red; color: red;" (click)="deleteOrgSettings()">Delete Configuration</button>
                     <button mat-raised-button color="primary" [matMenuTriggerFor]="notif" [disabled]="custom_settings.slack_settings.enabled && custom_settings.teams_settings.enabled">Add
                         Notification</button>
@@ -261,7 +261,7 @@
                 </mat-card-content>
             </mat-card>
             <mat-card class="flex column container" *ngIf="custom_settings.slack_settings.enabled">
-                <mat-card-title class="flex row space-between-center">
+                <mat-card-title class="flex row space-between-center" style="padding: 1em;">
                     <div class="flex row start-center">
                         <img class="notif icon" alt="Slack" src="/static/images/slack.png" />
                         <span>Slack Notifications</span>
@@ -289,7 +289,7 @@
             </mat-card>
             <!-- TEAMS -->
             <mat-card class="flex column container" *ngIf="custom_settings.teams_settings.enabled">
-                <mat-card-title class="flex row space-between-center">
+                <mat-card-title class="flex row space-between-center" style="padding: 1em;">
                     <div class="flex row start-center">
                         <img class="notif icon" alt="Teams" src="/static/images/teams_v2.png" />
                         <span style="margin-left: .5em">Teams Notifications</span>
