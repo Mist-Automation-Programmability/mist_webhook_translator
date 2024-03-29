@@ -1,13 +1,11 @@
-FROM python:3.13.0a4-slim
-
+FROM python:3.12.2-slim
 LABEL maintainer="tmunzer@juniper.net"
-LABEL one.stag.wht.version="2.0.0"
-LABEL one.stag.wht.release-date="2022-05-20"
+LABEL one.stag.wht.version="2.2.0"
+LABEL one.stag.wht.release-date="2024-03-29"
 
 RUN apt-get update && apt-get upgrade -y && apt-get install gcc libffi-dev -y
 
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir flask requests
+RUN python3 -m pip install --upgrade pip
 
 COPY ./src /app/
 WORKDIR /app
