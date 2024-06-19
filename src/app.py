@@ -14,36 +14,35 @@ from models.org_settings import OrgSettings
 
 
 def getenv_bool(variable):
-    if os.getenv(variable, False) in [ 1, True, "true", "TRUE", "True" ]:
+    if os.getenv(variable, False) in [1, True, "true", "TRUE", "True"]:
         return True
     return False
 
 
 load_dotenv()
-DEBUG = getenv_bool('FLASK_DEBUG')
+DEBUG = getenv_bool("FLASK_DEBUG")
 if DEBUG:
     os.environ["LOG_LEVEL"] = "DEBUG"
 else:
-    os.environ['FLASK_ENV'] = 'PRODUCTION'
+    os.environ["FLASK_ENV"] = "PRODUCTION"
     os.environ["LOG_LEVEL"] = "INFO"
 
-FLASK_SECRET = os.getenv('FLASK_SECRET')
-FLASK_PORT = os.getenv('FLASK_PORT', 51360)
-MONGO_USER = os.getenv('MONGO_USER')
-MONGO_PASSWORD = os.getenv('MONGO_PASSWORD')
-MONGO_HOST = os.getenv('MONGO_HOST')
-MONGO_PORT = os.getenv('MONGO_PORT', 27017)
-MONGO_DB = os.getenv('MONGO_DB', 'translator')
-MONGO_KEY = os.getenv('MONGO_KEY', 'cef2c2f6eb7b00c7c67d99f0685178e7')
-WH_HOST = os.getenv('WH_HOST')
-WH_HTTPS = getenv_bool('WH_HTTPS')
-WH_PORT = os.getenv('WH_PORT', 51360)
-ABOUT_TOKEN = os.getenv('ABOUT_TOKEN', 'secret_token')
-APP_DISCLAIMER = os.getenv('APP_DISCLAIMER')
-GITHUB_URL = os.getenv('GITHUB_URL')
-DOCKER_URL = os.getenv('DOCKER_URL')
-MIST_HOSTS = os.getenv('MIST_HOSTS')
-
+FLASK_SECRET = os.getenv("FLASK_SECRET")
+FLASK_PORT = os.getenv("FLASK_PORT", 51360)
+MONGO_USER = os.getenv("MONGO_USER")
+MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+MONGO_HOST = os.getenv("MONGO_HOST")
+MONGO_PORT = os.getenv("MONGO_PORT", 27017)
+MONGO_DB = os.getenv("MONGO_DB", "translator")
+MONGO_KEY = os.getenv("MONGO_KEY", "cef2c2f6eb7b00c7c67d99f0685178e7")
+WH_HOST = os.getenv("WH_HOST")
+WH_HTTPS = getenv_bool("WH_HTTPS")
+WH_PORT = os.getenv("WH_PORT", 51360)
+ABOUT_TOKEN = os.getenv("ABOUT_TOKEN", "secret_token")
+APP_DISCLAIMER = os.getenv("APP_DISCLAIMER")
+GITHUB_URL = os.getenv("GITHUB_URL")
+DOCKER_URL = os.getenv("DOCKER_URL")
+MIST_HOSTS = os.getenv("MIST_HOSTS")
 
 
 if WH_HTTPS:
@@ -52,23 +51,36 @@ else:
     WH_COLLECTOR = f"http://{WH_HOST}:{WH_PORT}/webhooks"
 
 """System modules"""
-#from flask_pymongo import PyMongo
+# from flask_pymongo import PyMongo
 
 
 console = Console("main")
+
 
 #######################################
 # MIST HOSTS
 def default_mist_hosts():
     console.warning("Unable to load MIST_HOSTS variable. Using default values")
-    return '{"Global 01 - manage.mist.com": "api.mist.com", "Global 02 - manage.gc1.mist.com": "api.gc1.mist.com", "Global 03 - manage.ac2.mist.com": "api.ac2.mist.com","Global 04 - manage.gc2.mist.com": "api.gc2.mist.com", "EMEA 01 - manage.eu.mist.com": "api.eu.mist.com", "EMEA 02 - manage.gc3.mist.com": "api.gc3.mist.com", "APAC 01 - manage.ac5.mist.com": "api.ac5.mist.com"}'
+    return {
+        "Global 01 - manage.mist.com": "api.mist.com",
+        "Global 02 - manage.gc1.mist.com": "api.gc1.mist.com",
+        "Global 03 - manage.ac2.mist.com": "api.ac2.mist.com",
+        "Global 04 - manage.gc2.mist.com": "api.gc2.mist.com",
+        "EMEA 01 - manage.eu.mist.com": "api.eu.mist.com",
+        "EMEA 02 - manage.gc3.mist.com": "api.gc3.mist.com",
+        "EMEA 03 - manage.ac6.mist.com": "api.ac6.mist.com",
+        "APAC 01 - manage.ac5.mist.com": "api.ac5.mist.com",
+    }
+
 
 if MIST_HOSTS:
     try:
         MIST_HOSTS = ast.literal_eval(MIST_HOSTS)
     except:
         MIST_HOSTS = default_mist_hosts()
-else: MIST_HOSTS = default_mist_hosts()
+else:
+    MIST_HOSTS = default_mist_hosts()
+print(MIST_HOSTS)
 
 #######################################
 #  FUNCTIONS
@@ -104,13 +116,13 @@ mongodb_client = MongoClient(mongodb_uri)
 db = mongodb_client[MONGO_DB]
 
 app.secret_key = FLASK_SECRET
-app.config['SESSION_TYPE'] = 'mongodb'
-app.config['SESSION_PERMANENT'] = True
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
-app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_MONGODB'] = mongodb_client
-app.config['SESSION_MONGODB_DB'] = "flask-session"
-app.config['SESSION_MONGODB_COLLECT'] = "translator"
+app.config["SESSION_TYPE"] = "mongodb"
+app.config["SESSION_PERMANENT"] = True
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=60)
+app.config["SESSION_USE_SIGNER"] = True
+app.config["SESSION_MONGODB"] = mongodb_client
+app.config["SESSION_MONGODB_DB"] = "flask-session"
+app.config["SESSION_MONGODB_COLLECT"] = "translator"
 server_session = Session()
 server_session.init_app(app)
 
@@ -119,8 +131,10 @@ session_db = mongodb_client["flask-session"]
 
 def clean_session_db():
     for session in session_db["translator"].find({}):
-        expired = session["expiration"].replace(
-            tzinfo=timezone.utc).timestamp() < datetime.today().timestamp()
+        expired = (
+            session["expiration"].replace(tzinfo=timezone.utc).timestamp()
+            < datetime.today().timestamp()
+        )
         if expired:
             session_db.translator.delete_one({"_id": session["_id"]})
 
@@ -132,6 +146,7 @@ def login_required(view):
             return "Session not found", 401
         else:
             return view(**kwargs)
+
     return wrapped_view
 
 
@@ -144,7 +159,7 @@ ORG_SETTINGS = OrgSettings(fernet_key, db["settings"])
 SINCE = datetime.today()
 
 
-@app.route('/status/about/<string:token>', methods=["GET"])
+@app.route("/status/about/<string:token>", methods=["GET"])
 def status(token):
     if token == ABOUT_TOKEN:
         dt = datetime.today() - SINCE
@@ -159,41 +174,41 @@ def status(token):
 #     return Mwtt.new_event("", request)
 
 
-@app.route('/', methods=["GET"])
-@app.route('/login', methods=["GET"])
-@app.route('/select', methods=["GET"])
+@app.route("/", methods=["GET"])
+@app.route("/login", methods=["GET"])
+@app.route("/select", methods=["GET"])
 def login():
     clean_session_db()
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-@app.route('/config/<string:org_id>', methods=["GET"])
+@app.route("/config/<string:org_id>", methods=["GET"])
 def config(org_id):
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-@app.route('/api/login/', methods=["POST"])
+@app.route("/api/login/", methods=["POST"])
 def apiLogin():
     return api_login.postApiLogin(request, session)
 
 
-@app.route('/api/login/hosts/', methods=["GET"])
+@app.route("/api/login/hosts/", methods=["GET"])
 def apiLoginHosts():
     return api_login.getApiLoginHosts(MIST_HOSTS)
 
 
-@app.route('/api/disclaimer/', methods=["GET"])
+@app.route("/api/disclaimer/", methods=["GET"])
 def apiDisclaimer():
     print(APP_DISCLAIMER, GITHUB_URL, DOCKER_URL)
     return api_login.getApiDisclaimer(APP_DISCLAIMER, GITHUB_URL, DOCKER_URL)
 
 
-@app.route('/api/logout', methods=["POST"])
+@app.route("/api/logout", methods=["POST"])
 def logout():
     return api_login.postApiLogout(session)
 
 
-@app.route('/api/orgs', methods=["GET"])
+@app.route("/api/orgs", methods=["GET"])
 @login_required
 def apiOrgs():
     return api_orgs.apiOrgsGet(session)
@@ -203,29 +218,37 @@ def apiOrgs():
 @login_required
 def apiOrgsSettings(org_id):
     if request.method == "GET":
-        return api_orgs.apiOrgsSettingsGet(session, html.escape(org_id), WH_COLLECTOR,  ORG_SETTINGS)
+        return api_orgs.apiOrgsSettingsGet(
+            session, html.escape(org_id), WH_COLLECTOR, ORG_SETTINGS
+        )
     elif request.method == "POST":
-        return api_orgs.apiOrgsSettingsPost(request, session, html.escape(org_id),ORG_SETTINGS)
+        return api_orgs.apiOrgsSettingsPost(
+            request, session, html.escape(org_id), ORG_SETTINGS
+        )
     elif request.method == "DELETE":
-        return api_orgs.apiOrgsSettingsDelete(session, html.escape(org_id), WH_COLLECTOR, ORG_SETTINGS)
+        return api_orgs.apiOrgsSettingsDelete(
+            session, html.escape(org_id), WH_COLLECTOR, ORG_SETTINGS
+        )
     else:
         return "Not Found", 404
 
 
-@app.route('/api/orgs/webhook/<string:org_id>', methods=["GET", "POST"])
+@app.route("/api/orgs/webhook/<string:org_id>", methods=["GET", "POST"])
 @login_required
 def apiOrgWehooks(org_id):
     if request.method == "GET":
         return api_webhooks.apiWebhooksGet(session, html.escape(org_id), WH_COLLECTOR)
     elif request.method == "POST":
-        return api_webhooks.apiWebhooksPost(request, session, html.escape(org_id), WH_COLLECTOR, ORG_SETTINGS)
+        return api_webhooks.apiWebhooksPost(
+            request, session, html.escape(org_id), WH_COLLECTOR, ORG_SETTINGS
+        )
 
 
-@app.route('/webhooks/<string:org_id>', methods=["POST"])
+@app.route("/webhooks/<string:org_id>", methods=["POST"])
 def whCollector(org_id):
     return collector.whCollectorPost(request, html.escape(org_id), ORG_SETTINGS)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     console.info("Starting Server".center(40, "_"))
-    app.run(debug=DEBUG, host='0.0.0.0', port=FLASK_PORT)
+    app.run(debug=DEBUG, host="0.0.0.0", port=FLASK_PORT)
