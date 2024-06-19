@@ -80,7 +80,6 @@ if MIST_HOSTS:
         MIST_HOSTS = default_mist_hosts()
 else:
     MIST_HOSTS = default_mist_hosts()
-print(MIST_HOSTS)
 
 #######################################
 #  FUNCTIONS
