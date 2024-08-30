@@ -30,7 +30,8 @@ def whCollectorPost(request, org_id, ORG_SETTINGS):
             settings["mist_settings"],
             channels,
             settings["slack_settings"],
-            settings["teams_settings"]
+            settings["teams_settings"],
+            None
         )
     else:
         res = "", 200
