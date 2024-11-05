@@ -7,8 +7,10 @@ console = Console("mist_webhook")
 def _extractAuth(cookies):
     headers = {}
     for cookie in cookies:
-        if cookie.name.startswith("csrftoken") and cookie.domain.endswith(".mist.com"):
+        if not isinstance(cookie, str) and  cookie.name.startswith("csrftoken") and cookie.domain.endswith(".mist.com"):
             headers["X-CSRFToken"] = cookie.value
+        elif isinstance(cookie, str) and cookie.startswith("csrftoken"):
+            headers["X-CSRFToken"] = cookies[cookie]
     return headers
 
 
@@ -34,10 +36,9 @@ def setWebhook(host, org_id, cookies, data, webhook_id=None):
 
 def _createWebhook(host, org_id, cookies, data):
     url = f"https://{host}/api/v1/orgs/{org_id}/webhooks"
-    _extractAuth(cookies)
     res = requests.post(
         url,
-        cookies=cookies.get_dict(),
+        cookies=cookies,
         headers=_extractAuth(cookies),
         json=data
     )
@@ -52,7 +53,7 @@ def _updateWebhook(host, org_id, cookies, webhook_id, data):
     url = f"https://{host}/api/v1/orgs/{org_id}/webhooks/{webhook_id}"
     res = requests.put(
         url,
-        cookies=cookies.get_dict(),
+        cookies=cookies,
         headers=_extractAuth(cookies),
         json=data
     )
@@ -67,7 +68,7 @@ def deleteWebhook(host, org_id, cookies, webhook_id):
     url = f"https://{host}/api/v1/orgs/{org_id}/webhooks/{webhook_id}"
     res = requests.delete(
         url,
-        cookies=cookies.get_dict(),
+        cookies=cookies,
         headers=_extractAuth(cookies),
     )
     if res.status_code == 200:

@@ -126,7 +126,7 @@ server_session = Session()
 server_session.init_app(app)
 
 session_db = mongodb_client["flask-session"]
-
+data_db = db["settings"]
 
 def clean_session_db():
     for session in session_db["translator"].find({}):
@@ -152,7 +152,7 @@ def login_required(view):
 ########
 # MODELS
 fernet_key = base64.urlsafe_b64encode(MONGO_KEY.encode())
-ORG_SETTINGS = OrgSettings(fernet_key, db["settings"])
+ORG_SETTINGS = OrgSettings(fernet_key, data_db)
 ########
 # ROUTES
 SINCE = datetime.today()

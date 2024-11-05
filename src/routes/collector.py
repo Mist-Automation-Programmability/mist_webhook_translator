@@ -1,6 +1,6 @@
+from datetime import datetime
 from mwtt.src import mwtt
 from mwtt import Console
-from datetime import datetime
 
 console = Console("wh_collector")
 
